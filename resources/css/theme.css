@@ -1,0 +1,28 @@
+:root {
+    --color-background: #000d16;
+    --color-onBackground: oklch(96.7% 0.003 264.542);
+
+    --color-surface: #0a1a24;
+    --color-onSurface: #f6f7ec;
+
+    --color-primary: #000d16;
+    --color-onPrimary: oklch(96.7% 0.003 264.542);
+    --color-primaryHover: #0a1a24;
+
+    --color-secondary: oklch(70.4% 0.04 256.788);
+    --color-onSecondary: #000d16;
+    --color-secondaryHover: oklch(75.5% 0.04 256.788);
+
+    --color-primaryAccent: #014421;
+    --color-onPrimaryAccent: #ffffff;
+    --color-primaryAccentHover: #026b34;
+
+    --color-secondaryAccent: #f6f7ec;
+    --color-onSecondaryAccent: #000d16;
+
+    --color-brandBannerBg: #000d16;
+    --color-brandBannerPCC: #014421;
+    --color-brandBannerName: #f6f7ec;
+
+    --color-buttonPrimary: #014421;
+}
