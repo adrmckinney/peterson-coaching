@@ -1,39 +1,32 @@
-import { PageProps, Video } from "@/types";
-import {
-    ArrowPathIcon,
-    CloudArrowUpIcon,
-    LockClosedIcon,
-} from "@heroicons/react/16/solid";
+import { PageProps } from "@/types";
+import { PageSection, VideoSectionTitleSettings } from "@/types/PageSections";
+import { Video } from "@/types/Videos";
 import { usePage } from "@inertiajs/react";
 import TikTokVideoCard from "../Videos/TikTokVideoCard";
 
-const features = [
-    {
-        name: "Video One",
-        description:
-            "Commodo nec sagittis tortor mauris sed. Turpis tortor quis scelerisque diam id accumsan nullam tempus. Pulvinar etiam lacus volutpat eu.",
-        href: "#",
-        icon: CloudArrowUpIcon,
-    },
-    {
-        name: "Video Two",
-        description:
-            "Pellentesque enim a commodo malesuada turpis eleifend risus. Facilisis donec placerat sapien consequat tempor fermentum nibh.",
-        href: "#",
-        icon: LockClosedIcon,
-    },
-    {
-        name: "Video Three",
-        description:
-            "Pellentesque sit elit congue ante nec amet. Dolor aenean curabitur viverra suspendisse iaculis eget. Nec mollis placerat ultricies euismod.",
-        href: "#",
-        icon: ArrowPathIcon,
-    },
-];
+type Props = {
+    videos: Video[];
+    sections: PageSection[];
+};
 
 const FeatureSection = () => {
-    const { videos } = usePage<PageProps<{ videos: Video[] }>>().props;
+    const { videos, sections } =
+        usePage<PageProps<{ videos: Video[]; sections: PageSection[] }>>()
+            .props;
 
+    console.log("sections", sections);
+    const videoTitleSection = sections?.find(
+        (s) => s?.type === "video_section_title",
+    );
+
+    if (!videoTitleSection) {
+        throw new Error("Video title section not found");
+    }
+
+    const videoTitleSettings: VideoSectionTitleSettings =
+        videoTitleSection.settings;
+
+    console.log("videoTitleSettings", videoTitleSettings);
     return (
         <div className="bg-background py-24 sm:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -52,7 +45,7 @@ const FeatureSection = () => {
                             "text-primaryAccent",
                         ].join(" ")}
                     >
-                        About Me and My Work
+                        {videoTitleSettings.headline.text}
                     </h2>
                     {/* <p className="mt-6 text-lg/8 text-onPrimary">
                         You can find me on TikTok and the World Wide Web

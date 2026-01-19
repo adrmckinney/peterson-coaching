@@ -1,10 +1,10 @@
 import ProfileController from './ProfileController'
-import VideoController from './VideoController'
+import LandingController from './LandingController'
 import Auth from './Auth'
 
 const Controllers = {
     ProfileController: Object.assign(ProfileController, ProfileController),
-    VideoController: Object.assign(VideoController, VideoController),
+    LandingController: Object.assign(LandingController, LandingController),
     Auth: Object.assign(Auth, Auth),
 }
 

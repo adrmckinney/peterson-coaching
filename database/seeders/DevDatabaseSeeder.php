@@ -16,7 +16,9 @@ class DevDatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            VideoSeeder::class
+            VideoSeeder::class,
+            PageSeeder::class,
+            PageSectionSeeder::class,
         ]);
 
         // User::factory()->create([

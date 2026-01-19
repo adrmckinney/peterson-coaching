@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\VideoController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/landing', [VideoController::class, 'index'])->name('landing');
+Route::get('/landing', [LandingController::class, 'index'])->name('landing');
 
 
 require __DIR__ . '/auth.php';

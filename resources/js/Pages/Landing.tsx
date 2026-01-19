@@ -1,24 +1,32 @@
 import ingaOnSidewalk from "@/Assets/Images/ingaOnSidewalk.jpg";
-import { BrandIcon, IconSize } from "@/Assets/SVG/BrandIcon";
+import { BrandIcon } from "@/Assets/SVG/BrandIcon";
 import FeatureSection from "@/Components/Sections/FeatureSection";
 import useGetWindowWidth from "@/Hooks/useGetWindowWidth";
-import useLogWindowBreakpoint from "@/Hooks/useLogWindowBreakpoint";
 import AppLayout from "@/Layouts/AppLayout";
+import { PageProps } from "@/types";
+import { PageSectionRecord } from "@/types/PageSections";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/16/solid";
+import { usePage } from "@inertiajs/react";
 import { useState } from "react";
 const navigation = [{ name: "Product", href: "#" }];
 
 const Landing = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { currentTailwindBreakpoint } = useGetWindowWidth();
-    useLogWindowBreakpoint();
+    const { sections } =
+        usePage<PageProps<{ sections: PageSectionRecord[] }>>().props;
 
-    let iconSize: IconSize = "5xl";
-    switch (currentTailwindBreakpoint) {
-        case "sm":
-            iconSize = "sm";
+    const landingIntroSection = sections.find(
+        (s) => s.type === "landing_intro",
+    );
+
+    if (!landingIntroSection) {
+        throw new Error("Landing intro section not found");
     }
+
+    const headlineSettings = landingIntroSection.settings;
+    console.log("headlineSettings", headlineSettings);
 
     return (
         <AppLayout>
@@ -155,21 +163,18 @@ const Landing = () => {
                                 <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl z-20">
                                     <div className="hidden sm:mb-10 sm:flex"></div>
                                     <h1 className="text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-4xl dark:text-white">
-                                        Hi, I'm Inga.
+                                        {headlineSettings.headline.text}
                                     </h1>
-                                    <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8 dark:text-gray-400">
-                                        I’m a post-grad transition coach with
-                                        25+ years of experience working with
-                                        college seniors and recent grads.
-                                    </p>
-                                    <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8 dark:text-gray-400">
-                                        I help you stay connected to yourself in
-                                        a threshold season where everything is
-                                        changing — so you can think clearly,
-                                        choose deliberately, and move forward in
-                                        a way that feels true to who you’re
-                                        becoming.
-                                    </p>
+                                    {headlineSettings?.paragraphs?.map(
+                                        (paragraph) => (
+                                            <p
+                                                key={paragraph?.id}
+                                                className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8 dark:text-gray-400"
+                                            >
+                                                {paragraph?.text}
+                                            </p>
+                                        ),
+                                    )}
                                     {/* <div className="mt-10 flex items-center gap-x-6">
                                         <a
                                             href="#"

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('key'); // primary, secondary, font_sans
             $table->string('value'); // #014421, oklch(...), Figtree
             $table->string('type'); // color, font, spacing
-
             $table->datetimes();
         });
     }

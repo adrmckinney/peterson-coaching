@@ -40,8 +40,8 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\VideoController::landing
-* @see app/Http/Controllers/VideoController.php:14
+* @see \App\Http\Controllers\LandingController::landing
+* @see app/Http/Controllers/LandingController.php:12
 * @route '/landing'
 */
 export const landing = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -55,8 +55,8 @@ landing.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see \App\Http\Controllers\VideoController::landing
-* @see app/Http/Controllers/VideoController.php:14
+* @see \App\Http\Controllers\LandingController::landing
+* @see app/Http/Controllers/LandingController.php:12
 * @route '/landing'
 */
 landing.url = (options?: RouteQueryOptions) => {
@@ -64,8 +64,8 @@ landing.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see \App\Http\Controllers\VideoController::landing
-* @see app/Http/Controllers/VideoController.php:14
+* @see \App\Http\Controllers\LandingController::landing
+* @see app/Http/Controllers/LandingController.php:12
 * @route '/landing'
 */
 landing.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -74,8 +74,8 @@ landing.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see \App\Http\Controllers\VideoController::landing
-* @see app/Http/Controllers/VideoController.php:14
+* @see \App\Http\Controllers\LandingController::landing
+* @see app/Http/Controllers/LandingController.php:12
 * @route '/landing'
 */
 landing.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
