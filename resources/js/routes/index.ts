@@ -41,7 +41,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\LandingController::landing
-* @see app/Http/Controllers/LandingController.php:12
+* @see app/Http/Controllers/LandingController.php:13
 * @route '/landing'
 */
 export const landing = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -56,7 +56,7 @@ landing.definition = {
 
 /**
 * @see \App\Http\Controllers\LandingController::landing
-* @see app/Http/Controllers/LandingController.php:12
+* @see app/Http/Controllers/LandingController.php:13
 * @route '/landing'
 */
 landing.url = (options?: RouteQueryOptions) => {
@@ -65,7 +65,7 @@ landing.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\LandingController::landing
-* @see app/Http/Controllers/LandingController.php:12
+* @see app/Http/Controllers/LandingController.php:13
 * @route '/landing'
 */
 landing.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -75,7 +75,7 @@ landing.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\LandingController::landing
-* @see app/Http/Controllers/LandingController.php:12
+* @see app/Http/Controllers/LandingController.php:13
 * @route '/landing'
 */
 landing.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({

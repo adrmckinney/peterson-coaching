@@ -1,4 +1,5 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../wayfinder'
+import patch from './patch'
 /**
 * @see \App\Http\Controllers\LandingController::edit
 * @see app/Http/Controllers/LandingController.php:0
@@ -45,6 +46,7 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 const landing = {
     edit: Object.assign(edit, edit),
+    patch: Object.assign(patch, patch),
 }
 
 export default landing

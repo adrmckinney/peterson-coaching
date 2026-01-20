@@ -31,5 +31,9 @@ Route::get('/admin/landing', [LandingController::class, 'edit'])
     ->middleware(['auth', 'can:edit-pages'])
     ->name('admin.landing.edit');
 
+Route::patch('admin/pages/{pageId}/sections/{sectionId}', [LandingController::class, 'patchIntro'])
+    // ->middleware(['auth', 'can:edit-pages'])
+    ->name('admin.landing.patch.intro');
+
 
 require __DIR__ . '/auth.php';
