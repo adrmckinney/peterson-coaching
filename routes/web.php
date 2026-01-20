@@ -27,5 +27,9 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/landing', [LandingController::class, 'index'])->name('landing');
 
+Route::get('/admin/landing', [LandingController::class, 'edit'])
+    ->middleware(['auth', 'can:edit-pages'])
+    ->name('admin.landing.edit');
+
 
 require __DIR__ . '/auth.php';

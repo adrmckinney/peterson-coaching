@@ -1,22 +1,29 @@
 import ingaOnSidewalk from "@/Assets/Images/ingaOnSidewalk.jpg";
 import { BrandIcon } from "@/Assets/SVG/BrandIcon";
+import ConditionalRender from "@/Components/ConditionalRender";
 import FeatureSection from "@/Components/Sections/FeatureSection";
+import TextAreaEditor from "@/Components/TextAreaEditor";
+import TextInput from "@/Components/TextInput";
 import useGetWindowWidth from "@/Hooks/useGetWindowWidth";
 import AppLayout from "@/Layouts/AppLayout";
 import { PageProps } from "@/types";
-import { PageSectionRecord } from "@/types/PageSections";
+import { LandingIntroSettings, PageSection } from "@/types/PageSections";
+import { TextBlock } from "@/types/Text";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/16/solid";
 import { usePage } from "@inertiajs/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const navigation = [{ name: "Product", href: "#" }];
 
 const Landing = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { currentTailwindBreakpoint } = useGetWindowWidth();
-    const { sections } =
-        usePage<PageProps<{ sections: PageSectionRecord[] }>>().props;
-
+    const { sections, isEditable } =
+        usePage<PageProps<{ sections: PageSection[]; isEditable: boolean }>>()
+            .props;
+    const [editMode, setEditMode] = useState(isEditable || false);
+    const [landingDraft, setLandingDraft] =
+        useState<LandingIntroSettings | null>(null);
     const landingIntroSection = sections.find(
         (s) => s.type === "landing_intro",
     );
@@ -25,11 +32,76 @@ const Landing = () => {
         throw new Error("Landing intro section not found");
     }
 
-    const headlineSettings = landingIntroSection.settings;
-    console.log("headlineSettings", headlineSettings);
+    useEffect(() => {
+        if (editMode) {
+            setLandingDraft(structuredClone(landingIntroSection.settings));
+        }
+    }, [editMode]);
+    console.log("editMode", editMode);
+    console.log("landingDraft", landingDraft);
+    console.log("landingIntroSection", landingIntroSection);
+
+    const headlineSettings: LandingIntroSettings = landingIntroSection.settings;
+
+    const handleSave = () => {
+        //
+    };
+
+    const handleCancel = () => {
+        setLandingDraft(null);
+        setEditMode(false);
+    };
+
+    const updateTextBlock = (key: "headline", patch: Partial<TextBlock>) => {
+        if (!landingIntroSection) return;
+
+        setLandingDraft((prev) => {
+            if (!prev) return prev;
+
+            return {
+                ...prev,
+                [key]: {
+                    ...prev[key],
+                    ...patch,
+                },
+            };
+        });
+    };
+
+    const updateParagraph = (id: string, patch: Partial<TextBlock>) => {
+        setLandingDraft((prev) => {
+            if (!prev) return prev;
+
+            return {
+                ...prev,
+                paragraphs: prev.paragraphs.map((p) =>
+                    p.id === id ? { ...p, ...patch } : p,
+                ),
+            };
+        });
+    };
+
+    //     router.put(
+    //     route('admin.sections.update', landingIntroSection.id),
+    //     {
+    //         settings: draftSettings,
+    //     }
+    // );
 
     return (
         <AppLayout>
+            <ConditionalRender condition={editMode}>
+                <div className="fixed top-4 right-4 z-50 flex gap-2">
+                    {!editMode ? (
+                        <button onClick={() => setEditMode(true)}>Edit</button>
+                    ) : (
+                        <>
+                            <button onClick={handleSave}>Save</button>
+                            <button onClick={handleCancel}>Cancel</button>
+                        </>
+                    )}
+                </div>
+            </ConditionalRender>
             <div className={["bg-background"].join(" ")}>
                 <header className="absolute inset-x-0 top-0 z-50">
                     <div className="mx-auto max-w-7xl">
@@ -156,49 +228,103 @@ const Landing = () => {
                                     "relative px-6 lg:px-8 lg:pr-0",
                                     "py-32",
                                     "sm:py-40",
-                                    // "lg:py-32",
                                     "lg:py-56",
                                 ].join(" ")}
                             >
                                 <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl z-20">
                                     <div className="hidden sm:mb-10 sm:flex"></div>
-                                    <h1 className="text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-4xl dark:text-white">
-                                        {headlineSettings.headline.text}
-                                    </h1>
-                                    {headlineSettings?.paragraphs?.map(
-                                        (paragraph) => (
-                                            <p
-                                                key={paragraph?.id}
-                                                className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8 dark:text-gray-400"
+                                    <ConditionalRender
+                                        condition={editMode}
+                                        falseRender={
+                                            <h1
+                                                className={[
+                                                    "text-5xl font-semibold tracking-tight text-pretty",
+                                                    "sm:text-4xl",
+                                                ].join(" ")}
+                                                style={{
+                                                    color:
+                                                        headlineSettings
+                                                            ?.headline?.color ??
+                                                        "var(--color-onPrimary)",
+                                                }}
                                             >
-                                                {paragraph?.text}
-                                            </p>
-                                        ),
-                                    )}
-                                    {/* <div className="mt-10 flex items-center gap-x-6">
-                                        <a
-                                            href="#"
-                                            className={[
-                                                "rounded-md  px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs ",
-                                                "bg-primaryAccent hover:bg-accentHover/70",
-                                                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900",
-                                            ].join(" ")}
+                                                {
+                                                    headlineSettings?.headline
+                                                        ?.text
+                                                }
+                                            </h1>
+                                        }
+                                    >
+                                        <TextInput
+                                            value={
+                                                landingDraft?.headline?.text ??
+                                                ""
+                                            }
+                                            onChange={(e) =>
+                                                updateTextBlock("headline", {
+                                                    text: e.target.value,
+                                                })
+                                            }
+                                            className="text-5xl font-semibold tracking-tight text-pretty"
+                                            style={{
+                                                color:
+                                                    headlineSettings?.headline
+                                                        ?.color ??
+                                                    "var(--color-onPrimary)",
+                                            }}
+                                        />
+                                    </ConditionalRender>
+
+                                    {(landingDraft
+                                        ? landingDraft?.paragraphs
+                                        : headlineSettings?.paragraphs
+                                    )?.map((paragraph) => (
+                                        <ConditionalRender
+                                            key={paragraph?.id}
+                                            condition={editMode}
+                                            falseRender={
+                                                <p
+                                                    key={paragraph?.id}
+                                                    className="mt-8 text-lg font-medium text-pretty sm:text-xl/8"
+                                                    style={{
+                                                        color:
+                                                            headlineSettings
+                                                                ?.headline
+                                                                ?.color ??
+                                                            "var(--color-onPrimary)",
+                                                    }}
+                                                >
+                                                    paragraph?.text
+                                                </p>
+                                            }
                                         >
-                                            Learn More
-                                        </a>
-                                        <a
-                                            href="#"
-                                            className="text-sm/6 font-semibold text-gray-900 dark:text-white"
-                                        >
-                                            Learn more{" "}
-                                            <span aria-hidden="true">→</span>
-                                        </a>
-                                    </div> */}
+                                            <TextAreaEditor
+                                                key={paragraph?.id}
+                                                value={paragraph?.text ?? ""}
+                                                className="mt-8 text-lg font-medium text-pretty sm:text-xl/8"
+                                                style={{
+                                                    color:
+                                                        headlineSettings
+                                                            ?.headline?.color ??
+                                                        "var(--color-onPrimary)",
+                                                }}
+                                                onChange={(e) =>
+                                                    updateParagraph(
+                                                        paragraph?.id,
+                                                        {
+                                                            text: e.target
+                                                                .value,
+                                                        },
+                                                    )
+                                                }
+                                            />
+                                        </ConditionalRender>
+                                    ))}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="bg-gray-50 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 dark:bg-gray-800">
+                    <div className="bg-primary lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
                         <img
                             alt="Inga's Profile"
                             src={ingaOnSidewalk}

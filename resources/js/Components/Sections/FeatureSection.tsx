@@ -45,7 +45,7 @@ const FeatureSection = () => {
                             "text-primaryAccent",
                         ].join(" ")}
                     >
-                        {videoTitleSettings.headline.text}
+                        {videoTitleSettings?.headline?.text}
                     </h2>
                     {/* <p className="mt-6 text-lg/8 text-onPrimary">
                         You can find me on TikTok and the World Wide Web
