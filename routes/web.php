@@ -28,12 +28,12 @@ Route::middleware('auth')->group(function () {
 Route::get('/landing', [LandingController::class, 'index'])->name('landing');
 
 Route::get('/admin/landing', [LandingController::class, 'edit'])
-    ->middleware(['auth', 'can:edit-pages'])
+    // ->middleware(['auth', 'can:edit-pages'])
     ->name('admin.landing.edit');
 
-Route::patch('admin/pages/{pageId}/sections/{sectionId}', [LandingController::class, 'patchIntro'])
+Route::patch('admin/pages/{page}/sections/{section}', [LandingController::class, 'patchSection'])
     // ->middleware(['auth', 'can:edit-pages'])
-    ->name('admin.landing.patch.intro');
+    ->name('admin.landing.patch.section');
 
 
 require __DIR__ . '/auth.php';

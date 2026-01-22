@@ -1,57 +1,61 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
-* @see \App\Http\Controllers\LandingController::intro
-* @see app/Http/Controllers/LandingController.php:27
-* @route '/admin/pages/{pageId}/sections/{sectionId}'
+* @see \App\Http\Controllers\LandingController::section
+* @see app/Http/Controllers/LandingController.php:41
+* @route '/admin/pages/{page}/sections/{section}'
 */
-export const intro = (args: { pageId: string | number, sectionId: string | number } | [pageId: string | number, sectionId: string | number ], options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
-    url: intro.url(args, options),
+export const section = (args: { page: number | { id: number }, section: number | { id: number } } | [page: number | { id: number }, section: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+    url: section.url(args, options),
     method: 'patch',
 })
 
-intro.definition = {
+section.definition = {
     methods: ["patch"],
-    url: '/admin/pages/{pageId}/sections/{sectionId}',
+    url: '/admin/pages/{page}/sections/{section}',
 } satisfies RouteDefinition<["patch"]>
 
 /**
-* @see \App\Http\Controllers\LandingController::intro
-* @see app/Http/Controllers/LandingController.php:27
-* @route '/admin/pages/{pageId}/sections/{sectionId}'
+* @see \App\Http\Controllers\LandingController::section
+* @see app/Http/Controllers/LandingController.php:41
+* @route '/admin/pages/{page}/sections/{section}'
 */
-intro.url = (args: { pageId: string | number, sectionId: string | number } | [pageId: string | number, sectionId: string | number ], options?: RouteQueryOptions) => {
+section.url = (args: { page: number | { id: number }, section: number | { id: number } } | [page: number | { id: number }, section: number | { id: number } ], options?: RouteQueryOptions) => {
     if (Array.isArray(args)) {
         args = {
-            pageId: args[0],
-            sectionId: args[1],
+            page: args[0],
+            section: args[1],
         }
     }
 
     args = applyUrlDefaults(args)
 
     const parsedArgs = {
-        pageId: args.pageId,
-        sectionId: args.sectionId,
+        page: typeof args.page === 'object'
+        ? args.page.id
+        : args.page,
+        section: typeof args.section === 'object'
+        ? args.section.id
+        : args.section,
     }
 
-    return intro.definition.url
-            .replace('{pageId}', parsedArgs.pageId.toString())
-            .replace('{sectionId}', parsedArgs.sectionId.toString())
+    return section.definition.url
+            .replace('{page}', parsedArgs.page.toString())
+            .replace('{section}', parsedArgs.section.toString())
             .replace(/\/+$/, '') + queryParams(options)
 }
 
 /**
-* @see \App\Http\Controllers\LandingController::intro
-* @see app/Http/Controllers/LandingController.php:27
-* @route '/admin/pages/{pageId}/sections/{sectionId}'
+* @see \App\Http\Controllers\LandingController::section
+* @see app/Http/Controllers/LandingController.php:41
+* @route '/admin/pages/{page}/sections/{section}'
 */
-intro.patch = (args: { pageId: string | number, sectionId: string | number } | [pageId: string | number, sectionId: string | number ], options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
-    url: intro.url(args, options),
+section.patch = (args: { page: number | { id: number }, section: number | { id: number } } | [page: number | { id: number }, section: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+    url: section.url(args, options),
     method: 'patch',
 })
 
 const patch = {
-    intro: Object.assign(intro, intro),
+    section: Object.assign(section, section),
 }
 
 export default patch

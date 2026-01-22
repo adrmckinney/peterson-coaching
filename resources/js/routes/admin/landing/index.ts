@@ -2,7 +2,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../
 import patch from './patch'
 /**
 * @see \App\Http\Controllers\LandingController::edit
-* @see app/Http/Controllers/LandingController.php:0
+* @see app/Http/Controllers/LandingController.php:27
 * @route '/admin/landing'
 */
 export const edit = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -17,7 +17,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\LandingController::edit
-* @see app/Http/Controllers/LandingController.php:0
+* @see app/Http/Controllers/LandingController.php:27
 * @route '/admin/landing'
 */
 edit.url = (options?: RouteQueryOptions) => {
@@ -26,7 +26,7 @@ edit.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\LandingController::edit
-* @see app/Http/Controllers/LandingController.php:0
+* @see app/Http/Controllers/LandingController.php:27
 * @route '/admin/landing'
 */
 edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -36,7 +36,7 @@ edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\LandingController::edit
-* @see app/Http/Controllers/LandingController.php:0
+* @see app/Http/Controllers/LandingController.php:27
 * @route '/admin/landing'
 */
 edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({

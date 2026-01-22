@@ -1,6 +1,7 @@
 import ingaOnSidewalk from "@/Assets/Images/ingaOnSidewalk.jpg";
 import { BrandIcon } from "@/Assets/SVG/BrandIcon";
 import ConditionalRender from "@/Components/ConditionalRender";
+import PrimaryButton from "@/Components/PrimaryButton";
 import FeatureSection from "@/Components/Sections/FeatureSection";
 import TextAreaEditor from "@/Components/TextAreaEditor";
 import TextInput from "@/Components/TextInput";
@@ -11,7 +12,8 @@ import { LandingIntroSettings, PageSection } from "@/types/PageSections";
 import { TextBlock } from "@/types/Text";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/16/solid";
-import { usePage } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
+import axios from "axios";
 import { useEffect, useState } from "react";
 const navigation = [{ name: "Product", href: "#" }];
 
@@ -24,6 +26,9 @@ const Landing = () => {
     const [editMode, setEditMode] = useState(isEditable || false);
     const [landingDraft, setLandingDraft] =
         useState<LandingIntroSettings | null>(null);
+    const [draftCopy, setDraftCopy] = useState<LandingIntroSettings | null>(
+        null,
+    );
     const landingIntroSection = sections.find(
         (s) => s.type === "landing_intro",
     );
@@ -35,21 +40,64 @@ const Landing = () => {
     useEffect(() => {
         if (editMode) {
             setLandingDraft(structuredClone(landingIntroSection.settings));
+            setDraftCopy(structuredClone(landingIntroSection.settings));
         }
     }, [editMode]);
-    console.log("editMode", editMode);
+
     console.log("landingDraft", landingDraft);
     console.log("landingIntroSection", landingIntroSection);
 
     const headlineSettings: LandingIntroSettings = landingIntroSection.settings;
 
-    const handleSave = () => {
-        //
+    const handleSave = async () => {
+        if (!landingDraft || !landingIntroSection) return;
+
+        try {
+            const response = await axios.patch(
+                route("admin.landing.patch.section", {
+                    page: landingIntroSection.page_id,
+                    section: landingIntroSection.id,
+                }),
+                landingDraft,
+            );
+
+            const updatedSection = response.data.section;
+
+            // Update local draft + live page data
+            setLandingDraft(updatedSection.settings);
+            setDraftCopy(updatedSection.settings);
+        } catch (error) {
+            console.error("Save failed", error);
+        }
     };
 
     const handleCancel = () => {
-        setLandingDraft(null);
-        setEditMode(false);
+        const copy = JSON.stringify(structuredClone(draftCopy));
+        const orig = JSON.stringify(structuredClone(landingDraft));
+        const hasChanges = orig !== copy;
+        if (hasChanges) {
+            if (confirm("Discard unsaved changes")) {
+                setLandingDraft(null);
+                setEditMode(false);
+                router.visit(
+                    route("landing", {
+                        replace: true,
+                        preserveScroll: true,
+                        preserveState: false,
+                    }),
+                );
+            }
+        } else {
+            setLandingDraft(null);
+            setEditMode(false);
+            router.visit(
+                route("landing", {
+                    replace: true,
+                    preserveScroll: true,
+                    preserveState: false,
+                }),
+            );
+        }
     };
 
     const updateTextBlock = (key: "headline", patch: Partial<TextBlock>) => {
@@ -81,13 +129,6 @@ const Landing = () => {
         });
     };
 
-    //     router.put(
-    //     route('admin.sections.update', landingIntroSection.id),
-    //     {
-    //         settings: draftSettings,
-    //     }
-    // );
-
     return (
         <AppLayout>
             <ConditionalRender condition={editMode}>
@@ -96,14 +137,16 @@ const Landing = () => {
                         <button onClick={() => setEditMode(true)}>Edit</button>
                     ) : (
                         <>
-                            <button onClick={handleSave}>Save</button>
+                            <PrimaryButton type="button" onClick={handleSave}>
+                                Save
+                            </PrimaryButton>
                             <button onClick={handleCancel}>Cancel</button>
                         </>
                     )}
                 </div>
             </ConditionalRender>
             <div className={["bg-background"].join(" ")}>
-                <header className="absolute inset-x-0 top-0 z-50">
+                <header className="absolute inset-x-0 top-0 z-40">
                     <div className="mx-auto max-w-7xl">
                         <div className="px-6 pt-6 lg:max-w-2xl lg:pr-0 lg:pl-8">
                             <nav
@@ -294,7 +337,7 @@ const Landing = () => {
                                                             "var(--color-onPrimary)",
                                                     }}
                                                 >
-                                                    paragraph?.text
+                                                    {paragraph?.text}
                                                 </p>
                                             }
                                         >
