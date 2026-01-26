@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PageSlugs;
+use App\Enums\SectionTypes;
 use App\Models\Page;
 use App\Models\PageSection;
 use Illuminate\Database\Seeder;
@@ -36,13 +38,13 @@ class PageSectionSeeder extends Seeder
         ];
 
         $pages = Page::all();
-        $landingId = $pages->firstWhere('slug', 'landing')?->id;
-        $videoId = $pages->firstWhere('slug', 'videos')?->id;
+        $landingPageId = $pages->firstWhere('slug', PageSlugs::LANDING->value)?->id;
+        $introVideoPage = $pages->firstWhere('slug', PageSlugs::INTRO_VIDEOS->value)?->id;
 
         $landingSections = [
             [
-                'page_id' => $landingId,
-                'type' => 'landing_icon',
+                'page_id' => $landingPageId,
+                'type' => SectionTypes::LANDING_BRAND_ICON->value,
                 'visible' => true,
                 'settings' => [
                     'layout' => $layout,
@@ -54,8 +56,8 @@ class PageSectionSeeder extends Seeder
                 ],
             ],
             [
-                'page_id' => $landingId,
-                'type' => 'landing_intro',
+                'page_id' => $landingPageId,
+                'type' => SectionTypes::LANDING_INTRO->value,
                 'visible' => true,
                 'settings' => [
                     'layout' => $layout,
@@ -76,8 +78,8 @@ class PageSectionSeeder extends Seeder
 
         $videoSection = [
             [
-                'page_id' => $videoId,
-                'type' => 'video_section_title',
+                'page_id' => $introVideoPage,
+                'type' => SectionTypes::INTRO_VIDEO_SECTION_TITLE->value,
                 'visible' => true,
                 'settings' => [
                     'layout' => $layout,
@@ -85,8 +87,8 @@ class PageSectionSeeder extends Seeder
                 ],
             ],
             [
-                'page_id' => $videoId,
-                'type' => 'video_gallery',
+                'page_id' => $introVideoPage,
+                'type' => SectionTypes::INTRO_VIDEO_GALLERY->value,
                 'visible' => true,
                 'settings' => [
                     'layout' => $layout,

@@ -1,11 +1,20 @@
 import {
+    Popover,
+    PopoverButton,
+    PopoverGroup,
+    PopoverPanel,
+} from "@headlessui/react";
+import { PlusIcon, SquaresPlusIcon } from "@heroicons/react/24/solid";
+import {
+    ChangeEvent,
     forwardRef,
     TextareaHTMLAttributes,
     useEffect,
     useImperativeHandle,
     useRef,
-    useState,
 } from "react";
+import PrimaryButton from "./PrimaryButton";
+import TextInput from "./TextInput";
 
 type TextStyle = {
     bold?: boolean;
@@ -17,23 +26,29 @@ type Props = TextareaHTMLAttributes<HTMLTextAreaElement> & {
     isFocused?: boolean;
     styleSettings?: TextStyle;
     onStyleChange?: (style: TextStyle) => void;
+    onColorChange?: (color: ChangeEvent<HTMLInputElement>) => void;
+    reset: (id: string, key: string) => void;
+    colorValue?: string;
+    onAddBelow?: () => void;
 };
 
 export default forwardRef(function TextareaEditor(
     {
         className = "",
-        isFocused = false,
         rows = 1,
         value,
         onChange,
+        onColorChange,
+        colorValue,
+        reset,
         styleSettings = {},
         onStyleChange,
+        onAddBelow,
         ...props
     }: Props,
     ref,
 ) {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
-    const [showToolbar, setShowToolbar] = useState(false);
 
     useImperativeHandle(ref, () => ({
         focus: () => textareaRef.current?.focus(),
@@ -43,67 +58,57 @@ export default forwardRef(function TextareaEditor(
     useEffect(() => {
         const el = textareaRef.current;
         if (!el) return;
-
         el.style.height = "auto";
         el.style.height = `${el.scrollHeight}px`;
     }, [value]);
 
-    useEffect(() => {
-        if (isFocused) textareaRef.current?.focus();
-    }, [isFocused]);
-
     return (
-        <div className="relative group">
-            {/* Toolbar */}
-            {showToolbar && (
-                <div className="absolute -top-10 left-0 z-20 flex gap-2 rounded-md bg-secondary p-2 shadow-md">
-                    <button
-                        type="button"
-                        className={`px-2 py-1 rounded ${
-                            styleSettings.bold
-                                ? "bg-primaryAccent text-onPrimary"
-                                : "bg-background"
-                        }`}
-                        onClick={() =>
-                            onStyleChange?.({
-                                ...styleSettings,
-                                bold: !styleSettings.bold,
-                            })
-                        }
-                    >
-                        B
-                    </button>
+        <div className="relative group focus-within:z-10">
+            {/* Left controls */}
+            <div
+                className={[
+                    "absolute -left-5 top-10 flex flex-col gap-2",
+                    "opacity-0 pointer-events-none",
+                    "group-hover:opacity-100 group-hover:pointer-events-auto",
+                    "group-focus-within:opacity-100 group-focus-within:pointer-events-auto",
+                ].join(" ")}
+            >
+                <button
+                    type="button"
+                    onClick={onAddBelow}
+                    className="rounded bg-secondary p-1 shadow hover:bg-secondaryAccent"
+                >
+                    <PlusIcon className="h-4 w-4" />
+                </button>
 
-                    <select
-                        value={styleSettings.size ?? ""}
-                        onChange={(e) =>
-                            onStyleChange?.({
-                                ...styleSettings,
-                                size: e.target.value,
-                            })
-                        }
-                        className="rounded bg-background px-1"
-                    >
-                        <option value="">Default</option>
-                        <option value="text-sm">Small</option>
-                        <option value="text-base">Base</option>
-                        <option value="text-lg">Large</option>
-                        <option value="text-xl">XL</option>
-                    </select>
-
-                    <input
-                        type="color"
-                        value={styleSettings.color ?? "#000000"}
-                        onChange={(e) =>
-                            onStyleChange?.({
-                                ...styleSettings,
-                                color: e.target.value,
-                            })
-                        }
-                        className="h-8 w-8 rounded"
-                    />
-                </div>
-            )}
+                {/* 🎯 Popover trigger */}
+                <Popover>
+                    <PopoverGroup>
+                        <PopoverButton className="rounded bg-secondary p-1 shadow hover:bg-secondaryAccent">
+                            <SquaresPlusIcon className="h-4 w-4" />
+                        </PopoverButton>
+                        <PopoverPanel anchor="left">
+                            <div className="bg-secondary w-56 h-32 border rounded z-50 p-4 text-onSecondary">
+                                <TextInput
+                                    label="Text Color"
+                                    type="color"
+                                    name="color"
+                                    className="bg-secondary border-onSecondary"
+                                    onChange={onColorChange}
+                                    value={colorValue}
+                                />
+                            </div>
+                            <div className="bg-secondary w-56 h-32 border rounded z-50 p-4 text-onSecondary">
+                                <PrimaryButton
+                                    onChange={() => reset(props?.id, "color")}
+                                >
+                                    Undo Color Change
+                                </PrimaryButton>
+                            </div>
+                        </PopoverPanel>
+                    </PopoverGroup>
+                </Popover>
+            </div>
 
             {/* Textarea */}
             <textarea
@@ -112,11 +117,7 @@ export default forwardRef(function TextareaEditor(
                 rows={rows}
                 value={value}
                 onChange={onChange}
-                onFocus={() => setShowToolbar(true)}
-                onBlur={() => setShowToolbar(false)}
-                style={{
-                    color: styleSettings.color,
-                }}
+                // style={{ color: styleSettings.color }}
                 className={[
                     "w-full resize-none overflow-hidden",
                     "rounded-md border border-onPrimary",

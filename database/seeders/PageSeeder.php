@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PageSlugs;
 use App\Enums\Platform;
 use App\Models\Page;
 use App\Models\Video;
@@ -16,13 +17,13 @@ class PageSeeder extends Seeder
     {
         $pages = [
             [
-                'slug' => 'landing',
+                'slug' => PageSlugs::LANDING->value,
                 'title' => 'Landing',
                 'is_published' => true,
             ],
             [
-                'slug' => 'videos',
-                'title' => 'Videos',
+                'slug' => PageSlugs::INTRO_VIDEOS->value,
+                'title' => 'Intro Videos',
                 'is_published' => true,
             ],
 

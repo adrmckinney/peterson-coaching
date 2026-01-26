@@ -10,9 +10,8 @@ type Props = {
 };
 
 const FeatureSection = () => {
-    const { videos, sections } =
-        usePage<PageProps<{ videos: Video[]; sections: PageSection[] }>>()
-            .props;
+    const { sections } =
+        usePage<PageProps<{ sections: PageSection[] }>>().props;
 
     console.log("sections", sections);
     const videoTitleSection = sections?.find(

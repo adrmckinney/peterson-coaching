@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Enums\Platform;
+use App\Enums\SectionTypes;
+use App\Models\PageSection;
 use App\Models\Video;
 use Illuminate\Database\Seeder;
 
@@ -13,8 +15,10 @@ class VideoSeeder extends Seeder
      */
     public function run(): void
     {
+        $introVideoSection = PageSection::where('type', SectionTypes::INTRO_VIDEO_GALLERY->value)->first();
         $videos = [
             [
+                'page_section_id' => $introVideoSection->id,
                 'url' => 'https://www.tiktok.com/@inga.peterson/video/7592828341716012301',
                 'published_at' => now(),
                 'title' => 'Why I do what I do',
@@ -23,6 +27,7 @@ class VideoSeeder extends Seeder
                 'sort_order' => 1,
             ],
             [
+                'page_section_id' => $introVideoSection->id,
                 'url' => 'https://www.tiktok.com/@inga.peterson/video/7594494048778390839',
                 'published_at' => now(),
                 'title' => 'If Something Feels Off Right Now',

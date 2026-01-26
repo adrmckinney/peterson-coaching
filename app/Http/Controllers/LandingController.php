@@ -5,35 +5,74 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PatchLandingIntroRequest;
 use App\Models\Page;
 use App\Models\PageSection;
-use App\Models\Video;
 use Inertia\Inertia;
 
 class LandingController extends Controller
 {
     public function index()
     {
-        $videos = Video::all();
         $pages = Page::all();
-        $sections = PageSection::all();
+        $sections = PageSection::with(['videos' => function ($q) {
+            $q->orderBy('sort_order');
+        }])->get();
 
-        return Inertia::render("Landing", [
+        $sections = $sections->map(function ($section) {
+            if ($section->type === 'video_section_gallery') {
+                return [
+                    ...$section->toArray(),
+                    'settings' => [
+                        'videos' => $section->videos->map(fn($v) => [
+                            'id' => $v->id,
+                            'title' => $v->title,
+                            'description' => $v->description,
+                            'platform' => $v->platform,
+                            'url' => $v->url,
+                            'sort_order' => $v->sort_order,
+                        ]),
+                    ],
+                ];
+            }
+
+            return $section;
+        });
+
+        return Inertia::render('Landing', [
             'pages' => $pages,
             'sections' => $sections,
-            'videos' => $videos,
             'isEditable' => false,
         ]);
     }
 
     public function edit()
     {
-        $videos = Video::all();
         $pages = Page::all();
-        $sections = PageSection::all();
+        $sections = PageSection::with(['videos' => function ($q) {
+            $q->orderBy('sort_order');
+        }])->get();
 
-        return Inertia::render("Landing", [
+        $sections = $sections->map(function ($section) {
+            if ($section->type === 'video_section_gallery') {
+                return [
+                    ...$section->toArray(),
+                    'settings' => [
+                        'videos' => $section->videos->map(fn($v) => [
+                            'id' => $v->id,
+                            'title' => $v->title,
+                            'description' => $v->description,
+                            'platform' => $v->platform,
+                            'url' => $v->url,
+                            'sort_order' => $v->sort_order,
+                        ]),
+                    ],
+                ];
+            }
+
+            return $section;
+        });
+
+        return Inertia::render('Landing', [
             'pages' => $pages,
             'sections' => $sections,
-            'videos' => $videos,
             'isEditable' => true,
         ]);
     }

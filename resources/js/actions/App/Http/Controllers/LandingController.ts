@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\LandingController::index
-* @see app/Http/Controllers/LandingController.php:13
+* @see app/Http/Controllers/LandingController.php:12
 * @route '/landing'
 */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\LandingController::index
-* @see app/Http/Controllers/LandingController.php:13
+* @see app/Http/Controllers/LandingController.php:12
 * @route '/landing'
 */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\LandingController::index
-* @see app/Http/Controllers/LandingController.php:13
+* @see app/Http/Controllers/LandingController.php:12
 * @route '/landing'
 */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\LandingController::index
-* @see app/Http/Controllers/LandingController.php:13
+* @see app/Http/Controllers/LandingController.php:12
 * @route '/landing'
 */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -45,7 +45,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\LandingController::edit
-* @see app/Http/Controllers/LandingController.php:27
+* @see app/Http/Controllers/LandingController.php:46
 * @route '/admin/landing'
 */
 export const edit = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -60,7 +60,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\LandingController::edit
-* @see app/Http/Controllers/LandingController.php:27
+* @see app/Http/Controllers/LandingController.php:46
 * @route '/admin/landing'
 */
 edit.url = (options?: RouteQueryOptions) => {
@@ -69,7 +69,7 @@ edit.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\LandingController::edit
-* @see app/Http/Controllers/LandingController.php:27
+* @see app/Http/Controllers/LandingController.php:46
 * @route '/admin/landing'
 */
 edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -79,7 +79,7 @@ edit.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\LandingController::edit
-* @see app/Http/Controllers/LandingController.php:27
+* @see app/Http/Controllers/LandingController.php:46
 * @route '/admin/landing'
 */
 edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -89,7 +89,7 @@ edit.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\LandingController::patchSection
-* @see app/Http/Controllers/LandingController.php:41
+* @see app/Http/Controllers/LandingController.php:80
 * @route '/admin/pages/{page}/sections/{section}'
 */
 export const patchSection = (args: { page: number | { id: number }, section: number | { id: number } } | [page: number | { id: number }, section: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -104,7 +104,7 @@ patchSection.definition = {
 
 /**
 * @see \App\Http\Controllers\LandingController::patchSection
-* @see app/Http/Controllers/LandingController.php:41
+* @see app/Http/Controllers/LandingController.php:80
 * @route '/admin/pages/{page}/sections/{section}'
 */
 patchSection.url = (args: { page: number | { id: number }, section: number | { id: number } } | [page: number | { id: number }, section: number | { id: number } ], options?: RouteQueryOptions) => {
@@ -134,7 +134,7 @@ patchSection.url = (args: { page: number | { id: number }, section: number | { i
 
 /**
 * @see \App\Http\Controllers\LandingController::patchSection
-* @see app/Http/Controllers/LandingController.php:41
+* @see app/Http/Controllers/LandingController.php:80
 * @route '/admin/pages/{page}/sections/{section}'
 */
 patchSection.patch = (args: { page: number | { id: number }, section: number | { id: number } } | [page: number | { id: number }, section: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'patch'> => ({

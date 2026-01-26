@@ -2,138 +2,136 @@ import ingaOnSidewalk from "@/Assets/Images/ingaOnSidewalk.jpg";
 import { BrandIcon } from "@/Assets/SVG/BrandIcon";
 import ConditionalRender from "@/Components/ConditionalRender";
 import PrimaryButton from "@/Components/PrimaryButton";
-import FeatureSection from "@/Components/Sections/FeatureSection";
 import TextAreaEditor from "@/Components/TextAreaEditor";
 import TextInput from "@/Components/TextInput";
 import useGetWindowWidth from "@/Hooks/useGetWindowWidth";
+import { usePageEditor } from "@/Hooks/usePageEditor";
 import AppLayout from "@/Layouts/AppLayout";
-import { PageProps } from "@/types";
-import { LandingIntroSettings, PageSection } from "@/types/PageSections";
+import { Page } from "@/types/Page";
+import { LandingIntroSettings } from "@/types/PageSections";
 import { TextBlock } from "@/types/Text";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/16/solid";
-import { router, usePage } from "@inertiajs/react";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 const navigation = [{ name: "Product", href: "#" }];
 
 const Landing = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { currentTailwindBreakpoint } = useGetWindowWidth();
-    const { sections, isEditable } =
-        usePage<PageProps<{ sections: PageSection[]; isEditable: boolean }>>()
-            .props;
-    const [editMode, setEditMode] = useState(isEditable || false);
-    const [landingDraft, setLandingDraft] =
-        useState<LandingIntroSettings | null>(null);
+    const editor = usePageEditor();
+
+    const { pages, isEditable, getSectionByPageId, updateSectionValue } =
+        editor;
+    const landingPage = pages.find((p: Page) => p.slug === "landing");
+    const sections = getSectionByPageId(1);
+    const introSection = sections?.find((s) => s.type === "landing_intro");
+    const introSettings = introSection?.settings;
+
+    // const [editMode, setEditMode] = useState(isEditable);
     const [draftCopy, setDraftCopy] = useState<LandingIntroSettings | null>(
         null,
     );
-    const landingIntroSection = sections.find(
-        (s) => s.type === "landing_intro",
-    );
-
-    if (!landingIntroSection) {
-        throw new Error("Landing intro section not found");
+    // 🚨 Guard AFTER hooks
+    if (!editor.hydrated) {
+        return <div>...Loading</div>;
     }
+    console.log("pages", pages);
+    console.log("landingPage", landingPage);
 
-    useEffect(() => {
-        if (editMode) {
-            setLandingDraft(structuredClone(landingIntroSection.settings));
-            setDraftCopy(structuredClone(landingIntroSection.settings));
-        }
-    }, [editMode]);
+    console.log("sections", sections);
+    const landingIntroSection: LandingIntroSettings = sections?.find(
+        (s) => s?.type === "landing_intro",
+    );
+    console.log("p update …", introSettings.paragraphs[1]);
+    // if (!landingIntroSection) {
+    //     throw new Error("Landing intro section not found");
+    // }
 
-    console.log("landingDraft", landingDraft);
-    console.log("landingIntroSection", landingIntroSection);
-
-    const headlineSettings: LandingIntroSettings = landingIntroSection.settings;
+    // const [_, setSectionState] = useState<LandingIntroSettings | null>(
+    //     landingIntroSection?.settings,
+    // );
 
     const handleSave = async () => {
-        if (!landingDraft || !landingIntroSection) return;
-
-        try {
-            const response = await axios.patch(
-                route("admin.landing.patch.section", {
-                    page: landingIntroSection.page_id,
-                    section: landingIntroSection.id,
-                }),
-                landingDraft,
-            );
-
-            const updatedSection = response.data.section;
-
-            // Update local draft + live page data
-            setLandingDraft(updatedSection.settings);
-            setDraftCopy(updatedSection.settings);
-        } catch (error) {
-            console.error("Save failed", error);
-        }
+        // if (!sectionState) return;
+        // try {
+        //     const response = await axios.patch(
+        //         route("admin.landing.patch.section", {
+        //             page: landingIntroSection.page_id,
+        //             section: landingIntroSection.id,
+        //         }),
+        //         sectionState,
+        //     );
+        //     const updatedSection = response.data.section;
+        //     // Update local draft + live page data
+        //     // setSectionState(updatedSection.settings);
+        //     setDraftCopy(updatedSection.settings);
+        // } catch (error) {
+        //     console.error("Save failed", error);
+        // }
     };
 
     const handleCancel = () => {
-        const copy = JSON.stringify(structuredClone(draftCopy));
-        const orig = JSON.stringify(structuredClone(landingDraft));
-        const hasChanges = orig !== copy;
-        if (hasChanges) {
-            if (confirm("Discard unsaved changes")) {
-                setLandingDraft(null);
-                setEditMode(false);
-                router.visit(
-                    route("landing", {
-                        replace: true,
-                        preserveScroll: true,
-                        preserveState: false,
-                    }),
-                );
-            }
-        } else {
-            setLandingDraft(null);
-            setEditMode(false);
-            router.visit(
-                route("landing", {
-                    replace: true,
-                    preserveScroll: true,
-                    preserveState: false,
-                }),
-            );
-        }
+        // const copy = JSON.stringify(structuredClone(draftCopy));
+        // const orig = JSON.stringify(structuredClone(sectionState));
+        // const hasChanges = orig !== copy;
+        // if (hasChanges) {
+        //     if (confirm("Discard unsaved changes")) {
+        //         // setSectionState(draftCopy);
+        //         setEditMode(false);
+        //         router.visit(
+        //             route("landing", {
+        //                 replace: true,
+        //                 preserveScroll: true,
+        //                 preserveState: false,
+        //             }),
+        //         );
+        //     }
+        // } else {
+        //     // setSectionState(draftCopy);
+        //     setEditMode(false);
+        //     router.visit(
+        //         route("landing", {
+        //             replace: true,
+        //             preserveScroll: true,
+        //             preserveState: false,
+        //         }),
+        //     );
+        // }
     };
 
     const updateTextBlock = (key: "headline", patch: Partial<TextBlock>) => {
         if (!landingIntroSection) return;
 
-        setLandingDraft((prev) => {
-            if (!prev) return prev;
+        // setSectionState((prev) => {
+        //     if (!prev) return prev;
 
-            return {
-                ...prev,
-                [key]: {
-                    ...prev[key],
-                    ...patch,
-                },
-            };
-        });
+        //     return {
+        //         ...prev,
+        //         [key]: {
+        //             ...prev[key],
+        //             ...patch,
+        //         },
+        //     };
+        // });
     };
 
     const updateParagraph = (id: string, patch: Partial<TextBlock>) => {
-        setLandingDraft((prev) => {
-            if (!prev) return prev;
-
-            return {
-                ...prev,
-                paragraphs: prev.paragraphs.map((p) =>
-                    p.id === id ? { ...p, ...patch } : p,
-                ),
-            };
-        });
+        // setSectionState((prev) => {
+        //     if (!prev) return prev;
+        //     return {
+        //         ...prev,
+        //         paragraphs: prev.paragraphs.map((p) =>
+        //             p.id === id ? { ...p, ...patch } : p,
+        //         ),
+        //     };
+        // });
     };
 
     return (
-        <AppLayout>
-            <ConditionalRender condition={editMode}>
+        <>
+            <ConditionalRender condition={isEditable}>
                 <div className="fixed top-4 right-4 z-50 flex gap-2">
-                    {!editMode ? (
+                    {!isEditable ? (
                         <button onClick={() => setEditMode(true)}>Edit</button>
                     ) : (
                         <>
@@ -277,7 +275,7 @@ const Landing = () => {
                                 <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl z-20">
                                     <div className="hidden sm:mb-10 sm:flex"></div>
                                     <ConditionalRender
-                                        condition={editMode}
+                                        condition={isEditable}
                                         falseRender={
                                             <h1
                                                 className={[
@@ -286,21 +284,18 @@ const Landing = () => {
                                                 ].join(" ")}
                                                 style={{
                                                     color:
-                                                        headlineSettings
-                                                            ?.headline?.color ??
+                                                        introSettings?.headline
+                                                            ?.color ??
                                                         "var(--color-onPrimary)",
                                                 }}
                                             >
-                                                {
-                                                    headlineSettings?.headline
-                                                        ?.text
-                                                }
+                                                {introSettings?.headline?.text}
                                             </h1>
                                         }
                                     >
                                         <TextInput
                                             value={
-                                                landingDraft?.headline?.text ??
+                                                introSettings?.headline?.text ??
                                                 ""
                                             }
                                             onChange={(e) =>
@@ -308,61 +303,125 @@ const Landing = () => {
                                                     text: e.target.value,
                                                 })
                                             }
-                                            className="text-5xl font-semibold tracking-tight text-pretty"
+                                            className="text-5xl font-semibold tracking-tight text-pretty border-none"
                                             style={{
                                                 color:
-                                                    headlineSettings?.headline
+                                                    introSettings?.headline
                                                         ?.color ??
                                                     "var(--color-onPrimary)",
                                             }}
                                         />
                                     </ConditionalRender>
 
-                                    {(landingDraft
-                                        ? landingDraft?.paragraphs
-                                        : headlineSettings?.paragraphs
-                                    )?.map((paragraph) => (
-                                        <ConditionalRender
-                                            key={paragraph?.id}
-                                            condition={editMode}
-                                            falseRender={
-                                                <p
+                                    {introSettings?.paragraphs?.map(
+                                        (paragraph: TextBlock) => {
+                                            console.log(
+                                                "paragraph?.color",
+                                                paragraph?.color,
+                                            );
+                                            return (
+                                                <ConditionalRender
                                                     key={paragraph?.id}
-                                                    className="mt-8 text-lg font-medium text-pretty sm:text-xl/8"
-                                                    style={{
-                                                        color:
-                                                            headlineSettings
-                                                                ?.headline
-                                                                ?.color ??
-                                                            "var(--color-onPrimary)",
-                                                    }}
+                                                    condition={isEditable}
+                                                    falseRender={
+                                                        <p
+                                                            key={paragraph?.id}
+                                                            className="mt-8 text-lg font-medium text-pretty sm:text-xl/8"
+                                                            style={{
+                                                                color:
+                                                                    paragraph?.color ??
+                                                                    "var(--color-onPrimary)",
+                                                            }}
+                                                        >
+                                                            {paragraph?.text}
+                                                        </p>
+                                                    }
                                                 >
-                                                    {paragraph?.text}
-                                                </p>
-                                            }
-                                        >
-                                            <TextAreaEditor
-                                                key={paragraph?.id}
-                                                value={paragraph?.text ?? ""}
-                                                className="mt-8 text-lg font-medium text-pretty sm:text-xl/8"
-                                                style={{
-                                                    color:
-                                                        headlineSettings
-                                                            ?.headline?.color ??
-                                                        "var(--color-onPrimary)",
-                                                }}
-                                                onChange={(e) =>
-                                                    updateParagraph(
-                                                        paragraph?.id,
-                                                        {
-                                                            text: e.target
-                                                                .value,
-                                                        },
-                                                    )
-                                                }
-                                            />
-                                        </ConditionalRender>
-                                    ))}
+                                                    <TextAreaEditor
+                                                        key={paragraph?.id}
+                                                        id={paragraph?.id}
+                                                        // reset={reset}
+                                                        value={
+                                                            paragraph?.text ||
+                                                            ""
+                                                        }
+                                                        colorValue={
+                                                            paragraph?.color ||
+                                                            ""
+                                                        }
+                                                        className="mt-8 text-lg font-medium text-pretty sm:text-xl/8 border-none"
+                                                        style={{
+                                                            color:
+                                                                paragraph?.color ||
+                                                                "var(--color-onPrimary)",
+                                                        }}
+                                                        // onColorChange={(e) => {
+                                                        //     const paragraphIndex =
+                                                        //         introSection?.settings.paragraphs.findIndex(
+                                                        //             (
+                                                        //                 p: TextBlock,
+                                                        //             ) =>
+                                                        //                 p.id ===
+                                                        //                 paragraph.id,
+                                                        //         );
+
+                                                        //     if (
+                                                        //         paragraphIndex ===
+                                                        //         -1
+                                                        //     )
+                                                        //         return;
+
+                                                        //     updateSectionValue(
+                                                        //         landingPage?.id, // pageId
+                                                        //         introSection?.id, // sectionId
+                                                        //         [
+                                                        //             "paragraphs",
+                                                        //             paragraphIndex,
+                                                        //             "color",
+                                                        //         ], // path inside settings
+                                                        //         e.target.value, // new color
+                                                        //     );
+                                                        // }}
+                                                        onColorChange={
+                                                            (e) =>
+                                                                updateSectionValue(
+                                                                    landingPage?.id,
+                                                                    introSection?.id,
+                                                                    [
+                                                                        "paragraphs",
+                                                                        {
+                                                                            arrayId:
+                                                                                paragraph?.id,
+                                                                        },
+                                                                        "color",
+                                                                    ],
+                                                                    e.target
+                                                                        .value,
+                                                                )
+                                                            // updateParagraph(
+                                                            //     paragraph?.id,
+                                                            //     {
+                                                            //         color: e
+                                                            //             .target
+                                                            //             .value,
+                                                            //     },
+                                                            // )
+                                                        }
+                                                        onChange={(e) =>
+                                                            updateParagraph(
+                                                                paragraph?.id,
+                                                                {
+                                                                    text: e
+                                                                        .target
+                                                                        .value,
+                                                                },
+                                                            )
+                                                        }
+                                                    />
+                                                </ConditionalRender>
+                                            );
+                                        },
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -376,9 +435,11 @@ const Landing = () => {
                     </div>
                 </div>
             </div>
-            <FeatureSection />
-        </AppLayout>
+            {/* <FeatureSection /> */}
+        </>
     );
 };
+
+Landing.layout = (page: React.JSX.Element) => <AppLayout>{page}</AppLayout>;
 
 export default Landing;

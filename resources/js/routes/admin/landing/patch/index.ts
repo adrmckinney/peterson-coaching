@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\LandingController::section
-* @see app/Http/Controllers/LandingController.php:41
+* @see app/Http/Controllers/LandingController.php:80
 * @route '/admin/pages/{page}/sections/{section}'
 */
 export const section = (args: { page: number | { id: number }, section: number | { id: number } } | [page: number | { id: number }, section: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -16,7 +16,7 @@ section.definition = {
 
 /**
 * @see \App\Http\Controllers\LandingController::section
-* @see app/Http/Controllers/LandingController.php:41
+* @see app/Http/Controllers/LandingController.php:80
 * @route '/admin/pages/{page}/sections/{section}'
 */
 section.url = (args: { page: number | { id: number }, section: number | { id: number } } | [page: number | { id: number }, section: number | { id: number } ], options?: RouteQueryOptions) => {
@@ -46,7 +46,7 @@ section.url = (args: { page: number | { id: number }, section: number | { id: nu
 
 /**
 * @see \App\Http\Controllers\LandingController::section
-* @see app/Http/Controllers/LandingController.php:41
+* @see app/Http/Controllers/LandingController.php:80
 * @route '/admin/pages/{page}/sections/{section}'
 */
 section.patch = (args: { page: number | { id: number }, section: number | { id: number } } | [page: number | { id: number }, section: number | { id: number } ], options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
