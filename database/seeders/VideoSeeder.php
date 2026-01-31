@@ -21,7 +21,7 @@ class VideoSeeder extends Seeder
                 'page_section_id' => $introVideoSection->id,
                 'url' => 'https://www.tiktok.com/@inga.peterson/video/7592828341716012301',
                 'published_at' => now(),
-                'title' => 'Why I do what I do',
+                'title' => 'About Me and My Work',
                 'platform' => Platform::TIK_TOK->value,
                 'external_id' => '7592828341716012301',
                 'sort_order' => 1,
@@ -30,11 +30,20 @@ class VideoSeeder extends Seeder
                 'page_section_id' => $introVideoSection->id,
                 'url' => 'https://www.tiktok.com/@inga.peterson/video/7594494048778390839',
                 'published_at' => now(),
-                'title' => 'If Something Feels Off Right Now',
+                'title' => 'Navigating the Post-Grad Transition',
                 'platform' => Platform::TIK_TOK->value,
                 'external_id' => '7594494048778390839',
                 'sort_order' => 1,
-            ]
+            ],
+            [
+                'page_section_id' => $introVideoSection->id,
+                'url' => 'https://www.tiktok.com/@inga.peterson/video/7597633314241006861',
+                'published_at' => now(),
+                'title' => 'The Cycle of Change and the Post-Grad Transition',
+                'platform' => Platform::TIK_TOK->value,
+                'external_id' => '7597633314241006861',
+                'sort_order' => 1,
+            ],
         ];
 
         foreach ($videos as $video) {

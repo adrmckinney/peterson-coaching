@@ -27,7 +27,7 @@ type Props = TextareaHTMLAttributes<HTMLTextAreaElement> & {
     styleSettings?: TextStyle;
     onStyleChange?: (style: TextStyle) => void;
     onColorChange?: (color: ChangeEvent<HTMLInputElement>) => void;
-    reset: (id: string, key: string) => void;
+    reset?: (id: string, key: string) => void;
     colorValue?: string;
     onAddBelow?: () => void;
 };
@@ -40,7 +40,7 @@ export default forwardRef(function TextareaEditor(
         onChange,
         onColorChange,
         colorValue,
-        reset,
+        reset = () => {},
         styleSettings = {},
         onStyleChange,
         onAddBelow,

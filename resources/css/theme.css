@@ -13,6 +13,10 @@
     --color-onSecondary: #000d16;
     --color-secondaryHover: oklch(75.5% 0.04 256.788);
 
+    --color-tertiary: oklch(63.2% 0.025 179);
+    --color-onTertiary: #000d16;
+    --color-tertiaryHover: oklch(68.2% 0.025 179);
+
     --color-primaryAccent: #014421;
     --color-onPrimaryAccent: #ffffff;
     --color-primaryAccentHover: #026b34;

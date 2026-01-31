@@ -37,6 +37,10 @@ export default {
                 onSecondary: "var(--color-onSecondary)",
                 secondaryHover: "var(--color-secondaryHover)",
 
+                tertiary: "var(--color-tertiary)",
+                onTertiary: "var(--color-onTertiary)",
+                tertiaryHover: "var(--color-tertiaryHover)",
+
                 // ─────────────────────────
                 // Accents
                 // ─────────────────────────

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -26,6 +27,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/landing', [LandingController::class, 'index'])->name('landing');
+
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/admin/landing', [LandingController::class, 'edit'])
     // ->middleware(['auth', 'can:edit-pages'])

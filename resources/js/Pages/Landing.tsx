@@ -2,6 +2,8 @@ import ingaOnSidewalk from "@/Assets/Images/ingaOnSidewalk.jpg";
 import { BrandIcon } from "@/Assets/SVG/BrandIcon";
 import ConditionalRender from "@/Components/ConditionalRender";
 import PrimaryButton from "@/Components/PrimaryButton";
+import ContactSection from "@/Components/Sections/ContactSection";
+import FeatureSection from "@/Components/Sections/FeatureSection";
 import TextAreaEditor from "@/Components/TextAreaEditor";
 import TextInput from "@/Components/TextInput";
 import useGetWindowWidth from "@/Hooks/useGetWindowWidth";
@@ -132,7 +134,7 @@ const Landing = () => {
             <ConditionalRender condition={isEditable}>
                 <div className="fixed top-4 right-4 z-50 flex gap-2">
                     {!isEditable ? (
-                        <button onClick={() => setEditMode(true)}>Edit</button>
+                        <button onClick={() => {}}>Edit</button>
                     ) : (
                         <>
                             <PrimaryButton type="button" onClick={handleSave}>
@@ -355,57 +357,20 @@ const Landing = () => {
                                                                 paragraph?.color ||
                                                                 "var(--color-onPrimary)",
                                                         }}
-                                                        // onColorChange={(e) => {
-                                                        //     const paragraphIndex =
-                                                        //         introSection?.settings.paragraphs.findIndex(
-                                                        //             (
-                                                        //                 p: TextBlock,
-                                                        //             ) =>
-                                                        //                 p.id ===
-                                                        //                 paragraph.id,
-                                                        //         );
-
-                                                        //     if (
-                                                        //         paragraphIndex ===
-                                                        //         -1
-                                                        //     )
-                                                        //         return;
-
-                                                        //     updateSectionValue(
-                                                        //         landingPage?.id, // pageId
-                                                        //         introSection?.id, // sectionId
-                                                        //         [
-                                                        //             "paragraphs",
-                                                        //             paragraphIndex,
-                                                        //             "color",
-                                                        //         ], // path inside settings
-                                                        //         e.target.value, // new color
-                                                        //     );
-                                                        // }}
-                                                        onColorChange={
-                                                            (e) =>
-                                                                updateSectionValue(
-                                                                    landingPage?.id,
-                                                                    introSection?.id,
-                                                                    [
-                                                                        "paragraphs",
-                                                                        {
-                                                                            arrayId:
-                                                                                paragraph?.id,
-                                                                        },
-                                                                        "color",
-                                                                    ],
-                                                                    e.target
-                                                                        .value,
-                                                                )
-                                                            // updateParagraph(
-                                                            //     paragraph?.id,
-                                                            //     {
-                                                            //         color: e
-                                                            //             .target
-                                                            //             .value,
-                                                            //     },
-                                                            // )
+                                                        onColorChange={(e) =>
+                                                            updateSectionValue(
+                                                                landingPage?.id,
+                                                                introSection?.id,
+                                                                [
+                                                                    "paragraphs",
+                                                                    {
+                                                                        arrayId:
+                                                                            paragraph?.id,
+                                                                    },
+                                                                    "color",
+                                                                ],
+                                                                e.target.value,
+                                                            )
                                                         }
                                                         onChange={(e) =>
                                                             updateParagraph(
@@ -435,7 +400,8 @@ const Landing = () => {
                     </div>
                 </div>
             </div>
-            {/* <FeatureSection /> */}
+            <FeatureSection />
+            <ContactSection />
         </>
     );
 };

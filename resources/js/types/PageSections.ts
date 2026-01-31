@@ -1,5 +1,12 @@
 import { Layout } from "./Layout";
 import { TextBlock } from "./Text";
+import { Video } from "./Videos";
+
+export type SectionTypes =
+    | "landing_icon"
+    | "landing_intro"
+    | "intro_video_section_title"
+    | "intro_video_gallery";
 
 export type PageSection =
     | ({
@@ -11,11 +18,12 @@ export type PageSection =
           settings: LandingIntroSettings;
       } & PageSectionBase)
     | ({
-          type: "video_section_title";
+          type: "intro_video_section_title";
           settings: VideoSectionTitleSettings;
       } & PageSectionBase)
     | ({
-          type: "video_gallery";
+          type: "intro_video_gallery";
+          videos: Video[];
           settings: VideoGallerySettings;
       } & PageSectionBase);
 

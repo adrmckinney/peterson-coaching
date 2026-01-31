@@ -10,7 +10,9 @@ export default forwardRef(function TextAreaInput(
     {
         className = "",
         isFocused = false,
-        rows = 3,
+        rows = 5,
+        value,
+        onChange,
         ...props
     }: TextareaHTMLAttributes<HTMLTextAreaElement> & {
         isFocused?: boolean;
@@ -34,6 +36,8 @@ export default forwardRef(function TextAreaInput(
             {...props}
             rows={rows}
             ref={localRef}
+            value={value}
+            onChange={onChange}
             className={[
                 "rounded-md",
                 "bg-primary",
