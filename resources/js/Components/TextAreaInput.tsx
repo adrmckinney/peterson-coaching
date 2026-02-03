@@ -41,7 +41,7 @@ export default forwardRef(function TextAreaInput(
             className={[
                 "rounded-md",
                 "bg-primary",
-                "text-onPrimary",
+                // "text-onPrimary",
                 "border",
                 "border-onPrimary",
                 "focus:outline-none",

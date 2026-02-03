@@ -1,7 +1,7 @@
 import ingaOnSidewalk from "@/Assets/Images/ingaOnSidewalk.jpg";
 import { BrandIcon } from "@/Assets/SVG/BrandIcon";
+import PrimaryButton from "@/Components/Buttons/PrimaryButton";
 import ConditionalRender from "@/Components/ConditionalRender";
-import PrimaryButton from "@/Components/PrimaryButton";
 import ContactSection from "@/Components/Sections/ContactSection";
 import FeatureSection from "@/Components/Sections/FeatureSection";
 import TextAreaEditor from "@/Components/TextAreaEditor";
@@ -151,7 +151,7 @@ const Landing = () => {
                         <div className="px-6 pt-6 lg:max-w-2xl lg:pr-0 lg:pl-8">
                             <nav
                                 aria-label="Global"
-                                className="flex items-center justify-between lg:justify-start"
+                                className="flex items-start justify-between lg:justify-start"
                             >
                                 <a
                                     href="#"

@@ -11,7 +11,7 @@ const SectionHeadline = ({ title, subTitle }: Props) => {
             <h2
                 className={[
                     "mt-2 text-4xl font-semibold tracking-tight text-pretty sm:text-5xl lg:text-balance",
-                    "text-primaryAccent",
+                    "text-tertiary",
                 ].join(" ")}
             >
                 {title}

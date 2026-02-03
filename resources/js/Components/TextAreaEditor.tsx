@@ -13,7 +13,7 @@ import {
     useImperativeHandle,
     useRef,
 } from "react";
-import PrimaryButton from "./PrimaryButton";
+import PrimaryButton from "./Buttons/PrimaryButton";
 import TextInput from "./TextInput";
 
 type TextStyle = {

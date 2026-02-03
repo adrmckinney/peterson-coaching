@@ -24,6 +24,7 @@ class VideoSeeder extends Seeder
                 'title' => 'About Me and My Work',
                 'platform' => Platform::TIK_TOK->value,
                 'external_id' => '7592828341716012301',
+                'thumbnail_url' => '/images/about-me-static.png',
                 'sort_order' => 1,
             ],
             [
@@ -33,6 +34,7 @@ class VideoSeeder extends Seeder
                 'title' => 'Navigating the Post-Grad Transition',
                 'platform' => Platform::TIK_TOK->value,
                 'external_id' => '7594494048778390839',
+                'thumbnail_url' => '/images/three-things-static.png',
                 'sort_order' => 1,
             ],
             [
@@ -42,6 +44,7 @@ class VideoSeeder extends Seeder
                 'title' => 'The Cycle of Change and the Post-Grad Transition',
                 'platform' => Platform::TIK_TOK->value,
                 'external_id' => '7597633314241006861',
+                'thumbnail_url' => '/images/cycle-of-change-static.png',
                 'sort_order' => 1,
             ],
         ];

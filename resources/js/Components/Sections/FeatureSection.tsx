@@ -40,7 +40,7 @@ const FeatureSection = () => {
                                 </dt>
                                 <dd className="mt-4 flex flex-auto flex-col">
                                     <TikTokVideoCard video={video} />
-                                    <p className="mt-6">
+                                    {/* <p className="mt-6">
                                         <a
                                             href="#"
                                             className="text-sm/6 font-semibold text-primaryAccent hover:text-accentHover"
@@ -48,7 +48,7 @@ const FeatureSection = () => {
                                             Learn more{" "}
                                             <span aria-hidden="true">→</span>
                                         </a>
-                                    </p>
+                                    </p> */}
                                 </dd>
                             </div>
                         ))}
