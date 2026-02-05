@@ -3,18 +3,18 @@ import BaseButton from "./BaseButton";
 
 type Props = ComponentProps<typeof BaseButton>;
 
-export default function SecondaryButton({ className = "", ...props }: Props) {
+export default function TertiaryButton({ className = "", ...props }: Props) {
     return (
         <BaseButton
             {...props}
             className={[
-                "border border-gray-300",
-                "bg-white",
-                "text-gray-700",
+                "border border-primary",
+                "bg-tertiary",
+                "text-onTertiary",
                 "uppercase tracking-widest font-semibold",
                 "shadow-sm",
-                "hover:bg-gray-50",
-                "focus:ring-secondary",
+                "hover:bg-tertiaryHover",
+                "focus:ring-primary",
                 className,
             ].join(" ")}
         />

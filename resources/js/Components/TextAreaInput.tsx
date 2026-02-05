@@ -41,12 +41,12 @@ export default forwardRef(function TextAreaInput(
             className={[
                 "rounded-md",
                 "bg-primary",
-                // "text-onPrimary",
+                "text-onPrimary",
                 "border",
-                "border-onPrimary",
+                "border-tertiary",
                 "focus:outline-none",
                 "focus:ring-2",
-                "focus:ring-primaryAccent",
+                "focus:ring-tertiary",
                 "text-lg font-medium text-pretty",
                 className,
             ].join(" ")}

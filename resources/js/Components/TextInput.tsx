@@ -45,13 +45,11 @@ export default forwardRef(function TextInput(
             <input
                 {...props}
                 type={type}
-                className={
-                    "rounded-md bg-primary text-onPrimary border-onPrimary " +
-                    "focus:outline-none " +
-                    "focus:ring-2 " +
-                    "focus:ring-primaryAccent " +
-                    className
-                }
+                className={[
+                    "rounded-md bg-primary text-onPrimary border-tertiary",
+                    "focus:outline-none focus:ring-2 focus:ring-tertiary",
+                    className,
+                ].join(" ")}
                 ref={localRef}
             />
         </div>

@@ -1,10 +1,10 @@
-import PrimaryButton from "@/Components/Buttons/PrimaryButton";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import useGetWindowWidth from "@/Hooks/useGetWindowWidth";
 import { Form, useForm, usePage } from "@inertiajs/react";
 import { ButtonSize } from "../Buttons/BaseButton";
+import TertiaryButton from "../Buttons/TertiaryButton";
 import TextAreaInput from "../TextAreaInput";
 import SectionHeadline from "./SectionHeadline";
 
@@ -54,7 +54,7 @@ export default function ContactSection() {
                             id="first_name"
                             name="first_name"
                             value={data.first_name}
-                            className="mt-1 block w-full bg-white/5 text-onSecondary"
+                            className="mt-1 block w-full bg-white/5 text-onPrimary"
                             autoComplete="name"
                             onChange={(e) =>
                                 setData("first_name", e.target.value)
@@ -78,7 +78,7 @@ export default function ContactSection() {
                             id="last_name"
                             name="last_name"
                             value={data.last_name}
-                            className="mt-1 block w-full bg-white/5 text-onSecondary"
+                            className="mt-1 block w-full bg-white/5 text-onPrimary"
                             autoComplete="name"
                             onChange={(e) =>
                                 setData("last_name", e.target.value)
@@ -104,7 +104,7 @@ export default function ContactSection() {
                             type="email"
                             name="email"
                             value={data.email}
-                            className="mt-1 block w-full bg-white/5 text-onSecondary"
+                            className="mt-1 block w-full bg-white/5 text-onPrimary"
                             autoComplete="username"
                             onChange={(e) => setData("email", e.target.value)}
                             required
@@ -124,7 +124,7 @@ export default function ContactSection() {
                             id="message"
                             name="message"
                             value={data.message}
-                            className="mt-1 block w-full bg-white/5 text-onSecondary"
+                            className="mt-1 block w-full bg-white/5"
                             autoComplete="new-message"
                             onChange={(e) => setData("message", e.target.value)}
                             required
@@ -134,13 +134,13 @@ export default function ContactSection() {
                     </div>
 
                     <div className="mt-4 flex items-center justify-end w-full md:col-start-2">
-                        <PrimaryButton
+                        <TertiaryButton
                             // className="ms-4"
                             disabled={processing}
                             size={buttonSize}
                         >
                             Contact
-                        </PrimaryButton>
+                        </TertiaryButton>
                     </div>
                 </Form>
             </div>

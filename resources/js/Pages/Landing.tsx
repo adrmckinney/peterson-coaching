@@ -4,6 +4,8 @@ import PrimaryButton from "@/Components/Buttons/PrimaryButton";
 import ConditionalRender from "@/Components/ConditionalRender";
 import ContactSection from "@/Components/Sections/ContactSection";
 import FeatureSection from "@/Components/Sections/FeatureSection";
+import PackageSection from "@/Components/Sections/PackageSection";
+import TestimonialSection from "@/Components/Sections/TestimonalSection";
 import TextAreaEditor from "@/Components/TextAreaEditor";
 import TextInput from "@/Components/TextInput";
 import useGetWindowWidth from "@/Hooks/useGetWindowWidth";
@@ -401,6 +403,8 @@ const Landing = () => {
                 </div>
             </div>
             <FeatureSection />
+            <TestimonialSection />
+            <PackageSection />
             <ContactSection />
         </>
     );
