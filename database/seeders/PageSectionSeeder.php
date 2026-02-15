@@ -62,14 +62,32 @@ class PageSectionSeeder extends Seeder
                 'settings' => [
                     'layout' => $layout,
 
-                    'headline' => $textBlock("Hi, I'm Inga."),
+                    // 'headline' => $textBlock("Hi, I'm Inga."),
 
                     'paragraphs' => [
+                        $textBlock(
+                            "Graduation doesn’t just mark an ending. It dismantles the structure your life has been built around."
+                        ),
+                        $textBlock(
+                            "For years, there’s been a clear framework for how life works — who to be, where to be, what comes next, how progress happens."
+                        ),
+                        $textBlock(
+                            "Then that framework disappears."
+                        ),
+                        $textBlock(
+                            "You’re suddenly making decisions, about work, money, where to live, and what matters, without a map and while pressure, comparison, and outside expectations drown out your own clarity."
+                        ),
+                        $textBlock(
+                            "You’re expected to move forward anyway. To decide. To choose. To figure it out."
+                        ),
+                        $textBlock(
+                            "All while your foundation is still shifting."
+                        ),
                         $textBlock(
                             "I’m a post-grad transition coach with 25+ years of experience working with college seniors and recent grads."
                         ),
                         $textBlock(
-                            "I help you stay connected to yourself in a threshold season where everything is changing — so you can think clearly, choose deliberately, and move forward in a way that feels true to who you’re becoming."
+                            "I help you stay connected to yourself in a threshold season where everything is changing so you can think clearly, choose deliberately, and move forward in a way that feels true to who you’re becoming."
                         ),
                     ],
                 ],

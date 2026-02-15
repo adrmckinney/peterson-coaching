@@ -1,9 +1,9 @@
-import { Section } from "@/types/Section";
+import { PageSection } from "@/types/PageSections";
 
 export const groupSectionsByPage = (
-    sections: Section[],
-): Record<number, Section[]> => {
-    return sections.reduce<Record<number, Section[]>>((acc, section) => {
+    sections: PageSection[],
+): Record<number, PageSection[]> => {
+    return sections.reduce<Record<number, PageSection[]>>((acc, section) => {
         if (!acc[section.page_id]) {
             acc[section.page_id] = [];
         }

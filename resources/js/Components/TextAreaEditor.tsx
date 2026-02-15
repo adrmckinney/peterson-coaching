@@ -100,7 +100,9 @@ export default forwardRef(function TextareaEditor(
                             </div>
                             <div className="bg-secondary w-56 h-32 border rounded z-50 p-4 text-onSecondary">
                                 <PrimaryButton
-                                    onChange={() => reset(props?.id, "color")}
+                                    onChange={() =>
+                                        reset(props?.id || "", "color")
+                                    }
                                 >
                                     Undo Color Change
                                 </PrimaryButton>

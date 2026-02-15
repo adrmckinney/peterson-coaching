@@ -11,7 +11,6 @@ import TextInput from "@/Components/TextInput";
 import useGetWindowWidth from "@/Hooks/useGetWindowWidth";
 import { usePageEditor } from "@/Hooks/usePageEditor";
 import AppLayout from "@/Layouts/AppLayout";
-import { Page } from "@/types/Page";
 import { LandingIntroSettings } from "@/types/PageSections";
 import { TextBlock } from "@/types/Text";
 import { Dialog, DialogPanel } from "@headlessui/react";
@@ -24,29 +23,34 @@ const Landing = () => {
     const { currentTailwindBreakpoint } = useGetWindowWidth();
     const editor = usePageEditor();
 
-    const { pages, isEditable, getSectionByPageId, updateSectionValue } =
-        editor;
-    const landingPage = pages.find((p: Page) => p.slug === "landing");
-    const sections = getSectionByPageId(1);
-    const introSection = sections?.find((s) => s.type === "landing_intro");
+    const {
+        isEditable,
+        getSectionByPageId,
+        updateSectionValue,
+        getSectionByType,
+    } = editor;
+
+    const introSection = getSectionByType("landing_intro");
     const introSettings = introSection?.settings;
 
     // const [editMode, setEditMode] = useState(isEditable);
     const [draftCopy, setDraftCopy] = useState<LandingIntroSettings | null>(
         null,
     );
+
+    if (introSection === undefined || introSection.id === undefined) {
+        return <div>...Loading</div>;
+    }
+
     // 🚨 Guard AFTER hooks
     if (!editor.hydrated) {
         return <div>...Loading</div>;
     }
-    console.log("pages", pages);
-    console.log("landingPage", landingPage);
 
-    console.log("sections", sections);
-    const landingIntroSection: LandingIntroSettings = sections?.find(
-        (s) => s?.type === "landing_intro",
-    );
-    console.log("p update …", introSettings.paragraphs[1]);
+    // const landingIntroSection: LandingIntroSettings = sections?.find(
+    //     (s) => s?.type === "landing_intro",
+    // );
+
     // if (!landingIntroSection) {
     //     throw new Error("Landing intro section not found");
     // }
@@ -104,11 +108,9 @@ const Landing = () => {
     };
 
     const updateTextBlock = (key: "headline", patch: Partial<TextBlock>) => {
-        if (!landingIntroSection) return;
-
+        // if (!landingIntroSection) return;
         // setSectionState((prev) => {
         //     if (!prev) return prev;
-
         //     return {
         //         ...prev,
         //         [key]: {
@@ -279,42 +281,57 @@ const Landing = () => {
                                 <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl z-20">
                                     <div className="hidden sm:mb-10 sm:flex"></div>
                                     <ConditionalRender
-                                        condition={isEditable}
-                                        falseRender={
-                                            <h1
-                                                className={[
-                                                    "text-5xl font-semibold tracking-tight text-pretty",
-                                                    "sm:text-4xl",
-                                                ].join(" ")}
+                                        condition={
+                                            !!introSettings?.headline?.text
+                                                ?.length
+                                        }
+                                    >
+                                        <ConditionalRender
+                                            condition={isEditable}
+                                            falseRender={
+                                                <h1
+                                                    className={[
+                                                        "text-5xl font-semibold tracking-tight text-pretty",
+                                                        "sm:text-4xl",
+                                                    ].join(" ")}
+                                                    style={{
+                                                        color:
+                                                            introSettings
+                                                                ?.headline
+                                                                ?.color ??
+                                                            "var(--color-onPrimary)",
+                                                    }}
+                                                >
+                                                    {
+                                                        introSettings?.headline
+                                                            ?.text
+                                                    }
+                                                </h1>
+                                            }
+                                        >
+                                            <TextInput
+                                                value={
+                                                    introSettings?.headline
+                                                        ?.text ?? ""
+                                                }
+                                                onChange={(e) =>
+                                                    updateTextBlock(
+                                                        "headline",
+                                                        {
+                                                            text: e.target
+                                                                .value,
+                                                        },
+                                                    )
+                                                }
+                                                className="text-5xl font-semibold tracking-tight text-pretty border-none"
                                                 style={{
                                                     color:
                                                         introSettings?.headline
                                                             ?.color ??
                                                         "var(--color-onPrimary)",
                                                 }}
-                                            >
-                                                {introSettings?.headline?.text}
-                                            </h1>
-                                        }
-                                    >
-                                        <TextInput
-                                            value={
-                                                introSettings?.headline?.text ??
-                                                ""
-                                            }
-                                            onChange={(e) =>
-                                                updateTextBlock("headline", {
-                                                    text: e.target.value,
-                                                })
-                                            }
-                                            className="text-5xl font-semibold tracking-tight text-pretty border-none"
-                                            style={{
-                                                color:
-                                                    introSettings?.headline
-                                                        ?.color ??
-                                                    "var(--color-onPrimary)",
-                                            }}
-                                        />
+                                            />
+                                        </ConditionalRender>
                                     </ConditionalRender>
 
                                     {introSettings?.paragraphs?.map(
@@ -361,14 +378,11 @@ const Landing = () => {
                                                         }}
                                                         onColorChange={(e) =>
                                                             updateSectionValue(
-                                                                landingPage?.id,
+                                                                introSection?.page_id,
                                                                 introSection?.id,
                                                                 [
                                                                     "paragraphs",
-                                                                    {
-                                                                        arrayId:
-                                                                            paragraph?.id,
-                                                                    },
+                                                                    `${paragraph?.id}`,
                                                                     "color",
                                                                 ],
                                                                 e.target.value,

@@ -9,16 +9,20 @@ const FeatureSection = () => {
 
     const { isEditable, getSectionByType } = editor;
     const videosSection = getSectionByType("intro_video_gallery");
+    console.log("videosSection", videosSection);
+    if (!videosSection || !videosSection.videos) {
+        return <div>Loading...</div>;
+    }
     const { videos } = videosSection;
     console.log("videos", videos);
     const videoTitleSection = getSectionByType("intro_video_section_title");
 
-    // if (!videoTitleSection) {
-    //     throw new Error("Video title section not found");
-    // }
+    if (!videoTitleSection) {
+        throw new Error("Video title section not found");
+    }
 
     const videoTitleSettings: VideoSectionTitleSettings =
-        videoTitleSection?.settings;
+        videoTitleSection.settings;
 
     console.log("videoTitleSettings", videoTitleSettings);
 

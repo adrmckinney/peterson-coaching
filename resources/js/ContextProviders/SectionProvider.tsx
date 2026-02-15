@@ -1,14 +1,14 @@
 import { editorReducer } from "@/Reducers/SectionReducer";
 import { Page } from "@/types/Page";
+import { PageSection } from "@/types/PageSections";
 import { EditorState, initialEditorState } from "@/types/ReducerTypes";
-import { Section } from "@/types/Section";
 import { createContext, ReactNode, useEffect, useReducer } from "react";
 
 type SectionContextValue = {
     state: EditorState;
     initFromServer: (
         pages: Page[],
-        sections: Section[],
+        sections: PageSection[],
         isEditable: boolean,
     ) => void;
     updateSectionValue: (
@@ -29,7 +29,7 @@ type SectionContextValue = {
 type SectionProviderProps = {
     children: ReactNode;
     pages: Page[];
-    sections: Section[];
+    sections: PageSection[];
     isEditable: boolean;
 };
 
@@ -60,7 +60,7 @@ export const SectionProvider = ({
 
     const initFromServer = (
         pages: Page[],
-        sections: Section[],
+        sections: PageSection[],
         isEditable: boolean,
     ) =>
         dispatch({

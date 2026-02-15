@@ -12,50 +12,57 @@ const tiers = [
         id: "post-grad-reset",
         href: "https://stan.store/IngaPeterson",
         price: { monthly: "$149", annually: "" },
+        priceSubText: "session",
         image: "/images/post-grad-reset-static.png",
         description:
             "A focused 60-minute coaching session designed to help you reset your energy, regain perspective, and get clear on what actually matters right now — during senior year or the months after graduation.",
         features: [
-            "This is a pause in the noise.",
-            "A chance to slow things down, get out of your head, and sort through what’s feeling heavy — without pressure, judgment, or anyone telling you what you should be doing.",
-            "The goal isn’t to solve your whole future in an hour.",
-            "It’s to help you feel steadier, clearer, and more capable of moving forward from where you actually are.",
+            // "This is a pause in the noise.",
+            // "A chance to slow things down, get out of your head, and sort through what’s feeling heavy — without pressure, judgment, or anyone telling you what you should be doing.",
+            // "The goal isn’t to solve your whole future in an hour.",
+            // "It’s to help you feel steadier, clearer, and more capable of moving forward from where you actually are.",
         ],
         featured: false,
         cta: "Buy Package",
     },
     {
-        name: "Startup",
-        id: "tier-startup",
-        href: "#",
-        price: { monthly: "$29", annually: "$299" },
-        description: "A plan that scales with your rapidly growing business.",
-        features: [
-            "25 products",
-            "Up to 10,000 subscribers",
-            "Advanced analytics",
-            "24-hour support response time",
-            "Marketing automations",
-        ],
+        name: "Post-Grad Starter Pack",
+        id: "post-grad-starter-pack",
+        href: "https://stan.store/IngaPeterson",
+        image: "/images/post-grad-starter-pack-static.png",
+        price: { monthly: "$375", annually: "" },
+        priceSubText: "3 sessions",
+        description:
+            "A three-session coaching package designed to support seniors and recent graduates during a high-pressure transition. This is for when decisions keep coming and you want steady guidance, clearer thinking, and support over time—not just one conversation",
+        features: [],
         featured: false,
         cta: "Buy Package",
     },
     {
-        name: "Enterprise",
-        id: "tier-enterprise",
-        href: "#",
-        price: "Custom",
-        description: "Dedicated support and infrastructure for your company.",
-        features: [
-            "Unlimited products",
-            "Unlimited subscribers",
-            "Advanced analytics",
-            "1-hour, dedicated support response time",
-            "Marketing automations",
-            "Custom reporting tools",
-        ],
-        featured: true,
-        cta: "Contact sales",
+        name: "Post-Grad Navigation",
+        id: "post-grad-navigation",
+        href: "https://stan.store/IngaPeterson",
+        image: "/images/post-grad-navigation.png",
+        price: { monthly: "$990", annually: "" },
+        priceSubText: "8 weeks",
+        description:
+            "An ongoing coaching option for seniors and recent grads navigating big decisions and rising pressure around graduation and what comes next. This work offers steady support as choices unfold—helping you think clearly, stay grounded, and move forward without rushing yourself or trying to figure everything out alone.Post-Grad Navigation is offered as ongoing coaching with a two-month minimum commitment.",
+        features: [],
+        featured: false,
+        cta: "Buy Package",
+    },
+    {
+        name: "Ask Me Anything (AMA)",
+        id: "ask-me-anything",
+        href: "https://stan.store/IngaPeterson",
+        image: "/images/ask-me-anything-static.png",
+        price: { monthly: "$30", annually: "" },
+        priceSubText: "session",
+        description:
+            "A short coaching video focused on one question or decision that’s weighing on you.Get perspective and guidance you can revisit whenever you need it.",
+        features: [],
+        featured: false,
+        cta: "Buy Package",
     },
 ];
 
@@ -67,36 +74,7 @@ export default function PackageSection() {
                     <SectionHeadline title="Packages" />
                 </div>
 
-                <div className="mt-16 flex justify-center">
-                    <fieldset aria-label="Payment frequency">
-                        <div className="grid grid-cols-2 gap-x-1 rounded-full p-1 text-center text-xs/5 font-semibold inset-ring inset-ring-gray-200 dark:inset-ring-white/10">
-                            <label className="group relative rounded-full px-2.5 py-1 has-checked:bg-indigo-600 dark:has-checked:bg-indigo-500">
-                                <input
-                                    defaultValue="monthly"
-                                    defaultChecked
-                                    name="frequency"
-                                    type="radio"
-                                    className="absolute inset-0 appearance-none rounded-full"
-                                />
-                                <span className="text-gray-500 group-has-checked:text-white dark:text-gray-400">
-                                    Monthly
-                                </span>
-                            </label>
-                            <label className="group relative rounded-full px-2.5 py-1 has-checked:bg-indigo-600 dark:has-checked:bg-indigo-500">
-                                <input
-                                    defaultValue="annually"
-                                    name="frequency"
-                                    type="radio"
-                                    className="absolute inset-0 appearance-none rounded-full"
-                                />
-                                <span className="text-gray-500 group-has-checked:text-white dark:text-gray-400">
-                                    Annually
-                                </span>
-                            </label>
-                        </div>
-                    </fieldset>
-                </div>
-                <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-2">
                     {tiers.map((tier) => (
                         <div
                             key={tier.id}
@@ -122,7 +100,7 @@ export default function PackageSection() {
 
                             <p
                                 className={[
-                                    "mt-4 text-lg/6",
+                                    "mt-4 text-base/6",
                                     "text-onPrimary",
                                     //   'group-data-featured/tier:text-gray-300'
                                 ].join(" ")}
@@ -146,7 +124,7 @@ export default function PackageSection() {
                                             {tier.price.monthly}
                                         </span>
                                         <span className="text-sm/6 font-semibold text-gray-600 group-data-featured/tier:text-gray-300 dark:text-gray-400">
-                                            /session
+                                            {`/${tier.priceSubText}`}
                                         </span>
                                     </p>
                                     <p className="mt-6 flex items-baseline gap-x-1 group-not-has-[[name=frequency][value=annually]:checked]/tiers:hidden">
@@ -157,15 +135,15 @@ export default function PackageSection() {
                                 </>
                             )}
 
-                            <TertiaryButton
-                                value={tier.id}
-                                name="tier"
-                                size="xl"
-                                type="submit"
-                                aria-describedby={`tier-${tier.id}`}
-                                className="w-full"
-                            >
-                                {tier.cta}
+                            <TertiaryButton size="xl" className="w-full">
+                                <a
+                                    href={tier.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-describedby={`tier-${tier.id}`}
+                                >
+                                    {tier.cta}
+                                </a>
                             </TertiaryButton>
                             <ul
                                 role="list"

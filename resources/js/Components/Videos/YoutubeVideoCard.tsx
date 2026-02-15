@@ -1,4 +1,4 @@
-import { Video } from "@/types";
+import { Video } from "@/types/Videos";
 
 type Props = {
     video: Video;

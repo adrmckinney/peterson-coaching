@@ -1,5 +1,5 @@
 import { SectionContext } from "@/ContextProviders/SectionProvider";
-import { SectionTypes } from "@/types/PageSections";
+import { PageSection } from "@/types/PageSections";
 import { useContext } from "react";
 
 export const usePageEditor = () => {
@@ -9,6 +9,15 @@ export const usePageEditor = () => {
     const sections = Object.values(ctx.state.current.sectionsByPage).flat();
     console.log("sections in hook", sections);
     // console.log('sections.find((s) => s.type === type)', sections.find((s) => s.type === ''))
+
+    const getSectionByType = <T extends PageSection["type"]>(
+        type: T,
+    ): Extract<PageSection, { type: T }> | undefined => {
+        return sections.find(
+            (s): s is Extract<PageSection, { type: T }> => s.type === type,
+        );
+    };
+
     return {
         // page: ctx.state.current.pages.find((p) => p.id === pageId),
         // sections,
@@ -16,8 +25,7 @@ export const usePageEditor = () => {
         hydrated: ctx?.state?.hydrated,
         getSectionByPageId: (pageId: number) =>
             ctx.state.current.sectionsByPage[pageId] ?? [],
-        getSectionByType: (type: SectionTypes) =>
-            sections.find((s) => s.type === type),
+        getSectionByType,
 
         updateSectionValue: (
             pageId: number,

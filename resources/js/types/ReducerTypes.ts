@@ -1,5 +1,5 @@
 import { Page } from "./Page";
-import { Section } from "./Section";
+import { PageSection } from "./PageSections";
 
 export type EditorState = {
     hydrated: boolean;
@@ -7,12 +7,12 @@ export type EditorState = {
 
     persisted: {
         pages: Page[];
-        sectionsByPage: Record<number, Section[]>;
+        sectionsByPage: Record<number, PageSection[]>;
     };
 
     current: {
         pages: Page[];
-        sectionsByPage: Record<number, Section[]>;
+        sectionsByPage: Record<number, PageSection[]>;
     };
 };
 
@@ -35,7 +35,7 @@ export type EditorAction =
     | {
           type: "INIT_FROM_SERVER";
           pages: Page[];
-          sections: Section[];
+          sections: PageSection[];
           isEditable: boolean;
       }
     | {
