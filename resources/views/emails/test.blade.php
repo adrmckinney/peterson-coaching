@@ -1,0 +1,1 @@
+<h1>Mailgun is working 🚀</h1>

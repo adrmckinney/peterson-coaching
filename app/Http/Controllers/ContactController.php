@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactMail;
+use App\Mail\TestMail;
 use App\Models\Contact;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -35,6 +38,8 @@ class ContactController extends Controller
         ]);
 
         // Add event(new Contacted($user)) here
+
+        Mail::to($validated['email'])->send(new ContactMail($contact));
 
         return back()->with('success', 'Thanks for reaching out! I’ll be in touch soon.');
     }

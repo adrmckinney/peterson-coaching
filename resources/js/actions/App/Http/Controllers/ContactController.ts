@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\ContactController::store
-* @see app/Http/Controllers/ContactController.php:21
+* @see app/Http/Controllers/ContactController.php:24
 * @route '/contact'
 */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -16,7 +16,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\ContactController::store
-* @see app/Http/Controllers/ContactController.php:21
+* @see app/Http/Controllers/ContactController.php:24
 * @route '/contact'
 */
 store.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\ContactController::store
-* @see app/Http/Controllers/ContactController.php:21
+* @see app/Http/Controllers/ContactController.php:24
 * @route '/contact'
 */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({

@@ -10,10 +10,10 @@ import SectionHeadline from "./SectionHeadline";
 
 export default function ContactSection() {
     const { data, setData, processing, errors, reset } = useForm({
-        first_name: "",
-        last_name: "",
-        email: "",
-        message: "",
+        first_name: "Dan",
+        last_name: "McKinney",
+        email: "adrmckinney@gmail.com",
+        message: "This is my message",
     });
     const { flash } = usePage().props as {
         flash?: {

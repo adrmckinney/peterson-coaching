@@ -3,7 +3,9 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ProfileController;
+use App\Mail\TestMail;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -38,5 +40,8 @@ Route::patch('admin/pages/{page}/sections/{section}', [LandingController::class,
     // ->middleware(['auth', 'can:edit-pages'])
     ->name('admin.landing.patch.section');
 
+// Route::get('/test-mail', function () {
+//     return Mail::to('adrmckinney@gmail.com')->send(new TestMail());
+// });
 
 require __DIR__ . '/auth.php';
