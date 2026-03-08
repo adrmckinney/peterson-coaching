@@ -3,7 +3,7 @@
 
         {{-- Brand PNG --}}
         <img
-            src="{{ config('app.url') . '/images/email-brand.png' }}"
+            src="{{ config('app.url') . '/images/brand-logo.jpeg' }}"
             alt="Inga Coaching"
             width="120"
             style="display:block; margin:0 auto 12px auto;">

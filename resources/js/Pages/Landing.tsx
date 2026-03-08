@@ -255,7 +255,7 @@ const Landing = () => {
                     </Dialog>
                 </header>
 
-                <div className="relative">
+                <div className="relative flex flex-col-reverse lg:block">
                     <div className="mx-auto max-w-7xl">
                         <div className="relative z-10 pt-14 lg:w-full lg:max-w-2xl">
                             <svg
@@ -407,7 +407,12 @@ const Landing = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="bg-primary lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+                    <div
+                        className={[
+                            "bg-primary lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2",
+                            "mt-36 lg:mt-0",
+                        ].join(" ")}
+                    >
                         <img
                             alt="Inga's Profile"
                             src={ingaOnSidewalk}
