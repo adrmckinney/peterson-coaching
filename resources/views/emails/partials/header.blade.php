@@ -1,5 +1,5 @@
 <tr>
-    <td align="center" style="background-color:#000d16; padding:30px 20px;">
+    <td align="center" style="background-color:#000d16;">
 
         {{-- Brand PNG --}}
         <img
