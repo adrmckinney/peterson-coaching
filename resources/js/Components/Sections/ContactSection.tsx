@@ -54,8 +54,10 @@ export default function ContactSection() {
                             id="first_name"
                             name="first_name"
                             value={data.first_name}
-                            className="mt-1 block w-full bg-white/5 text-onPrimary"
-                            autoComplete="name"
+                            className={[
+                                "mt-1 block w-full bg-white/5 text-onPrimary",
+                            ].join(" ")}
+                            autoComplete="given-name"
                             onChange={(e) =>
                                 setData("first_name", e.target.value)
                             }
@@ -79,7 +81,7 @@ export default function ContactSection() {
                             name="last_name"
                             value={data.last_name}
                             className="mt-1 block w-full bg-white/5 text-onPrimary"
-                            autoComplete="name"
+                            autoComplete="family-name"
                             onChange={(e) =>
                                 setData("last_name", e.target.value)
                             }
@@ -105,7 +107,7 @@ export default function ContactSection() {
                             name="email"
                             value={data.email}
                             className="mt-1 block w-full bg-white/5 text-onPrimary"
-                            autoComplete="username"
+                            autoComplete="email"
                             onChange={(e) => setData("email", e.target.value)}
                             required
                         />
