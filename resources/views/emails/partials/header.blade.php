@@ -3,14 +3,9 @@
 
         {{-- Brand PNG --}}
         <img
-            src="{{ config('app.url') . '/images/brand-logo.jpeg' }}"
-            alt="Inga Coaching"
-            width="120"
-            style="display:block; margin:0 auto 12px auto;">
-
-        <h1 style="margin:0; font-size:20px; font-weight:600; color:#f6f7ec;">
-            Peterson Coaching and Consulting
-        </h1>
-
+            src="{{ $message->embed(public_path('images/email-brand-banner.jpeg')) }}"
+            alt="Peterson Coaching and Consulting"
+            width="100%"
+            style="display:block; width:100%; max-width:600px; height:auto; margin:0;">
     </td>
 </tr>
