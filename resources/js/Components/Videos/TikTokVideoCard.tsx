@@ -42,7 +42,7 @@ const TikTokVideoCard = ({ video }: Props) => {
                         />
 
                         {/* Optional play overlay */}
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition">
+                        <div className="absolute inset-0 flex items-start pt-2 justify-center bg-black/20 group-hover:bg-black/30 transition">
                             <div className="rounded-full bg-white/20 px-4 py-2 text-sm font-medium shadow">
                                 ▶ Play
                             </div>
