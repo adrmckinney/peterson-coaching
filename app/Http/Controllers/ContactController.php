@@ -8,6 +8,7 @@ use App\Models\Contact;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
@@ -37,10 +38,17 @@ class ContactController extends Controller
             'message' => $validated['message'],
         ]);
 
-        // Add event(new Contacted($user)) here
+        try {
+            Mail::to($validated['email'])->send(new ContactMail($contact));
 
-        Mail::to($validated['email'])->send(new ContactMail($contact));
-
-        return back()->with('success', 'Thanks for reaching out! I’ll be in touch soon.');
+            return back()->with('success', 'Thanks for reaching out! I’ll be in touch soon.');
+        } catch (\Throwable $e) {
+            Log::error('Contact email failed', [
+                'contact_id' => $contact->id,
+                'email' => $validated['email'],
+                'exception' => $e,
+            ]);
+            return back()->with('error', 'Something went wrong sending your message. Please try again.');
+        }
     }
 }

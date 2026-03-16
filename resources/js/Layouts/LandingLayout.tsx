@@ -1,9 +1,7 @@
 import BrandBanner from "@/Assets/SVG/BrandBanner";
-import useLogWindowBreakpoint from "@/Hooks/useLogWindowBreakpoint";
 import { PropsWithChildren } from "react";
 
 export default function LandingLayout({ children }: PropsWithChildren) {
-    useLogWindowBreakpoint();
     return (
         <>
             <div className="flex min-h-screen flex-col items-center bg-slate-300">

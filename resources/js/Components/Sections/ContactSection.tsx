@@ -5,9 +5,13 @@ import useGetWindowWidth from "@/Hooks/useGetWindowWidth";
 import { Form, useForm, usePage } from "@inertiajs/react";
 import { ButtonSize } from "../Buttons/BaseButton";
 import TertiaryButton from "../Buttons/TertiaryButton";
+import ConditionalRender from "../ConditionalRender";
 import TextAreaInput from "../TextAreaInput";
 import SectionHeadline from "./SectionHeadline";
-
+type Flash = {
+    success?: string;
+    error?: string;
+};
 export default function ContactSection() {
     const { data, setData, processing, errors, reset } = useForm({
         first_name: "",
@@ -16,11 +20,9 @@ export default function ContactSection() {
         message: "",
     });
     const { flash } = usePage().props as {
-        flash?: {
-            success?: string;
-            error?: string;
-        };
+        flash?: Flash;
     };
+
     const { isBreakpointGreaterThan } = useGetWindowWidth();
 
     let buttonSize: ButtonSize = "md";
@@ -29,123 +31,163 @@ export default function ContactSection() {
     }
 
     return (
-        <div className="bg-background py-24 sm:py-32 flex flex-col justify-center items-center w-full">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <SectionHeadline title="Let's Talk About Your Future" />
-                <Form
-                    method="post"
-                    action={route("contact.store")}
-                    onSuccess={() => reset()}
-                    options={{
-                        preserveScroll: true,
-                        preserveState: true,
-                        preserveUrl: true,
-                    }}
-                    className="gap-y-6 md:gap-x-6 mt-16 grid grid-cols-1 md:grid-cols-2"
-                >
-                    <div className="">
-                        <InputLabel
-                            htmlFor="first_name"
-                            value="First Name"
-                            className="text-onBackground"
-                        />
+        <>
+            <div className="bg-background py-24 sm:py-32 flex flex-col justify-center items-center w-full">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <SectionHeadline title="Let's Talk About Your Future" />
+                    <Form
+                        method="post"
+                        action={route("contact.store")}
+                        onSuccess={(page) => {
+                            const flash = (page.props as { flash?: Flash })
+                                .flash;
 
-                        <TextInput
-                            id="first_name"
-                            name="first_name"
-                            value={data.first_name}
-                            className={[
-                                "mt-1 block w-full bg-white/5 text-onPrimary",
-                            ].join(" ")}
-                            autoComplete="given-name"
-                            onChange={(e) =>
-                                setData("first_name", e.target.value)
+                            if (flash?.success) {
+                                reset();
                             }
-                            required
-                        />
+                        }}
+                        options={{
+                            preserveScroll: true,
+                            preserveState: true,
+                            preserveUrl: true,
+                        }}
+                        className="gap-y-6 md:gap-x-6 mt-16 grid grid-cols-1 md:grid-cols-2"
+                    >
+                        <div className="">
+                            <InputLabel
+                                htmlFor="first_name"
+                                value="First Name"
+                                className="text-onBackground"
+                            />
 
-                        <InputError
-                            message={errors.first_name}
-                            className="mt-2"
-                        />
-                    </div>
-                    <div>
-                        <InputLabel
-                            htmlFor="last_name"
-                            value="Last Name"
-                            className="text-onBackground"
-                        />
+                            <TextInput
+                                id="first_name"
+                                name="first_name"
+                                value={data.first_name}
+                                className={[
+                                    "mt-1 block w-full bg-white/5 text-onPrimary",
+                                ].join(" ")}
+                                autoComplete="given-name"
+                                onChange={(e) =>
+                                    setData("first_name", e.target.value)
+                                }
+                                required
+                            />
 
-                        <TextInput
-                            id="last_name"
-                            name="last_name"
-                            value={data.last_name}
-                            className="mt-1 block w-full bg-white/5 text-onPrimary"
-                            autoComplete="family-name"
-                            onChange={(e) =>
-                                setData("last_name", e.target.value)
-                            }
-                            required
-                        />
+                            <InputError
+                                message={errors.first_name}
+                                className="mt-2"
+                            />
+                        </div>
+                        <div>
+                            <InputLabel
+                                htmlFor="last_name"
+                                value="Last Name"
+                                className="text-onBackground"
+                            />
 
-                        <InputError
-                            message={errors.first_name}
-                            className="mt-2"
-                        />
-                    </div>
+                            <TextInput
+                                id="last_name"
+                                name="last_name"
+                                value={data.last_name}
+                                className="mt-1 block w-full bg-white/5 text-onPrimary"
+                                autoComplete="family-name"
+                                onChange={(e) =>
+                                    setData("last_name", e.target.value)
+                                }
+                                required
+                            />
 
-                    <div className="md:col-span-2">
-                        <InputLabel
-                            htmlFor="email"
-                            value="Email"
-                            className="text-onBackground"
-                        />
+                            <InputError
+                                message={errors.last_name}
+                                className="mt-2"
+                            />
+                        </div>
 
-                        <TextInput
-                            id="email"
-                            type="email"
-                            name="email"
-                            value={data.email}
-                            className="mt-1 block w-full bg-white/5 text-onPrimary"
-                            autoComplete="email"
-                            onChange={(e) => setData("email", e.target.value)}
-                            required
-                        />
+                        <div className="md:col-span-2">
+                            <InputLabel
+                                htmlFor="email"
+                                value="Email"
+                                className="text-onBackground"
+                            />
 
-                        <InputError message={errors.email} className="mt-2" />
-                    </div>
+                            <TextInput
+                                id="email"
+                                type="email"
+                                name="email"
+                                value={data.email}
+                                className="mt-1 block w-full bg-white/5 text-onPrimary"
+                                autoComplete="email"
+                                onChange={(e) =>
+                                    setData("email", e.target.value)
+                                }
+                                required
+                            />
 
-                    <div className="md:col-span-2">
-                        <InputLabel
-                            htmlFor="message"
-                            value="Message"
-                            className="text-onBackground"
-                        />
+                            <InputError
+                                message={errors.email}
+                                className="mt-2"
+                            />
+                        </div>
 
-                        <TextAreaInput
-                            id="message"
-                            name="message"
-                            value={data.message}
-                            className="mt-1 block w-full bg-white/5"
-                            autoComplete="new-message"
-                            onChange={(e) => setData("message", e.target.value)}
-                            required
-                        />
+                        <div className="md:col-span-2">
+                            <InputLabel
+                                htmlFor="message"
+                                value="Message"
+                                className="text-onBackground"
+                            />
 
-                        <InputError message={errors.message} className="mt-2" />
-                    </div>
+                            <TextAreaInput
+                                id="message"
+                                name="message"
+                                value={data.message}
+                                className="mt-1 block w-full bg-white/5"
+                                autoComplete="new-message"
+                                onChange={(e) =>
+                                    setData("message", e.target.value)
+                                }
+                                required
+                            />
 
-                    <div className="mt-4 flex items-center justify-end w-full md:col-start-2">
-                        <TertiaryButton
-                            // className="ms-4"
-                            disabled={processing}
-                            size={buttonSize}
+                            <InputError
+                                message={errors.message}
+                                className="mt-2"
+                            />
+                        </div>
+
+                        <ConditionalRender
+                            condition={!!flash?.success || !!flash?.error}
                         >
-                            Contact
-                        </TertiaryButton>
-                    </div>
-                </Form>
+                            <div
+                                className={[
+                                    "mb-0 flex items-center rounded-md px-4 py-3",
+                                    "md:col-span-2",
+                                    flash?.success
+                                        ? "bg-green-600/20 border border-green-600 text-green-200"
+                                        : "bg-red-600/20 border border-red-600 text-red-200",
+                                ].join(" ")}
+                            >
+                                {flash?.success}
+                            </div>
+                        </ConditionalRender>
+
+                        <div
+                            className={[
+                                "mt-4 flex items-center justify-end w-full",
+                                "md:col-start-2",
+                            ].join(" ")}
+                        >
+                            <TertiaryButton
+                                // className="ms-4"
+                                disabled={processing}
+                                size={buttonSize}
+                            >
+                                Contact
+                            </TertiaryButton>
+                        </div>
+                    </Form>
+                </div>
             </div>
-        </div>
+        </>
     );
 }
