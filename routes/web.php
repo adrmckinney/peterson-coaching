@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\MailgunWebhookController;
 use App\Http\Controllers\ProfileController;
 use App\Mail\TestMail;
 use Illuminate\Foundation\Application;
@@ -43,5 +44,9 @@ Route::patch('admin/pages/{page}/sections/{section}', [LandingController::class,
 // Route::get('/test-mail', function () {
 //     return Mail::to('adrmckinney@gmail.com')->send(new TestMail());
 // });
+
+
+// Mailgun webhooks
+Route::post('/mailgun/webhook', [MailgunWebhookController::class, 'handle']);
 
 require __DIR__ . '/auth.php';
