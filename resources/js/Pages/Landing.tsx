@@ -2,11 +2,11 @@ import ingaOnSidewalk from "@/Assets/Images/ingaOnSidewalk.jpg";
 import { BrandIcon } from "@/Assets/SVG/BrandIcon";
 import PrimaryButton from "@/Components/Buttons/PrimaryButton";
 import ConditionalRender from "@/Components/ConditionalRender";
+import ConditionalParagraphEditor from "@/Components/Paragraphs/ConditionalParagraphEditor";
 import ContactSection from "@/Components/Sections/ContactSection";
 import FeatureSection from "@/Components/Sections/FeatureSection";
 import PackageSection from "@/Components/Sections/PackageSection";
 import TestimonialSection from "@/Components/Sections/TestimonalSection";
-import TextAreaEditor from "@/Components/TextAreaEditor";
 import TextInput from "@/Components/TextInput";
 import useGetWindowWidth from "@/Hooks/useGetWindowWidth";
 import { usePageEditor } from "@/Hooks/usePageEditor";
@@ -16,6 +16,7 @@ import { TextBlock } from "@/types/Text";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/16/solid";
 import React, { useState } from "react";
+
 const navigation = [{ name: "Product", href: "#" }];
 
 const Landing = () => {
@@ -32,7 +33,7 @@ const Landing = () => {
 
     const introSection = getSectionByType("landing_intro");
     const introSettings = introSection?.settings;
-
+    console.log("introSettings", introSettings);
     // const [editMode, setEditMode] = useState(isEditable);
     const [draftCopy, setDraftCopy] = useState<LandingIntroSettings | null>(
         null,
@@ -336,70 +337,32 @@ const Landing = () => {
 
                                     {introSettings?.paragraphs?.map(
                                         (paragraph: TextBlock) => {
-                                            console.log(
-                                                "paragraph?.color",
-                                                paragraph?.color,
-                                            );
                                             return (
-                                                <ConditionalRender
-                                                    key={paragraph?.id}
+                                                <ConditionalParagraphEditor
                                                     condition={isEditable}
-                                                    falseRender={
-                                                        <p
-                                                            key={paragraph?.id}
-                                                            className="mt-8 text-lg font-medium text-pretty sm:text-xl/8"
-                                                            style={{
-                                                                color:
-                                                                    paragraph?.color ??
-                                                                    "var(--color-onPrimary)",
-                                                            }}
-                                                        >
-                                                            {paragraph?.text}
-                                                        </p>
+                                                    content={paragraph}
+                                                    handleColorChange={(e) =>
+                                                        updateSectionValue(
+                                                            introSection?.page_id,
+                                                            introSection?.id,
+                                                            [
+                                                                "paragraphs",
+                                                                `${paragraph?.id}`,
+                                                                "color",
+                                                            ],
+                                                            e.target.value,
+                                                        )
                                                     }
-                                                >
-                                                    <TextAreaEditor
-                                                        key={paragraph?.id}
-                                                        id={paragraph?.id}
-                                                        // reset={reset}
-                                                        value={
-                                                            paragraph?.text ||
-                                                            ""
-                                                        }
-                                                        colorValue={
-                                                            paragraph?.color ||
-                                                            ""
-                                                        }
-                                                        className="mt-8 text-lg font-medium text-pretty sm:text-xl/8 border-none"
-                                                        style={{
-                                                            color:
-                                                                paragraph?.color ||
-                                                                "var(--color-onPrimary)",
-                                                        }}
-                                                        onColorChange={(e) =>
-                                                            updateSectionValue(
-                                                                introSection?.page_id,
-                                                                introSection?.id,
-                                                                [
-                                                                    "paragraphs",
-                                                                    `${paragraph?.id}`,
-                                                                    "color",
-                                                                ],
-                                                                e.target.value,
-                                                            )
-                                                        }
-                                                        onChange={(e) =>
-                                                            updateParagraph(
-                                                                paragraph?.id,
-                                                                {
-                                                                    text: e
-                                                                        .target
-                                                                        .value,
-                                                                },
-                                                            )
-                                                        }
-                                                    />
-                                                </ConditionalRender>
+                                                    handleTextChange={(e) =>
+                                                        updateParagraph(
+                                                            paragraph?.id,
+                                                            {
+                                                                text: e.target
+                                                                    .value,
+                                                            },
+                                                        )
+                                                    }
+                                                />
                                             );
                                         },
                                     )}
