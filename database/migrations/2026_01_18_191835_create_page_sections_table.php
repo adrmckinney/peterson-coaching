@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('type'); // landing_hero, video_list, text_block
             $table->json('settings');
             $table->boolean('visible')->default(true);
+            $table->unsignedInteger('sort_order')->default(0);
             $table->datetimes();
         });
     }
