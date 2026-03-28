@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactMail;
-use App\Mail\TestMail;
 use App\Models\Contact;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -18,7 +17,7 @@ class ContactController extends Controller
         $contacts = Contact::all();
 
         return response()->json([
-            'contacts' => $contacts
+            'contacts' => $contacts,
         ]);
     }
 
@@ -48,6 +47,7 @@ class ContactController extends Controller
                 'email' => $validated['email'],
                 'exception' => $e,
             ]);
+
             return back()->with('error', 'Something went wrong sending your message. Please try again.');
         }
     }
