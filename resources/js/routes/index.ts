@@ -1,6 +1,50 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../wayfinder'
 /**
-* @see routes/web.php:22
+* @see \App\Http\Controllers\PageController::landing
+* @see app/Http/Controllers/PageController.php:15
+* @route '/'
+*/
+export const landing = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: landing.url(options),
+    method: 'get',
+})
+
+landing.definition = {
+    methods: ["get","head"],
+    url: '/',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\PageController::landing
+* @see app/Http/Controllers/PageController.php:15
+* @route '/'
+*/
+landing.url = (options?: RouteQueryOptions) => {
+    return landing.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\PageController::landing
+* @see app/Http/Controllers/PageController.php:15
+* @route '/'
+*/
+landing.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: landing.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\PageController::landing
+* @see app/Http/Controllers/PageController.php:15
+* @route '/'
+*/
+landing.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: landing.url(options),
+    method: 'head',
+})
+
+/**
+* @see routes/web.php:13
 * @route '/dashboard'
 */
 export const dashboard = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -14,7 +58,7 @@ dashboard.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/web.php:22
+* @see routes/web.php:13
 * @route '/dashboard'
 */
 dashboard.url = (options?: RouteQueryOptions) => {
@@ -22,7 +66,7 @@ dashboard.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/web.php:22
+* @see routes/web.php:13
 * @route '/dashboard'
 */
 dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -31,55 +75,11 @@ dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/web.php:22
+* @see routes/web.php:13
 * @route '/dashboard'
 */
 dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: dashboard.url(options),
-    method: 'head',
-})
-
-/**
-* @see \App\Http\Controllers\LandingController::landing
-* @see app/Http/Controllers/LandingController.php:9
-* @route '/landing'
-*/
-export const landing = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: landing.url(options),
-    method: 'get',
-})
-
-landing.definition = {
-    methods: ["get","head"],
-    url: '/landing',
-} satisfies RouteDefinition<["get","head"]>
-
-/**
-* @see \App\Http\Controllers\LandingController::landing
-* @see app/Http/Controllers/LandingController.php:9
-* @route '/landing'
-*/
-landing.url = (options?: RouteQueryOptions) => {
-    return landing.definition.url + queryParams(options)
-}
-
-/**
-* @see \App\Http\Controllers\LandingController::landing
-* @see app/Http/Controllers/LandingController.php:9
-* @route '/landing'
-*/
-landing.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
-    url: landing.url(options),
-    method: 'get',
-})
-
-/**
-* @see \App\Http\Controllers\LandingController::landing
-* @see app/Http/Controllers/LandingController.php:9
-* @route '/landing'
-*/
-landing.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
-    url: landing.url(options),
     method: 'head',
 })
 
