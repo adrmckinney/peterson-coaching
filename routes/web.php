@@ -33,20 +33,11 @@ Route::get('/landing', [LandingController::class, 'index'])->name('landing');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-Route::get('/admin/landing', [LandingController::class, 'edit'])
-    // ->middleware(['auth', 'can:edit-pages'])
-    ->name('admin.landing.edit');
-
-Route::patch('admin/pages/{page}/sections/{section}', [LandingController::class, 'patchSection'])
-    // ->middleware(['auth', 'can:edit-pages'])
-    ->name('admin.landing.patch.section');
-
 // Route::get('/test-mail', function () {
 //     return Mail::to('adrmckinney@gmail.com')->send(new TestMail());
 // });
 
-
 // Mailgun webhooks
 Route::post('/mailgun/webhook', [MailgunWebhookController::class, 'handle']);
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

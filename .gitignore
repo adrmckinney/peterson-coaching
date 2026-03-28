@@ -22,3 +22,6 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+planning
+.claude/settings.local.json
+.playwright-mcp/

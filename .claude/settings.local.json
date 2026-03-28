@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude mcp:*)",
+      "Bash(find /Users/danmckinney/coding-projects/inga-coaching/app/Models -type f -name *.php)",
+      "Bash(find /Users/danmckinney/coding-projects/inga-coaching/app/Http/Controllers -type f -name *.php)",
+      "Bash(find /Users/danmckinney/coding-projects/inga-coaching/resources/views -type f -name *.blade.php)",
+      "mcp__playwright__browser_navigate",
+      "Bash(yarn run:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "laravel-boost"
+  ]
+}

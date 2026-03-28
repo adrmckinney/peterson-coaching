@@ -1,154 +1,27 @@
 import ingaOnSidewalk from "@/Assets/Images/ingaOnSidewalk.jpg";
 import { BrandIcon } from "@/Assets/SVG/BrandIcon";
-import PrimaryButton from "@/Components/Buttons/PrimaryButton";
-import ConditionalRender from "@/Components/ConditionalRender";
 import ContactSection from "@/Components/Sections/ContactSection";
 import FeatureSection from "@/Components/Sections/FeatureSection";
 import PackageSection from "@/Components/Sections/PackageSection";
 import TestimonialSection from "@/Components/Sections/TestimonalSection";
-import TextAreaEditor from "@/Components/TextAreaEditor";
-import TextInput from "@/Components/TextInput";
 import useGetWindowWidth from "@/Hooks/useGetWindowWidth";
-import { usePageEditor } from "@/Hooks/usePageEditor";
+import { useFallbackContent } from "@/Hooks/useFallbackContent";
 import AppLayout from "@/Layouts/AppLayout";
-import { LandingIntroSettings } from "@/types/PageSections";
-import { TextBlock } from "@/types/Text";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/16/solid";
 import React, { useState } from "react";
+
 const navigation = [{ name: "Product", href: "#" }];
 
 const Landing = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { currentTailwindBreakpoint } = useGetWindowWidth();
-    const editor = usePageEditor();
+    const content = useFallbackContent();
 
-    const {
-        isEditable,
-        getSectionByPageId,
-        updateSectionValue,
-        getSectionByType,
-    } = editor;
-
-    const introSection = getSectionByType("landing_intro");
-    const introSettings = introSection?.settings;
-
-    // const [editMode, setEditMode] = useState(isEditable);
-    const [draftCopy, setDraftCopy] = useState<LandingIntroSettings | null>(
-        null,
-    );
-
-    if (introSection === undefined || introSection.id === undefined) {
-        return <div>...Loading</div>;
-    }
-
-    // 🚨 Guard AFTER hooks
-    if (!editor.hydrated) {
-        return <div>...Loading</div>;
-    }
-
-    // const landingIntroSection: LandingIntroSettings = sections?.find(
-    //     (s) => s?.type === "landing_intro",
-    // );
-
-    // if (!landingIntroSection) {
-    //     throw new Error("Landing intro section not found");
-    // }
-
-    // const [_, setSectionState] = useState<LandingIntroSettings | null>(
-    //     landingIntroSection?.settings,
-    // );
-
-    const handleSave = async () => {
-        // if (!sectionState) return;
-        // try {
-        //     const response = await axios.patch(
-        //         route("admin.landing.patch.section", {
-        //             page: landingIntroSection.page_id,
-        //             section: landingIntroSection.id,
-        //         }),
-        //         sectionState,
-        //     );
-        //     const updatedSection = response.data.section;
-        //     // Update local draft + live page data
-        //     // setSectionState(updatedSection.settings);
-        //     setDraftCopy(updatedSection.settings);
-        // } catch (error) {
-        //     console.error("Save failed", error);
-        // }
-    };
-
-    const handleCancel = () => {
-        // const copy = JSON.stringify(structuredClone(draftCopy));
-        // const orig = JSON.stringify(structuredClone(sectionState));
-        // const hasChanges = orig !== copy;
-        // if (hasChanges) {
-        //     if (confirm("Discard unsaved changes")) {
-        //         // setSectionState(draftCopy);
-        //         setEditMode(false);
-        //         router.visit(
-        //             route("landing", {
-        //                 replace: true,
-        //                 preserveScroll: true,
-        //                 preserveState: false,
-        //             }),
-        //         );
-        //     }
-        // } else {
-        //     // setSectionState(draftCopy);
-        //     setEditMode(false);
-        //     router.visit(
-        //         route("landing", {
-        //             replace: true,
-        //             preserveScroll: true,
-        //             preserveState: false,
-        //         }),
-        //     );
-        // }
-    };
-
-    const updateTextBlock = (key: "headline", patch: Partial<TextBlock>) => {
-        // if (!landingIntroSection) return;
-        // setSectionState((prev) => {
-        //     if (!prev) return prev;
-        //     return {
-        //         ...prev,
-        //         [key]: {
-        //             ...prev[key],
-        //             ...patch,
-        //         },
-        //     };
-        // });
-    };
-
-    const updateParagraph = (id: string, patch: Partial<TextBlock>) => {
-        // setSectionState((prev) => {
-        //     if (!prev) return prev;
-        //     return {
-        //         ...prev,
-        //         paragraphs: prev.paragraphs.map((p) =>
-        //             p.id === id ? { ...p, ...patch } : p,
-        //         ),
-        //     };
-        // });
-    };
+    const intro = content.landing_intro;
 
     return (
         <>
-            <ConditionalRender condition={isEditable}>
-                <div className="fixed top-4 right-4 z-50 flex gap-2">
-                    {!isEditable ? (
-                        <button onClick={() => {}}>Edit</button>
-                    ) : (
-                        <>
-                            <PrimaryButton type="button" onClick={handleSave}>
-                                Save
-                            </PrimaryButton>
-                            <button onClick={handleCancel}>Cancel</button>
-                        </>
-                    )}
-                </div>
-            </ConditionalRender>
             <div className={["bg-background"].join(" ")}>
                 <header className="absolute inset-x-0 top-0 z-40">
                     <div className="mx-auto max-w-7xl">
@@ -181,17 +54,6 @@ const Landing = () => {
                                         className="size-6"
                                     />
                                 </button>
-                                {/* <div className="hidden lg:ml-12 lg:flex lg:gap-x-14">
-                                    {navigation.map((item) => (
-                                        <a
-                                            key={item.name}
-                                            href={item.href}
-                                            className="text-sm/6 font-semibold text-gray-900 dark:text-white"
-                                        >
-                                            {item.name}
-                                        </a>
-                                    ))}
-                                </div> */}
                             </nav>
                         </div>
                     </div>
@@ -280,128 +142,19 @@ const Landing = () => {
                             >
                                 <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl z-20">
                                     <div className="hidden sm:mb-10 sm:flex"></div>
-                                    <ConditionalRender
-                                        condition={
-                                            !!introSettings?.headline?.text
-                                                ?.length
-                                        }
-                                    >
-                                        <ConditionalRender
-                                            condition={isEditable}
-                                            falseRender={
-                                                <h1
-                                                    className={[
-                                                        "text-5xl font-semibold tracking-tight text-pretty",
-                                                        "sm:text-4xl",
-                                                    ].join(" ")}
-                                                    style={{
-                                                        color:
-                                                            introSettings
-                                                                ?.headline
-                                                                ?.color ??
-                                                            "var(--color-onPrimary)",
-                                                    }}
-                                                >
-                                                    {
-                                                        introSettings?.headline
-                                                            ?.text
-                                                    }
-                                                </h1>
-                                            }
-                                        >
-                                            <TextInput
-                                                value={
-                                                    introSettings?.headline
-                                                        ?.text ?? ""
-                                                }
-                                                onChange={(e) =>
-                                                    updateTextBlock(
-                                                        "headline",
-                                                        {
-                                                            text: e.target
-                                                                .value,
-                                                        },
-                                                    )
-                                                }
-                                                className="text-5xl font-semibold tracking-tight text-pretty border-none"
-                                                style={{
-                                                    color:
-                                                        introSettings?.headline
-                                                            ?.color ??
-                                                        "var(--color-onPrimary)",
-                                                }}
-                                            />
-                                        </ConditionalRender>
-                                    </ConditionalRender>
 
-                                    {introSettings?.paragraphs?.map(
-                                        (paragraph: TextBlock) => {
-                                            console.log(
-                                                "paragraph?.color",
-                                                paragraph?.color,
-                                            );
-                                            return (
-                                                <ConditionalRender
-                                                    key={paragraph?.id}
-                                                    condition={isEditable}
-                                                    falseRender={
-                                                        <p
-                                                            key={paragraph?.id}
-                                                            className="mt-8 text-lg font-medium text-pretty sm:text-xl/8"
-                                                            style={{
-                                                                color:
-                                                                    paragraph?.color ??
-                                                                    "var(--color-onPrimary)",
-                                                            }}
-                                                        >
-                                                            {paragraph?.text}
-                                                        </p>
-                                                    }
-                                                >
-                                                    <TextAreaEditor
-                                                        key={paragraph?.id}
-                                                        id={paragraph?.id}
-                                                        // reset={reset}
-                                                        value={
-                                                            paragraph?.text ||
-                                                            ""
-                                                        }
-                                                        colorValue={
-                                                            paragraph?.color ||
-                                                            ""
-                                                        }
-                                                        className="mt-8 text-lg font-medium text-pretty sm:text-xl/8 border-none"
-                                                        style={{
-                                                            color:
-                                                                paragraph?.color ||
-                                                                "var(--color-onPrimary)",
-                                                        }}
-                                                        onColorChange={(e) =>
-                                                            updateSectionValue(
-                                                                introSection?.page_id,
-                                                                introSection?.id,
-                                                                [
-                                                                    "paragraphs",
-                                                                    `${paragraph?.id}`,
-                                                                    "color",
-                                                                ],
-                                                                e.target.value,
-                                                            )
-                                                        }
-                                                        onChange={(e) =>
-                                                            updateParagraph(
-                                                                paragraph?.id,
-                                                                {
-                                                                    text: e
-                                                                        .target
-                                                                        .value,
-                                                                },
-                                                            )
-                                                        }
-                                                    />
-                                                </ConditionalRender>
-                                            );
-                                        },
+                                    {intro.paragraphs.map(
+                                        (text, index) => (
+                                            <p
+                                                key={index}
+                                                className="mt-8 text-lg font-medium text-pretty sm:text-xl/8"
+                                                style={{
+                                                    color: "var(--color-onPrimary)",
+                                                }}
+                                            >
+                                                {text}
+                                            </p>
+                                        ),
                                     )}
                                 </div>
                             </div>
