@@ -2,6 +2,7 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import useGetWindowWidth from "@/Hooks/useGetWindowWidth";
+import { useFallbackContent } from "@/Hooks/useFallbackContent";
 import { Form, useForm, usePage } from "@inertiajs/react";
 import { ButtonSize } from "../Buttons/BaseButton";
 import TertiaryButton from "../Buttons/TertiaryButton";
@@ -13,6 +14,9 @@ type Flash = {
     error?: string;
 };
 export default function ContactSection() {
+    const content = useFallbackContent();
+    const { headline, form: formContent } = content.contact_section;
+
     const { data, setData, processing, errors, reset } = useForm({
         first_name: "",
         last_name: "",
@@ -34,7 +38,7 @@ export default function ContactSection() {
         <>
             <div className="bg-background py-24 sm:py-32 flex flex-col justify-center items-center w-full">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <SectionHeadline title="Let's Talk About Your Future" />
+                    <SectionHeadline title={headline} />
                     <Form
                         method="post"
                         action={route("contact.store")}
@@ -56,7 +60,7 @@ export default function ContactSection() {
                         <div className="">
                             <InputLabel
                                 htmlFor="first_name"
-                                value="First Name"
+                                value={formContent.fields.first_name.label}
                                 className="text-onBackground"
                             />
 
@@ -82,7 +86,7 @@ export default function ContactSection() {
                         <div>
                             <InputLabel
                                 htmlFor="last_name"
-                                value="Last Name"
+                                value={formContent.fields.last_name.label}
                                 className="text-onBackground"
                             />
 
@@ -107,7 +111,7 @@ export default function ContactSection() {
                         <div className="md:col-span-2">
                             <InputLabel
                                 htmlFor="email"
-                                value="Email"
+                                value={formContent.fields.email.label}
                                 className="text-onBackground"
                             />
 
@@ -133,7 +137,7 @@ export default function ContactSection() {
                         <div className="md:col-span-2">
                             <InputLabel
                                 htmlFor="message"
-                                value="Message"
+                                value={formContent.fields.message.label}
                                 className="text-onBackground"
                             />
 
@@ -178,11 +182,10 @@ export default function ContactSection() {
                             ].join(" ")}
                         >
                             <TertiaryButton
-                                // className="ms-4"
                                 disabled={processing}
                                 size={buttonSize}
                             >
-                                Contact
+                                {formContent.submit_label}
                             </TertiaryButton>
                         </div>
                     </Form>
