@@ -5,7 +5,7 @@
     $testimonials = $settings['testimonials'] ?? [];
 @endphp
 
-<div class="bg-background py-24 sm:py-32">
+<div id="testimonials" class="bg-background py-24 sm:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl text-center">
             <x-sections.section-headline :title="$headline" />

@@ -1,19 +1,27 @@
-@props(['settings'])
+@props(['settings', 'showNav' => false])
 
 @php
     $paragraphs = $settings['paragraphs'] ?? [];
     $heroImage = $settings['hero_image'] ?? '/images/ingaOnSidewalk.jpg';
 @endphp
 
-<div class="bg-background">
+<div id="about" class="bg-background lg:min-h-screen">
     <header class="absolute inset-x-0 top-0 z-40">
         <div class="mx-auto max-w-7xl">
-            <div class="px-6 pt-6 lg:max-w-2xl lg:pr-0 lg:pl-8">
-                <nav aria-label="Global" class="flex items-start justify-between lg:justify-start">
+            <div class="px-6 pt-6 lg:pr-0 lg:pl-8">
+                <nav aria-label="Global" class="flex items-start justify-between">
                     <a href="/" class="m-1.5 p-1.5 -ml-1.5 pl-0">
                         <span class="sr-only">Peterson Coaching and Consulting</span>
                         <x-nav.brand-icon class="h-20 sm:h-24 lg:h-48" />
                     </a>
+
+                    @if($showNav)
+                        {{-- Desktop nav links — dark text for light image background --}}
+                        <div class="hidden lg:flex lg:gap-x-8 lg:items-center lg:pt-4 lg:pr-8">
+                            <x-nav.links :dark="true" />
+                        </div>
+                    @endif
+
                     <button
                         type="button"
                         x-data
@@ -30,9 +38,9 @@
         </div>
     </header>
 
-    <div class="relative flex flex-col-reverse lg:block">
-        <div class="mx-auto max-w-7xl">
-            <div class="relative z-10 pt-14 lg:w-full lg:max-w-2xl">
+    <div class="relative flex flex-col-reverse lg:block lg:min-h-screen">
+        <div class="mx-auto max-w-7xl lg:min-h-screen">
+            <div class="relative z-10 pt-14 lg:w-full lg:max-w-2xl lg:min-h-screen">
                 <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"
                      class="absolute inset-y-0 right-8 hidden h-full w-80 translate-x-1/2 transform lg:block fill-background">
                     <polygon points="0,0 90,0 50,100 0,100" />
