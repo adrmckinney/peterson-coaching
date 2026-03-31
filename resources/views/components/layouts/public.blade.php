@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="bg-background">
 
 <head>
     <meta charset="utf-8">
@@ -29,7 +29,7 @@
     </script>
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased bg-background min-h-screen">
     @include('components.nav.header')
 
     <main>

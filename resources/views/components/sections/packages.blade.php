@@ -5,7 +5,7 @@
     $tiers = $settings['tiers'] ?? [];
 @endphp
 
-<div class="bg-background py-24 sm:py-32">
+<div id="packages" class="bg-background py-24 sm:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-4xl text-center">
             <x-sections.section-headline :title="$headline" />

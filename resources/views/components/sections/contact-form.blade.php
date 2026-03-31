@@ -7,7 +7,7 @@
     $submitLabel = $formContent['submit_label'] ?? 'Contact';
 @endphp
 
-<div class="bg-background py-24 sm:py-32 flex flex-col justify-center items-center w-full">
+<div id="contact" class="bg-background py-24 sm:py-32 flex flex-col justify-center items-center w-full">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <x-sections.section-headline :title="$headline" />
 
