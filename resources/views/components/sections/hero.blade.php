@@ -1,4 +1,4 @@
-@props(['settings', 'showNav' => false])
+@props(['settings'])
 
 @php
     $paragraphs = $settings['paragraphs'] ?? [];
@@ -10,23 +10,16 @@
         <div class="mx-auto max-w-7xl">
             <div class="px-6 pt-6 lg:pr-0 lg:pl-8">
                 <nav aria-label="Global" class="flex items-start justify-between">
-                    <a href="/" class="m-1.5 p-1.5 -ml-1.5 pl-0">
+                    <a href="{{ route('landing') }}" class="m-1.5 p-1.5 -ml-1.5 pl-0">
                         <span class="sr-only">Peterson Coaching and Consulting</span>
                         <x-nav.brand-icon class="h-20 sm:h-24 lg:h-48" />
                     </a>
-
-                    @if($showNav)
-                        {{-- Desktop nav links — dark text for light image background --}}
-                        <div class="hidden lg:flex lg:gap-x-8 lg:items-center lg:pt-4 lg:pr-8">
-                            <x-nav.links :dark="true" />
-                        </div>
-                    @endif
 
                     <button
                         type="button"
                         x-data
                         @click="$dispatch('toggle-mobile-menu')"
-                        class="-m-2.5 rounded-md p-2.5 text-gray-700 lg:hidden dark:text-gray-200"
+                        class="-m-2.5 rounded-md p-2.5 text-gray-700 sm:hidden"
                     >
                         <span class="sr-only">Open main menu</span>
                         <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">

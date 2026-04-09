@@ -2,82 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Middleware\DetectLayoutMode;
 use App\Services\PageContentService;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PageController extends Controller
 {
     public function __construct(private PageContentService $contentService) {}
 
-    /**
-     * Display the landing/home page.
-     * In scroll mode: renders all sections.
-     * In pages mode: renders only the hero section.
-     */
-    public function landing(Request $request): View
+    public function landing(): View
     {
-        $sections = $this->getAllSections();
-        $layoutMode = $request->session()->get(DetectLayoutMode::SESSION_KEY, DetectLayoutMode::SCROLL);
-
-        if ($layoutMode === DetectLayoutMode::PAGES) {
-            return view('pages.home', [
-                'sections' => $sections,
-            ]);
-        }
-
-        return view('pages.landing', [
-            'sections' => $sections,
-        ]);
+        return $this->renderPage('landing');
     }
 
-    /**
-     * About page — hero intro paragraphs (pages mode only).
-     */
     public function about(): View
     {
-        return view('pages.about', [
-            'sections' => $this->getAllSections(),
-        ]);
+        return $this->renderPage('about');
     }
 
-    /**
-     * Features/videos page (pages mode only).
-     */
     public function features(): View
     {
-        return view('pages.features', [
-            'sections' => $this->getAllSections(),
-        ]);
+        return $this->renderPage('features');
     }
 
-    /**
-     * Testimonials page (pages mode only).
-     */
     public function testimonials(): View
     {
-        return view('pages.testimonials', [
-            'sections' => $this->getAllSections(),
-        ]);
+        return $this->renderPage('testimonials');
     }
 
-    /**
-     * Packages page (pages mode only).
-     */
     public function packages(): View
     {
-        return view('pages.packages', [
-            'sections' => $this->getAllSections(),
-        ]);
+        return $this->renderPage('packages');
     }
 
-    /**
-     * Contact page (pages mode only).
-     */
     public function contact(): View
     {
-        return view('pages.contact', [
+        return $this->renderPage('contact');
+    }
+
+    private function renderPage(string $view): View
+    {
+        return view("pages.{$view}", [
             'sections' => $this->getAllSections(),
         ]);
     }

@@ -25,7 +25,7 @@
                     value="{{ old('first_name') }}"
                     required
                     autocomplete="given-name"
-                    class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 text-onPrimary shadow-sm focus:border-tertiary focus:ring-tertiary dark:border-gray-600"
+                    class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 text-onPrimary shadow-sm focus:border-tertiary focus:ring-tertiary"
                 />
                 @error('first_name')
                     <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
@@ -43,7 +43,7 @@
                     value="{{ old('last_name') }}"
                     required
                     autocomplete="family-name"
-                    class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 text-onPrimary shadow-sm focus:border-tertiary focus:ring-tertiary dark:border-gray-600"
+                    class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 text-onPrimary shadow-sm focus:border-tertiary focus:ring-tertiary"
                 />
                 @error('last_name')
                     <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
@@ -61,7 +61,7 @@
                     value="{{ old('email') }}"
                     required
                     autocomplete="email"
-                    class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 text-onPrimary shadow-sm focus:border-tertiary focus:ring-tertiary dark:border-gray-600"
+                    class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 text-onPrimary shadow-sm focus:border-tertiary focus:ring-tertiary"
                 />
                 @error('email')
                     <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
@@ -77,7 +77,7 @@
                     name="message"
                     required
                     rows="4"
-                    class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 text-onPrimary shadow-sm focus:border-tertiary focus:ring-tertiary dark:border-gray-600"
+                    class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 text-onPrimary shadow-sm focus:border-tertiary focus:ring-tertiary"
                 >{{ old('message') }}</textarea>
                 @error('message')
                     <p class="mt-2 text-sm text-red-400">{{ $message }}</p>

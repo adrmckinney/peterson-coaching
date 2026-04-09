@@ -1,22 +1,17 @@
-{{-- Standalone navigation bar for pages without the hero section --}}
-<div class="bg-background">
-    <div class="mx-auto max-w-7xl px-6 py-4 lg:px-8">
+{{-- Sticky mobile-only top bar with brand + hamburger trigger. --}}
+<div class="sm:hidden bg-background border-b border-gray-900/10">
+    <div class="px-6 py-4">
         <nav aria-label="Global" class="flex items-center justify-between">
-            <a href="/" class="-m-1.5 p-1.5">
+            <a href="{{ route('landing') }}" class="-m-1.5 p-1.5">
                 <span class="sr-only">Peterson Coaching and Consulting</span>
-                <x-nav.brand-icon class="h-16 sm:h-20" />
+                <x-nav.brand-icon class="h-12" />
             </a>
-
-            {{-- Desktop nav links --}}
-            <div class="hidden lg:flex lg:gap-x-8">
-                <x-nav.links />
-            </div>
 
             <button
                 type="button"
                 x-data
                 @click="$dispatch('toggle-mobile-menu')"
-                class="-m-2.5 rounded-md p-2.5 text-gray-700 lg:hidden dark:text-gray-200"
+                class="-m-2.5 rounded-md p-2.5 text-gray-700"
             >
                 <span class="sr-only">Open main menu</span>
                 <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">

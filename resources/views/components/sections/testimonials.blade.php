@@ -23,7 +23,7 @@
                                     <img
                                         alt=""
                                         src="{{ $testimonial['author']['imageUrl'] }}"
-                                        class="size-10 rounded-full bg-gray-50 dark:bg-gray-800"
+                                        class="size-10 rounded-full bg-gray-50"
                                     />
                                 @endif
                                 <div>

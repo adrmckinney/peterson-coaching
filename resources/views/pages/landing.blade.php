@@ -1,24 +1,13 @@
 <x-layouts.public>
-    @if(isset($sections['landing_hero']))
-        <x-sections.hero :settings="$sections['landing_hero']['settings']" />
-    @endif
+    {{-- Mobile (< sm): hero only. The hero has its own internal hamburger trigger. --}}
+    <div class="sm:hidden">
+        @if(isset($sections['landing_hero']))
+            <x-sections.hero :settings="$sections['landing_hero']['settings']" />
+        @endif
+    </div>
 
-    @if(isset($sections['intro_video_section_title']) && isset($sections['intro_video_gallery']))
-        <x-sections.features
-            :titleSettings="$sections['intro_video_section_title']['settings']"
-            :gallerySettings="$sections['intro_video_gallery']['settings']"
-        />
-    @endif
-
-    @if(isset($sections['testimonials_section']))
-        <x-sections.testimonials :settings="$sections['testimonials_section']['settings']" />
-    @endif
-
-    @if(isset($sections['packages_section']))
-        <x-sections.packages :settings="$sections['packages_section']['settings']" />
-    @endif
-
-    @if(isset($sections['contact_section']))
-        <x-sections.contact-form :settings="$sections['contact_section']['settings']" />
-    @endif
+    {{-- Desktop (sm+): full scroll layout. --}}
+    <div class="hidden sm:block">
+        @include('partials.scroll-content')
+    </div>
 </x-layouts.public>
