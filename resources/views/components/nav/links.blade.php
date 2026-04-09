@@ -1,30 +1,21 @@
-@props(['mobile' => false, 'dark' => false])
+@props(['mobile' => false])
 
 @php
-    $isPages = ($layoutMode ?? 'scroll') === 'pages';
-
     $navItems = [
-        ['label' => 'About', 'scroll' => '/#about', 'route' => 'about'],
-        ['label' => 'Videos', 'scroll' => '/#features', 'route' => 'features'],
-        ['label' => 'Testimonials', 'scroll' => '/#testimonials', 'route' => 'testimonials'],
-        ['label' => 'Packages', 'scroll' => '/#packages', 'route' => 'packages'],
-        ['label' => 'Contact', 'scroll' => '/#contact', 'route' => 'contact'],
+        ['label' => 'About', 'route' => 'about'],
+        ['label' => 'Videos', 'route' => 'features'],
+        ['label' => 'Testimonials', 'route' => 'testimonials'],
+        ['label' => 'Packages', 'route' => 'packages'],
+        ['label' => 'Contact', 'route' => 'contact'],
     ];
 
-    if ($mobile) {
-        $baseClass = '-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-white/5';
-    } elseif ($dark) {
-        $baseClass = 'text-sm/6 font-semibold text-gray-900 hover:text-gray-600';
-    } else {
-        $baseClass = 'text-sm/6 font-semibold text-gray-900 dark:text-white hover:text-tertiary';
-    }
+    $baseClass = $mobile
+        ? '-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50'
+        : 'text-sm/6 font-semibold text-gray-900 hover:text-tertiary';
 @endphp
 
 @foreach($navItems as $item)
-    <a
-        href="{{ $isPages ? route($item['route']) : $item['scroll'] }}"
-        class="{{ $baseClass }}"
-    >
+    <a href="{{ route($item['route']) }}" class="{{ $baseClass }}">
         {{ $item['label'] }}
     </a>
 @endforeach

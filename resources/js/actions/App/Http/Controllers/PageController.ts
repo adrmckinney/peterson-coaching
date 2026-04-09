@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\PageController::landing
-* @see app/Http/Controllers/PageController.php:19
+* @see app/Http/Controllers/PageController.php:12
 * @route '/'
 */
 export const landing = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ landing.definition = {
 
 /**
 * @see \App\Http\Controllers\PageController::landing
-* @see app/Http/Controllers/PageController.php:19
+* @see app/Http/Controllers/PageController.php:12
 * @route '/'
 */
 landing.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ landing.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PageController::landing
-* @see app/Http/Controllers/PageController.php:19
+* @see app/Http/Controllers/PageController.php:12
 * @route '/'
 */
 landing.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -35,7 +35,7 @@ landing.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\PageController::landing
-* @see app/Http/Controllers/PageController.php:19
+* @see app/Http/Controllers/PageController.php:12
 * @route '/'
 */
 landing.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -45,7 +45,7 @@ landing.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\PageController::about
-* @see app/Http/Controllers/PageController.php:38
+* @see app/Http/Controllers/PageController.php:17
 * @route '/about'
 */
 export const about = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -60,7 +60,7 @@ about.definition = {
 
 /**
 * @see \App\Http\Controllers\PageController::about
-* @see app/Http/Controllers/PageController.php:38
+* @see app/Http/Controllers/PageController.php:17
 * @route '/about'
 */
 about.url = (options?: RouteQueryOptions) => {
@@ -69,7 +69,7 @@ about.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PageController::about
-* @see app/Http/Controllers/PageController.php:38
+* @see app/Http/Controllers/PageController.php:17
 * @route '/about'
 */
 about.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -79,7 +79,7 @@ about.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\PageController::about
-* @see app/Http/Controllers/PageController.php:38
+* @see app/Http/Controllers/PageController.php:17
 * @route '/about'
 */
 about.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -89,7 +89,7 @@ about.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\PageController::features
-* @see app/Http/Controllers/PageController.php:48
+* @see app/Http/Controllers/PageController.php:22
 * @route '/features'
 */
 export const features = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -104,7 +104,7 @@ features.definition = {
 
 /**
 * @see \App\Http\Controllers\PageController::features
-* @see app/Http/Controllers/PageController.php:48
+* @see app/Http/Controllers/PageController.php:22
 * @route '/features'
 */
 features.url = (options?: RouteQueryOptions) => {
@@ -113,7 +113,7 @@ features.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PageController::features
-* @see app/Http/Controllers/PageController.php:48
+* @see app/Http/Controllers/PageController.php:22
 * @route '/features'
 */
 features.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -123,7 +123,7 @@ features.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\PageController::features
-* @see app/Http/Controllers/PageController.php:48
+* @see app/Http/Controllers/PageController.php:22
 * @route '/features'
 */
 features.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -133,7 +133,7 @@ features.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\PageController::testimonials
-* @see app/Http/Controllers/PageController.php:58
+* @see app/Http/Controllers/PageController.php:27
 * @route '/testimonials'
 */
 export const testimonials = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -148,7 +148,7 @@ testimonials.definition = {
 
 /**
 * @see \App\Http\Controllers\PageController::testimonials
-* @see app/Http/Controllers/PageController.php:58
+* @see app/Http/Controllers/PageController.php:27
 * @route '/testimonials'
 */
 testimonials.url = (options?: RouteQueryOptions) => {
@@ -157,7 +157,7 @@ testimonials.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PageController::testimonials
-* @see app/Http/Controllers/PageController.php:58
+* @see app/Http/Controllers/PageController.php:27
 * @route '/testimonials'
 */
 testimonials.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -167,7 +167,7 @@ testimonials.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\PageController::testimonials
-* @see app/Http/Controllers/PageController.php:58
+* @see app/Http/Controllers/PageController.php:27
 * @route '/testimonials'
 */
 testimonials.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -177,7 +177,7 @@ testimonials.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\PageController::packages
-* @see app/Http/Controllers/PageController.php:68
+* @see app/Http/Controllers/PageController.php:32
 * @route '/packages'
 */
 export const packages = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -192,7 +192,7 @@ packages.definition = {
 
 /**
 * @see \App\Http\Controllers\PageController::packages
-* @see app/Http/Controllers/PageController.php:68
+* @see app/Http/Controllers/PageController.php:32
 * @route '/packages'
 */
 packages.url = (options?: RouteQueryOptions) => {
@@ -201,7 +201,7 @@ packages.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PageController::packages
-* @see app/Http/Controllers/PageController.php:68
+* @see app/Http/Controllers/PageController.php:32
 * @route '/packages'
 */
 packages.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -211,7 +211,7 @@ packages.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\PageController::packages
-* @see app/Http/Controllers/PageController.php:68
+* @see app/Http/Controllers/PageController.php:32
 * @route '/packages'
 */
 packages.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -221,7 +221,7 @@ packages.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
 /**
 * @see \App\Http\Controllers\PageController::contact
-* @see app/Http/Controllers/PageController.php:78
+* @see app/Http/Controllers/PageController.php:37
 * @route '/contact'
 */
 export const contact = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -236,7 +236,7 @@ contact.definition = {
 
 /**
 * @see \App\Http\Controllers\PageController::contact
-* @see app/Http/Controllers/PageController.php:78
+* @see app/Http/Controllers/PageController.php:37
 * @route '/contact'
 */
 contact.url = (options?: RouteQueryOptions) => {
@@ -245,7 +245,7 @@ contact.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\PageController::contact
-* @see app/Http/Controllers/PageController.php:78
+* @see app/Http/Controllers/PageController.php:37
 * @route '/contact'
 */
 contact.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -255,7 +255,7 @@ contact.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 
 /**
 * @see \App\Http\Controllers\PageController::contact
-* @see app/Http/Controllers/PageController.php:78
+* @see app/Http/Controllers/PageController.php:37
 * @route '/contact'
 */
 contact.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({

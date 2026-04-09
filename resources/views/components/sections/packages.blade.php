@@ -13,7 +13,7 @@
 
         <div class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-2">
             @foreach($tiers as $tier)
-                <div class="rounded-3xl p-8 ring-1 ring-gray-200 xl:p-10 dark:bg-gray-800/50 dark:ring-white/10">
+                <div class="rounded-3xl p-8 ring-1 ring-gray-200 xl:p-10">
                     <div class="inline-block">
                         @if(!empty($tier['image']))
                             <img
@@ -38,7 +38,7 @@
                         <span class="text-4xl font-semibold tracking-tight text-onPrimary">
                             {{ $tier['price'] }}
                         </span>
-                        <span class="text-sm/6 font-semibold text-gray-600 dark:text-gray-400">
+                        <span class="text-sm/6 font-semibold text-gray-600">
                             /{{ $tier['priceSubText'] }}
                         </span>
                     </p>
