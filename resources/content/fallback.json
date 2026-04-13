@@ -50,7 +50,7 @@
         ]
     },
     "contact_section": {
-        "headline": "Let's Talk About Your Future",
+        "headline": "Contact Me",
         "form": {
             "fields": {
                 "first_name": { "label": "First Name" },
@@ -62,7 +62,7 @@
         }
     },
     "packages_section": {
-        "headline": "Packages",
+        "headline": "Coaching Support",
         "tiers": [
             {
                 "name": "Post-Grad Reset",

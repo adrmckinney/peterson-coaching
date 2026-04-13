@@ -211,4 +211,26 @@ Dark mode was inherited from the Tailwind UI components that were copy-pasted du
 ### Phase 3 (Not Started)
 Admin editing with React "islands". Admin logs in at `/admin`, sees the real site with inline editing enabled. React editor components mount on `[data-editable]` elements. Video management uses a modal. Separate Vite entry point loaded only for admin users.
 
+#### Content Sync Command
+
+`php artisan content:sync` reads `resources/content/fallback.json` and upserts all sections into the `page_sections` table (keyed on `page_id` + `type`). This is the current workflow for updating content — edit the JSON, run the command.
+
+#### Layout/Styling Metadata in Settings JSON
+
+The `settings` JSON column on `page_sections` currently stores only content (text, videos, etc.). The original `PageSectionSeeder` included layout metadata per section:
+
+```json
+{
+    "layout": {
+        "alignment": { "horizontal": "left", "vertical": "top" },
+        "padding": { "top": "", "right": "", "bottom": "", "left": "" },
+        "maxWidth": ""
+    }
+}
+```
+
+And per-paragraph styling via `textBlock` objects with `text`, `padding`, and `id` (UUID).
+
+When the admin editor is built, the `settings` column should hold both content and styling together. The admin UI will write layout/styling values (padding, alignment, colors, max-width, per-block styling) directly into the `settings` JSON alongside the existing content fields. The `content:sync` command should be updated at that point to either preserve existing layout values when syncing content, or to include default layout values in `fallback.json`.
+
 See `planning/refactor-for-blade.md` for full Phase 3 details including the video management modal, progressive editing capabilities, and API endpoints.
