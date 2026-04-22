@@ -68,7 +68,7 @@
     "packages_section": {
         "headline": "Coaching Support",
         "subTitle": {
-            "text": "Check out my <a href=\"https://stan.store/IngaPeterson\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline text-tertiary hover:text-tertiaryHover\">Stan Store</a> for more information on coaching packages and resources",
+            "text": "Check out my <a href=\"https://stan.store/IngaPeterson\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline text-tertiary hover:text-tertiaryHover\">Stan Store</a> for more information on coaching packages and resources.",
             "isHtml": true
         },
         "tiers": [
