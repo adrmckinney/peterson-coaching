@@ -37,7 +37,7 @@ class ContentSyncCommand extends Command
         ],
         'packages_section' => [
             'key' => 'packages_section',
-            'settings' => ['headline', 'tiers'],
+            'settings' => ['headline', 'subTitle', 'tiers'],
         ],
         'contact_section' => [
             'key' => 'contact_section',

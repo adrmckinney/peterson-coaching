@@ -2,13 +2,14 @@
 
 @php
     $headline = $settings['headline'] ?? '';
+    $subTitle = $settings['subTitle'] ?? null;
     $tiers = $settings['tiers'] ?? [];
 @endphp
 
 <div id="packages" class="bg-background py-24 sm:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-4xl text-center">
-            <x-sections.section-headline :title="$headline" />
+            <x-sections.section-headline :title="$headline" :subTitle="$subTitle" />
         </div>
 
         <div class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-2">

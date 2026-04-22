@@ -14,8 +14,8 @@
             <div class="-mt-8 sm:-mx-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($testimonials as $testimonial)
                     <div class="pt-8 sm:inline-block sm:w-full sm:px-4">
-                        <figure class="rounded-2xl bg-primaryAccent p-8 text-sm/6">
-                            <blockquote class="text-onPrimaryAccent">
+                        <figure class="rounded-2xl bg-tertiary p-8 text-sm/6">
+                            <blockquote class="text-onTertiary">
                                 <p>"{{ $testimonial['body'] }}"</p>
                             </blockquote>
                             <figcaption class="mt-6 flex items-center gap-x-4">
@@ -27,7 +27,7 @@
                                     />
                                 @endif
                                 <div>
-                                    <div class="font-semibold text-onPrimaryAccent">
+                                    <div class="font-semibold text-onTertiary">
                                         {{ $testimonial['author']['name'] }}
                                     </div>
                                 </div>
