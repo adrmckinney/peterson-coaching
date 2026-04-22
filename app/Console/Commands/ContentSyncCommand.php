@@ -13,36 +13,21 @@ class ContentSyncCommand extends Command
     protected $description = 'Sync page sections from resources/content/fallback.json into the database';
 
     /**
-     * Section type => mapping config from the JSON structure.
+     * Maps section types to their JSON source key and any extra static settings.
+     * Fields from the JSON source are passed through as-is.
      *
-     * @var array<string, array{key: string, settings: list<string>}>
+     * @var array<string, array{key: string, extra?: array<string, mixed>}>
      */
     private array $sectionMap = [
         'landing_hero' => [
             'key' => 'landing_intro',
-            'settings' => ['paragraphs'],
             'extra' => ['hero_image' => '/images/ingaOnSidewalk.jpg'],
         ],
-        'intro_video_section_title' => [
-            'key' => 'intro_video_section_title',
-            'settings' => ['headline'],
-        ],
-        'intro_video_gallery' => [
-            'key' => 'intro_video_gallery',
-            'settings' => ['videos'],
-        ],
-        'testimonials_section' => [
-            'key' => 'testimonials_section',
-            'settings' => ['headline', 'testimonials'],
-        ],
-        'packages_section' => [
-            'key' => 'packages_section',
-            'settings' => ['headline', 'subTitle', 'tiers'],
-        ],
-        'contact_section' => [
-            'key' => 'contact_section',
-            'settings' => ['headline', 'form'],
-        ],
+        'intro_video_section_title' => ['key' => 'intro_video_section_title'],
+        'intro_video_gallery' => ['key' => 'intro_video_gallery'],
+        'testimonials_section' => ['key' => 'testimonials_section'],
+        'packages_section' => ['key' => 'packages_section'],
+        'contact_section' => ['key' => 'contact_section'],
     ];
 
     public function handle(): int
@@ -73,12 +58,7 @@ class ContentSyncCommand extends Command
                 continue;
             }
 
-            $settings = [];
-            foreach ($config['settings'] as $field) {
-                if (isset($jsonSection[$field])) {
-                    $settings[$field] = $jsonSection[$field];
-                }
-            }
+            $settings = $jsonSection;
 
             if (isset($config['extra'])) {
                 $settings = array_merge($settings, $config['extra']);

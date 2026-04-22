@@ -63,6 +63,24 @@ class PageContentService
     }
 
     /**
+     * Maps section types to their JSON source key and any extra static settings.
+     * Fields from the JSON source are passed through as-is.
+     *
+     * @var array<string, array{key: string, extra?: array<string, mixed>}>
+     */
+    private array $fallbackSectionMap = [
+        'landing_hero' => [
+            'key' => 'landing_intro',
+            'extra' => ['hero_image' => '/images/ingaOnSidewalk.jpg'],
+        ],
+        'intro_video_section_title' => ['key' => 'intro_video_section_title'],
+        'intro_video_gallery' => ['key' => 'intro_video_gallery'],
+        'testimonials_section' => ['key' => 'testimonials_section'],
+        'packages_section' => ['key' => 'packages_section'],
+        'contact_section' => ['key' => 'contact_section'],
+    ];
+
+    /**
      * Emergency fallback: read from fallback.json and return
      * a structure compatible with the DB-based flow.
      *
@@ -75,32 +93,23 @@ class PageContentService
             true,
         );
 
+        $sections = [];
+        $sortOrder = 0;
+
+        foreach ($this->fallbackSectionMap as $type => $config) {
+            $settings = $json[$config['key']] ?? [];
+
+            if (isset($config['extra'])) {
+                $settings = array_merge($settings, $config['extra']);
+            }
+
+            $sections[] = $this->makeFallbackSection($type, $settings, $sortOrder);
+            $sortOrder++;
+        }
+
         return [
             'page' => null,
-            'sections' => collect([
-                $this->makeFallbackSection('landing_hero', [
-                    'paragraphs' => $json['landing_intro']['paragraphs'],
-                    'hero_image' => '/images/ingaOnSidewalk.jpg',
-                ], 0),
-                $this->makeFallbackSection('intro_video_section_title', [
-                    'headline' => $json['intro_video_section_title']['headline'],
-                ], 1),
-                $this->makeFallbackSection('intro_video_gallery', [
-                    'videos' => $json['intro_video_gallery']['videos'],
-                ], 2),
-                $this->makeFallbackSection('testimonials_section', [
-                    'headline' => $json['testimonials_section']['headline'],
-                    'testimonials' => $json['testimonials_section']['testimonials'],
-                ], 3),
-                $this->makeFallbackSection('packages_section', [
-                    'headline' => $json['packages_section']['headline'],
-                    'tiers' => $json['packages_section']['tiers'],
-                ], 4),
-                $this->makeFallbackSection('contact_section', [
-                    'headline' => $json['contact_section']['headline'],
-                    'form' => $json['contact_section']['form'],
-                ], 5),
-            ]),
+            'sections' => collect($sections),
         ];
     }
 
