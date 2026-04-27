@@ -4,18 +4,21 @@
         "paragraphs": [
             "Graduation doesn't just mark an ending. It dismantles the structure your life has been built around. The framework you’ve followed for years disappears.",
             "Now you’re making decisions about work, money, and what’s next without a map and with pressure coming from everywhere. And underneath it, your sense of self is shifting.",
-            "I’m a post-grad transition coach with 25+ years of experience working with college seniors and young alums.",
-            "I help you stay grounded and make clear, confident decisions in the middle of that shift."
+            "I’m a post-grad transition coach with 25+ years of experience working with college seniors and young alums. I help you stay grounded and make clear, confident decisions in the middle of that shift."
         ]
     },
     "intro_video_section_title": {
-        "headline": "About Me and My Work"
+        "headline": "About Me and My Work",
+        "subTitle": {
+            "text": "You can find more of this work on my <a href=\"https://www.tiktok.com/@inga.peterson\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline text-tertiary hover:text-tertiaryHover\">TikTok</a> channel.",
+            "isHtml": true
+        }
     },
     "intro_video_gallery": {
         "videos": [
             {
                 "id": 1,
-                "title": "About Me and My Work",
+                "title": "",
                 "description": null,
                 "platform": "tiktok",
                 "external_id": "7592828341716012301",
@@ -25,7 +28,7 @@
             },
             {
                 "id": 2,
-                "title": "Navigating the Post-Grad Transition",
+                "title": "",
                 "description": null,
                 "platform": "tiktok",
                 "external_id": "7594494048778390839",
@@ -35,7 +38,7 @@
             },
             {
                 "id": 3,
-                "title": "The Cycle of Change and the Post-Grad Transition",
+                "title": "",
                 "description": null,
                 "platform": "tiktok",
                 "external_id": "7597633314241006861",
