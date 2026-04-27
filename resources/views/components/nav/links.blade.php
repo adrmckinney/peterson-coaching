@@ -2,8 +2,8 @@
 
 @php
     $navItems = [
-        ['label' => 'About', 'route' => 'about'],
-        ['label' => 'Videos', 'route' => 'features'],
+        ['label' => 'Home', 'route' => 'about'],
+        ['label' => 'About Inga', 'route' => 'features'],
         ['label' => 'Testimonials', 'route' => 'testimonials'],
         ['label' => 'Packages', 'route' => 'packages'],
         ['label' => 'Contact', 'route' => 'contact'],

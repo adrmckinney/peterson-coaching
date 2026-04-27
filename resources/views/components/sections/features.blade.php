@@ -6,7 +6,7 @@
     $videos = $gallerySettings['videos'] ?? [];
 @endphp
 
-<div id="features" class="bg-background py-24 sm:py-32">
+<div id="features" class="bg-background pt-10 sm:pt-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <x-sections.section-headline :title="$headline" :subTitle="$subTitle" />
 

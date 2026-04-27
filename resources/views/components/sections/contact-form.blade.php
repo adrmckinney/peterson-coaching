@@ -7,8 +7,8 @@
     $submitLabel = $formContent['submit_label'] ?? 'Contact';
 @endphp
 
-<div id="contact" class="bg-background py-24 sm:py-32 flex flex-col justify-center items-center w-full">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+<div id="contact" class="bg-background py-10 sm:py-32 flex flex-col justify-center items-center w-full">
+    <div class="w-full sm:w-3/4 px-10 lg:px-20">
         <x-sections.section-headline :title="$headline" />
 
         <form method="POST" action="{{ route('contact.store') }}" class="gap-y-6 md:gap-x-6 mt-16 grid grid-cols-1 md:grid-cols-2">
@@ -93,7 +93,7 @@
             <div class="mt-4 flex items-center justify-end w-full md:col-start-2">
                 <button
                     type="submit"
-                    class="rounded-md bg-tertiary px-3.5 py-2.5 text-sm font-semibold text-onTertiary shadow-sm hover:bg-tertiaryHover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary"
+                    class="rounded-md bg-tertiary px-3.5 py-2.5 text-base sm:text-lg font-semibold text-onTertiary shadow-sm hover:bg-tertiaryHover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary"
                 >
                     {{ $submitLabel }}
                 </button>
