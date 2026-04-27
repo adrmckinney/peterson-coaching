@@ -15,6 +15,11 @@ Route::get('/testimonials', [PageController::class, 'testimonials'])->name('test
 Route::get('/packages', [PageController::class, 'packages'])->name('packages');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
+// Temporary preview route for comparing certifications section design variants.
+Route::get('/certifications-preview', function () {
+    return view('pages.certifications-preview');
+})->name('certifications-preview');
+
 // Inertia pages (auth, dashboard, profile)
 Route::middleware('inertia')->group(function () {
     Route::get('/dashboard', function () {
