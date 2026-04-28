@@ -30,12 +30,16 @@ class ContactController extends Controller
             'message' => ['required', 'string'],
         ]);
 
-        $contact = Contact::create([
-            'first_name' => $validated['first_name'],
-            'last_name' => $validated['last_name'],
-            'email' => $validated['email'],
-            'message' => $validated['message'],
-        ]);
+        try {
+            $contact = Contact::create($validated);
+        } catch (\Throwable $e) {
+            Log::warning('Contact persistence skipped; database unavailable', [
+                'email' => $validated['email'],
+                'exception' => $e->getMessage(),
+            ]);
+
+            $contact = new Contact($validated);
+        }
 
         try {
             Mail::to($validated['email'])->send(new ContactMail($contact));
@@ -43,7 +47,7 @@ class ContactController extends Controller
             return back()->with('success', 'Thanks for reaching out! I’ll be in touch soon.');
         } catch (\Throwable $e) {
             Log::error('Contact email failed', [
-                'contact_id' => $contact->id,
+                'contact_id' => $contact->id ?? null,
                 'email' => $validated['email'],
                 'exception' => $e,
             ]);
