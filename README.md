@@ -1,59 +1,106 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Peterson Coaching & Consulting
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A coaching website for Inga Peterson, built with Laravel 12, Blade templates, Tailwind CSS 3, and Alpine.js. The site uses a responsive dual layout: a scroll layout on `sm`+ viewports and a hamburger-driven multi-page layout on mobile.
 
-## About Laravel
+## Tech Stack
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Backend**: Laravel 12, PHP 8.4
+- **Frontend (public pages)**: Blade templates, Tailwind CSS 3, Alpine.js (CDN)
+- **Frontend (admin/auth pages)**: React 18, Inertia.js v2, TypeScript (retained for Phase 3)
+- **Database**: SQLite (local), MySQL optional for production
+- **Build tools**: Vite 7, Yarn
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Local Development Setup
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Prerequisites
 
-## Learning Laravel
+- PHP 8.4+
+- Composer
+- Node.js + Yarn
+- SQLite (default) or MySQL
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### First-time Setup
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+composer install
+yarn install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+yarn run build
+```
 
-## Laravel Sponsors
+### Running the App
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+You need **two terminals**:
 
-### Premium Partners
+```bash
+# Terminal 1 — Laravel dev server
+php artisan serve
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+# Terminal 2 — Vite dev server (hot reload for Blade + CSS changes)
+yarn run dev
+```
 
-## Contributing
+Visit `http://127.0.0.1:8000`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+> **Note**: `composer run dev` (the old Inertia/React command) is no longer the primary way to run the app. The public site is Blade-rendered, so `php artisan serve` + `yarn run dev` is the correct workflow.
 
-## Code of Conduct
+### Building for Production
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+yarn run build
+```
 
-## Security Vulnerabilities
+This compiles CSS and JS into `public/build/`. The Blade pages reference these built assets via `@vite(['resources/css/app.css'])`.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Layout
 
-## License
+The layout is fully responsive — there is no user-facing toggle.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **Mobile (`< sm`, < 640px)**: Pages layout. Each section lives at its own route (`/`, `/about`, `/features`, `/testimonials`, `/packages`, `/contact`). Navigation is via a hamburger menu overlay.
+- **Desktop (`sm` and up)**: Scroll layout. All sections stack vertically on a single page. Visiting any of the pages-mode routes (`/about`, `/features`, etc.) on desktop renders the same scroll layout, so links shared from mobile still work.
+
+Both layouts are rendered server-side from the same Blade views using Tailwind responsive classes (`sm:hidden` / `hidden sm:block`).
+
+## Content Management
+
+All page content is stored in the `page_sections` database table, seeded from `resources/content/fallback.json`. The `PageContentService` fetches content from the database and falls back to the JSON file if the database is unreachable.
+
+### Seeding Content
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+This creates the `pages` and `page_sections` tables and populates them with content from `fallback.json`.
+
+## Deployment (Laravel Cloud)
+
+The app is deployed on Laravel Cloud using SQLite (no managed database needed).
+
+**Environment variables for Laravel Cloud:**
+
+```
+DB_CONNECTION=sqlite
+DB_DATABASE=/tmp/database.sqlite
+SESSION_DRIVER=cookie
+CACHE_STORE=file
+QUEUE_CONNECTION=sync
+```
+
+**Deploy command:**
+
+```
+touch /tmp/database.sqlite && php artisan migrate --force && php artisan db:seed --force
+```
+
+## Running Tests
+
+```bash
+php artisan test
+```
+
+## Project Structure
+
+See `docs/architecture.md` for detailed information about the app architecture, retained React code, and the phased refactor plan.

@@ -7,11 +7,26 @@
     $submitLabel = $formContent['submit_label'] ?? 'Contact';
 @endphp
 
-<div class="bg-background py-24 sm:py-32 flex flex-col justify-center items-center w-full">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+<div id="contact" class="bg-background py-10 sm:py-32 flex flex-col justify-center items-center w-full">
+    <div class="w-full sm:w-3/4 px-10 lg:px-20">
         <x-sections.section-headline :title="$headline" />
 
-        <form method="POST" action="{{ route('contact.store') }}" class="gap-y-6 md:gap-x-6 mt-16 grid grid-cols-1 md:grid-cols-2">
+        <form
+            method="POST"
+            action="{{ route('contact.store') }}"
+            class="gap-y-6 md:gap-x-6 mt-16 grid grid-cols-1 md:grid-cols-2"
+            x-data
+            x-init="
+                const strip = (el) => el.removeAttribute('data-com-onepassword-filled');
+                const obs = new MutationObserver((muts) => muts.forEach((m) => {
+                    if (m.attributeName === 'data-com-onepassword-filled') strip(m.target);
+                }));
+                $el.querySelectorAll('input, textarea').forEach((el) => {
+                    strip(el);
+                    obs.observe(el, { attributes: true, attributeFilter: ['data-com-onepassword-filled'] });
+                });
+            "
+        >
             @csrf
 
             <div>
@@ -25,7 +40,7 @@
                     value="{{ old('first_name') }}"
                     required
                     autocomplete="given-name"
-                    class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 text-onPrimary shadow-sm focus:border-tertiary focus:ring-tertiary dark:border-gray-600"
+                    class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 text-onPrimary shadow-sm focus:border-tertiary focus:ring-tertiary"
                 />
                 @error('first_name')
                     <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
@@ -43,7 +58,7 @@
                     value="{{ old('last_name') }}"
                     required
                     autocomplete="family-name"
-                    class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 text-onPrimary shadow-sm focus:border-tertiary focus:ring-tertiary dark:border-gray-600"
+                    class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 text-onPrimary shadow-sm focus:border-tertiary focus:ring-tertiary"
                 />
                 @error('last_name')
                     <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
@@ -61,7 +76,7 @@
                     value="{{ old('email') }}"
                     required
                     autocomplete="email"
-                    class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 text-onPrimary shadow-sm focus:border-tertiary focus:ring-tertiary dark:border-gray-600"
+                    class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 text-onPrimary shadow-sm focus:border-tertiary focus:ring-tertiary"
                 />
                 @error('email')
                     <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
@@ -77,7 +92,7 @@
                     name="message"
                     required
                     rows="4"
-                    class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 text-onPrimary shadow-sm focus:border-tertiary focus:ring-tertiary dark:border-gray-600"
+                    class="mt-1 block w-full rounded-md border-gray-300 bg-white/5 text-onPrimary shadow-sm focus:border-tertiary focus:ring-tertiary"
                 >{{ old('message') }}</textarea>
                 @error('message')
                     <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
@@ -93,7 +108,7 @@
             <div class="mt-4 flex items-center justify-end w-full md:col-start-2">
                 <button
                     type="submit"
-                    class="rounded-md bg-tertiary px-3.5 py-2.5 text-sm font-semibold text-onTertiary shadow-sm hover:bg-tertiaryHover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary"
+                    class="rounded-md bg-tertiary px-3.5 py-2.5 text-base sm:text-lg font-semibold text-onTertiary shadow-sm hover:bg-tertiaryHover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary"
                 >
                     {{ $submitLabel }}
                 </button>

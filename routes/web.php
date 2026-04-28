@@ -7,8 +7,15 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+// Public Blade pages
 Route::get('/', [PageController::class, 'landing'])->name('landing');
+Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/features', [PageController::class, 'features'])->name('features');
+Route::get('/testimonials', [PageController::class, 'testimonials'])->name('testimonials');
+Route::get('/packages', [PageController::class, 'packages'])->name('packages');
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
+// Inertia pages (auth, dashboard, profile)
 Route::middleware('inertia')->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');

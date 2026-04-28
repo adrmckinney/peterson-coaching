@@ -1,5 +1,5 @@
 <x-layouts.public>
-    {{-- Mobile (< sm): hero only. The hero has its own internal hamburger trigger. --}}
+    {{-- Mobile (< sm): hero (about content). --}}
     <div class="sm:hidden">
         @if(isset($sections['landing_hero']))
             <x-sections.hero :settings="$sections['landing_hero']['settings']" />
