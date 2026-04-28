@@ -21,7 +21,7 @@ class ContactController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): RedirectResponse|JsonResponse
     {
         $validated = $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
@@ -44,7 +44,13 @@ class ContactController extends Controller
         try {
             Mail::to($validated['email'])->send(new ContactMail($contact));
 
-            return back()->with('success', 'Thanks for reaching out! I’ll be in touch soon.');
+            $message = 'Thanks for reaching out! I’ll be in touch soon.';
+
+            if ($request->wantsJson()) {
+                return response()->json(['status' => 'success', 'message' => $message]);
+            }
+
+            return back()->withFragment('contact')->with('success', $message);
         } catch (\Throwable $e) {
             Log::error('Contact email failed', [
                 'contact_id' => $contact->id ?? null,
@@ -52,7 +58,13 @@ class ContactController extends Controller
                 'exception' => $e,
             ]);
 
-            return back()->with('error', 'Something went wrong sending your message. Please try again.');
+            $message = 'Something went wrong sending your message. Please try again.';
+
+            if ($request->wantsJson()) {
+                return response()->json(['status' => 'error', 'message' => $message], 500);
+            }
+
+            return back()->withFragment('contact')->with('error', $message);
         }
     }
 }
