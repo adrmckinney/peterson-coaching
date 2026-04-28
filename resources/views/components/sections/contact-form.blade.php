@@ -11,7 +11,22 @@
     <div class="w-full sm:w-3/4 px-10 lg:px-20">
         <x-sections.section-headline :title="$headline" />
 
-        <form method="POST" action="{{ route('contact.store') }}" class="gap-y-6 md:gap-x-6 mt-16 grid grid-cols-1 md:grid-cols-2">
+        <form
+            method="POST"
+            action="{{ route('contact.store') }}"
+            class="gap-y-6 md:gap-x-6 mt-16 grid grid-cols-1 md:grid-cols-2"
+            x-data
+            x-init="
+                const strip = (el) => el.removeAttribute('data-com-onepassword-filled');
+                const obs = new MutationObserver((muts) => muts.forEach((m) => {
+                    if (m.attributeName === 'data-com-onepassword-filled') strip(m.target);
+                }));
+                $el.querySelectorAll('input, textarea').forEach((el) => {
+                    strip(el);
+                    obs.observe(el, { attributes: true, attributeFilter: ['data-com-onepassword-filled'] });
+                });
+            "
+        >
             @csrf
 
             <div>
