@@ -15,7 +15,43 @@
             method="POST"
             action="{{ route('contact.store') }}"
             class="gap-y-6 md:gap-x-6 mt-16 grid grid-cols-1 md:grid-cols-2"
-            x-data
+            x-data="{
+                submitting: false,
+                status: @js(session('success') ? 'success' : (session('error') ? 'error' : null)),
+                message: @js(session('success') ?? session('error') ?? ''),
+                async submit() {
+                    if (this.submitting) return;
+                    this.submitting = true;
+                    this.status = null;
+                    this.message = '';
+
+                    const form = this.$el;
+                    const formData = new FormData(form);
+
+                    try {
+                        const res = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                        });
+                        const data = await res.json().catch(() => ({}));
+
+                        if (res.ok) {
+                            this.status = 'success';
+                            this.message = data.message || 'Thanks for reaching out!';
+                            form.reset();
+                        } else {
+                            this.status = 'error';
+                            this.message = data.message || 'Something went wrong. Please try again.';
+                        }
+                    } catch (e) {
+                        this.status = 'error';
+                        this.message = 'Something went wrong. Please try again.';
+                    } finally {
+                        this.submitting = false;
+                    }
+                },
+            }"
             x-init="
                 const strip = (el) => el.removeAttribute('data-com-onepassword-filled');
                 const obs = new MutationObserver((muts) => muts.forEach((m) => {
@@ -26,6 +62,7 @@
                     obs.observe(el, { attributes: true, attributeFilter: ['data-com-onepassword-filled'] });
                 });
             "
+            @submit.prevent="submit()"
         >
             @csrf
 
@@ -99,18 +136,22 @@
                 @enderror
             </div>
 
-            @if(session('success') || session('error'))
-                <div class="mb-0 flex items-center rounded-md px-4 py-3 md:col-span-2 {{ session('success') ? 'bg-green-600/20 border border-green-600 text-green-200' : 'bg-red-600/20 border border-red-600 text-red-200' }}">
-                    {{ session('success') ?? session('error') }}
-                </div>
-            @endif
+            <div
+                x-show="status"
+                x-transition
+                class="mb-0 flex items-center rounded-md px-4 py-3 md:col-span-2"
+                :class="status === 'success' ? 'bg-green-600/20 border border-green-600 text-green-200' : 'bg-red-600/20 border border-red-600 text-red-200'"
+                x-text="message"
+            ></div>
 
             <div class="mt-4 flex items-center justify-end w-full md:col-start-2">
                 <button
                     type="submit"
-                    class="rounded-md bg-tertiary px-3.5 py-2.5 text-base sm:text-lg font-semibold text-onTertiary shadow-sm hover:bg-tertiaryHover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary"
+                    :disabled="submitting"
+                    class="rounded-md bg-tertiary px-3.5 py-2.5 text-base sm:text-lg font-semibold text-onTertiary shadow-sm hover:bg-tertiaryHover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                    {{ $submitLabel }}
+                    <span x-show="!submitting">{{ $submitLabel }}</span>
+                    <span x-show="submitting" x-cloak>Sending…</span>
                 </button>
             </div>
         </form>

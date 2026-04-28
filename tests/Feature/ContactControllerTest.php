@@ -67,4 +67,23 @@ class ContactControllerTest extends TestCase
 
         $response->assertSessionHasErrors(['first_name', 'last_name', 'email', 'message']);
     }
+
+    public function test_contact_form_returns_json_for_ajax_requests(): void
+    {
+        Mail::fake();
+
+        $payload = [
+            'first_name' => 'Ada',
+            'last_name' => 'Lovelace',
+            'email' => 'ada@example.com',
+            'message' => 'Hello there.',
+        ];
+
+        $response = $this->postJson(route('contact.store'), $payload);
+
+        $response->assertOk();
+        $response->assertJson(['status' => 'success']);
+
+        Mail::assertSent(ContactMail::class);
+    }
 }
