@@ -8,7 +8,7 @@
 @endphp
 
 <div id="contact" class="bg-background py-10 sm:py-32 flex flex-col justify-center items-center w-full">
-    <div class="w-full sm:w-3/4 px-10 lg:px-20">
+    <div class="mx-auto w-full max-w-7xl px-6 lg:px-8">
         <x-sections.section-headline :title="$headline" />
 
         <form
