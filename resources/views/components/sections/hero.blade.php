@@ -5,23 +5,24 @@
     $heroImage = $settings['hero_image'] ?? '/images/ingaOnSidewalk.jpg';
 @endphp
 
-<div class="bg-background">
+<div id="about" class="bg-background lg:min-h-screen">
     <header class="absolute inset-x-0 top-0 z-40">
         <div class="mx-auto max-w-7xl">
-            <div class="px-6 pt-6 lg:max-w-2xl lg:pr-0 lg:pl-8">
-                <nav aria-label="Global" class="flex items-start justify-between lg:justify-start">
-                    <a href="/" class="m-1.5 p-1.5 -ml-1.5 pl-0">
+            <div class="px-6 pt-6 lg:pr-0 lg:pl-8">
+                <nav aria-label="Global" class="flex items-start justify-between">
+                    <a href="{{ route('landing') }}" class="m-1.5 p-1.5 -ml-1.5 pl-0">
                         <span class="sr-only">Peterson Coaching and Consulting</span>
                         <x-nav.brand-icon class="h-20 sm:h-24 lg:h-48" />
                     </a>
+
                     <button
                         type="button"
                         x-data
                         @click="$dispatch('toggle-mobile-menu')"
-                        class="-m-2.5 rounded-md p-2.5 text-gray-700 lg:hidden dark:text-gray-200"
+                        class="-m-2.5 rounded-md p-2.5 text-gray-400 sm:hidden"
                     >
                         <span class="sr-only">Open main menu</span>
-                        <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <svg class="size-8" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                         </svg>
                     </button>
@@ -30,15 +31,15 @@
         </div>
     </header>
 
-    <div class="relative flex flex-col-reverse lg:block">
-        <div class="mx-auto max-w-7xl">
-            <div class="relative z-10 pt-14 lg:w-full lg:max-w-2xl">
+    <div class="relative flex flex-col-reverse lg:block lg:min-h-screen">
+        <div class="mx-auto max-w-7xl lg:min-h-screen">
+            <div class="relative z-10 pt-2 sm:pt-14 mb-10 sm:mb-0 lg:w-full lg:max-w-2xl lg:min-h-screen">
                 <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"
                      class="absolute inset-y-0 right-8 hidden h-full w-80 translate-x-1/2 transform lg:block fill-background">
                     <polygon points="0,0 90,0 50,100 0,100" />
                 </svg>
 
-                <div class="relative px-6 lg:px-8 lg:pr-0 py-32 sm:py-40 lg:py-56">
+                <div class="relative px-6 lg:px-8 lg:pr-0 py-0 sm:py-40 lg:py-56">
                     <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl z-20">
                         <div class="hidden sm:mb-10 sm:flex"></div>
 

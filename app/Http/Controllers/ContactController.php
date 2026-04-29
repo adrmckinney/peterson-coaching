@@ -21,7 +21,7 @@ class ContactController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): RedirectResponse|JsonResponse
     {
         $validated = $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
@@ -30,25 +30,41 @@ class ContactController extends Controller
             'message' => ['required', 'string'],
         ]);
 
-        $contact = Contact::create([
-            'first_name' => $validated['first_name'],
-            'last_name' => $validated['last_name'],
-            'email' => $validated['email'],
-            'message' => $validated['message'],
-        ]);
+        try {
+            $contact = Contact::create($validated);
+        } catch (\Throwable $e) {
+            Log::warning('Contact persistence skipped; database unavailable', [
+                'email' => $validated['email'],
+                'exception' => $e->getMessage(),
+            ]);
+
+            $contact = new Contact($validated);
+        }
 
         try {
             Mail::to($validated['email'])->send(new ContactMail($contact));
 
-            return back()->with('success', 'Thanks for reaching out! I’ll be in touch soon.');
+            $message = 'Thanks for reaching out! I’ll be in touch soon.';
+
+            if ($request->wantsJson()) {
+                return response()->json(['status' => 'success', 'message' => $message]);
+            }
+
+            return back()->withFragment('contact')->with('success', $message);
         } catch (\Throwable $e) {
             Log::error('Contact email failed', [
-                'contact_id' => $contact->id,
+                'contact_id' => $contact->id ?? null,
                 'email' => $validated['email'],
                 'exception' => $e,
             ]);
 
-            return back()->with('error', 'Something went wrong sending your message. Please try again.');
+            $message = 'Something went wrong sending your message. Please try again.';
+
+            if ($request->wantsJson()) {
+                return response()->json(['status' => 'error', 'message' => $message], 500);
+            }
+
+            return back()->withFragment('contact')->with('error', $message);
         }
     }
 }

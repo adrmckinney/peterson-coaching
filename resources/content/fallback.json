@@ -2,24 +2,23 @@
     "landing_intro": {
         "headline": "",
         "paragraphs": [
-            "Graduation doesn't just mark an ending. It dismantles the structure your life has been built around.",
-            "For years, there's been a clear framework for how life works — who to be, where to be, what comes next, how progress happens.",
-            "Then that framework disappears.",
-            "You're suddenly making decisions, about work, money, where to live, and what matters, without a map and while pressure, comparison, and outside expectations drown out your own clarity.",
-            "You're expected to move forward anyway. To decide. To choose. To figure it out.",
-            "All while your foundation is still shifting.",
-            "I'm a post-grad transition coach with 25+ years of experience working with college seniors and recent grads.",
-            "I help you stay connected to yourself in a threshold season where everything is changing so you can think clearly, choose deliberately, and move forward in a way that feels true to who you're becoming."
+            "Graduation doesn't just mark an ending. It dismantles the structure your life has been built around. The framework you’ve followed for years disappears.",
+            "Now you’re making decisions about work, money, and what’s next without a map and with pressure coming from everywhere. And underneath it, your sense of self is shifting.",
+            "I’m a post-grad transition coach with 25+ years of experience working with college seniors and young alums. I help you stay grounded and make clear, confident decisions in the middle of that shift."
         ]
     },
     "intro_video_section_title": {
-        "headline": "About Me and My Work"
+        "headline": "About Me and My Work",
+        "subTitle": {
+            "text": "You can find more of this work on my <a href=\"https://www.tiktok.com/@inga.peterson\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline text-tertiary hover:text-tertiaryHover\">TikTok</a> channel.",
+            "isHtml": true
+        }
     },
     "intro_video_gallery": {
         "videos": [
             {
                 "id": 1,
-                "title": "About Me and My Work",
+                "title": "",
                 "description": null,
                 "platform": "tiktok",
                 "external_id": "7592828341716012301",
@@ -29,7 +28,7 @@
             },
             {
                 "id": 2,
-                "title": "Navigating the Post-Grad Transition",
+                "title": "",
                 "description": null,
                 "platform": "tiktok",
                 "external_id": "7594494048778390839",
@@ -39,7 +38,7 @@
             },
             {
                 "id": 3,
-                "title": "The Cycle of Change and the Post-Grad Transition",
+                "title": "",
                 "description": null,
                 "platform": "tiktok",
                 "external_id": "7597633314241006861",
@@ -50,24 +49,36 @@
         ]
     },
     "contact_section": {
-        "headline": "Let's Talk About Your Future",
+        "headline": "Contact Me",
         "form": {
             "fields": {
-                "first_name": { "label": "First Name" },
-                "last_name": { "label": "Last Name" },
-                "email": { "label": "Email" },
-                "message": { "label": "Message" }
+                "first_name": {
+                    "label": "First Name"
+                },
+                "last_name": {
+                    "label": "Last Name"
+                },
+                "email": {
+                    "label": "Email"
+                },
+                "message": {
+                    "label": "Message"
+                }
             },
             "submit_label": "Contact"
         }
     },
     "packages_section": {
-        "headline": "Packages",
+        "headline": "Coaching Support",
+        "subTitle": {
+            "text": "Check out my <a href=\"https://stan.store/IngaPeterson\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline text-tertiary hover:text-tertiaryHover\">Stan Store</a> for more information on coaching packages and resources.",
+            "isHtml": true
+        },
         "tiers": [
             {
                 "name": "Post-Grad Reset",
                 "id": "post-grad-reset",
-                "href": "https://stan.store/IngaPeterson",
+                "href": "https://stan.store/IngaPeterson/p/postgrad-reset-session",
                 "price": "$149",
                 "priceSubText": "session",
                 "image": "/images/post-grad-reset-static.png",
@@ -78,7 +89,7 @@
             {
                 "name": "Post-Grad Starter Pack",
                 "id": "post-grad-starter-pack",
-                "href": "https://stan.store/IngaPeterson",
+                "href": "https://stan.store/IngaPeterson/p/postgrad-navigation-pack",
                 "image": "/images/post-grad-starter-pack-static.png",
                 "price": "$375",
                 "priceSubText": "3 sessions",
@@ -89,7 +100,7 @@
             {
                 "name": "Post-Grad Navigation",
                 "id": "post-grad-navigation",
-                "href": "https://stan.store/IngaPeterson",
+                "href": "https://stan.store/IngaPeterson/p/postgrad-navigation-8-weeks",
                 "image": "/images/post-grad-navigation.png",
                 "price": "$990",
                 "priceSubText": "8 weeks",
@@ -100,7 +111,7 @@
             {
                 "name": "Ask Me Anything (AMA)",
                 "id": "ask-me-anything",
-                "href": "https://stan.store/IngaPeterson",
+                "href": "https://stan.store/IngaPeterson/p/ask-me-anything-coaching-message",
                 "image": "/images/ask-me-anything-static.png",
                 "price": "$30",
                 "priceSubText": "session",
