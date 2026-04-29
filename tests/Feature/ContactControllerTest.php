@@ -12,7 +12,14 @@ class ContactControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_contact_form_persists_and_sends_email(): void
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config()->set('contact.recipients', ['admin@example.com', 'client@example.com']);
+    }
+
+    public function test_contact_form_persists_and_sends_email_to_configured_recipients(): void
     {
         Mail::fake();
 
@@ -33,7 +40,8 @@ class ContactControllerTest extends TestCase
             'first_name' => 'Ada',
         ]);
 
-        Mail::assertSent(ContactMail::class, fn ($mail) => $mail->hasTo('ada@example.com'));
+        Mail::assertSent(ContactMail::class, fn ($mail) => $mail->hasTo('admin@example.com') && $mail->hasTo('client@example.com'));
+        Mail::assertSent(ContactMail::class, fn ($mail) => ! $mail->hasTo('ada@example.com'));
     }
 
     public function test_contact_form_still_sends_email_when_database_unavailable(): void
@@ -58,7 +66,7 @@ class ContactControllerTest extends TestCase
 
         $this->assertDatabaseMissing('contacts', ['email' => 'ada@example.com']);
 
-        Mail::assertSent(ContactMail::class, fn ($mail) => $mail->hasTo('ada@example.com'));
+        Mail::assertSent(ContactMail::class, fn ($mail) => $mail->hasTo('admin@example.com'));
     }
 
     public function test_contact_form_validates_required_fields(): void
@@ -85,5 +93,26 @@ class ContactControllerTest extends TestCase
         $response->assertJson(['status' => 'success']);
 
         Mail::assertSent(ContactMail::class);
+    }
+
+    public function test_contact_form_returns_error_when_no_recipients_configured(): void
+    {
+        Mail::fake();
+
+        config()->set('contact.recipients', []);
+
+        $payload = [
+            'first_name' => 'Ada',
+            'last_name' => 'Lovelace',
+            'email' => 'ada@example.com',
+            'message' => 'Hello there.',
+        ];
+
+        $response = $this->post(route('contact.store'), $payload);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error');
+
+        Mail::assertNothingSent();
     }
 }

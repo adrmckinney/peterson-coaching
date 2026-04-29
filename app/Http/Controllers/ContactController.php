@@ -41,8 +41,22 @@ class ContactController extends Controller
             $contact = new Contact($validated);
         }
 
+        $recipients = config('contact.recipients');
+
+        if (empty($recipients)) {
+            Log::error('Contact form has no configured recipients; check CONTACT_RECIPIENTS env var.');
+
+            $message = 'Something went wrong sending your message. Please try again.';
+
+            if ($request->wantsJson()) {
+                return response()->json(['status' => 'error', 'message' => $message], 500);
+            }
+
+            return back()->withFragment('contact')->with('error', $message);
+        }
+
         try {
-            Mail::to($validated['email'])->send(new ContactMail($contact));
+            Mail::to($recipients)->send(new ContactMail($contact));
 
             $message = 'Thanks for reaching out! I’ll be in touch soon.';
 
