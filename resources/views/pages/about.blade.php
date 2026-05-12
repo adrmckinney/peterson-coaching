@@ -1,4 +1,4 @@
-<x-layouts.public>
+<x-layouts.public page="about">
     {{-- Mobile (< sm): hero (about content). --}}
     <div class="sm:hidden">
         @if(isset($sections['landing_hero']))

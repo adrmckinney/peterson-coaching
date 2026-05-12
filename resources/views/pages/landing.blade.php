@@ -1,4 +1,4 @@
-<x-layouts.public>
+<x-layouts.public page="landing">
     {{-- Mobile (< sm): hero only. The hero has its own internal hamburger trigger. --}}
     <div class="sm:hidden">
         @if(isset($sections['landing_hero']))

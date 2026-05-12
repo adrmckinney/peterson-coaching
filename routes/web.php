@@ -4,6 +4,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MailgunWebhookController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -14,6 +15,8 @@ Route::get('/features', [PageController::class, 'features'])->name('features');
 Route::get('/testimonials', [PageController::class, 'testimonials'])->name('testimonials');
 Route::get('/packages', [PageController::class, 'packages'])->name('packages');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+
+Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 
 // Inertia pages (auth, dashboard, profile)
 Route::middleware('inertia')->group(function () {

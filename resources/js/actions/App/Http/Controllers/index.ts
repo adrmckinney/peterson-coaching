@@ -1,4 +1,5 @@
 import PageController from './PageController'
+import SitemapController from './SitemapController'
 import ProfileController from './ProfileController'
 import ContactController from './ContactController'
 import MailgunWebhookController from './MailgunWebhookController'
@@ -6,6 +7,7 @@ import Auth from './Auth'
 
 const Controllers = {
     PageController: Object.assign(PageController, PageController),
+    SitemapController: Object.assign(SitemapController, SitemapController),
     ProfileController: Object.assign(ProfileController, ProfileController),
     ContactController: Object.assign(ContactController, ContactController),
     MailgunWebhookController: Object.assign(MailgunWebhookController, MailgunWebhookController),
