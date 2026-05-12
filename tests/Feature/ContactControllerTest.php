@@ -95,6 +95,27 @@ class ContactControllerTest extends TestCase
         Mail::assertSent(ContactMail::class);
     }
 
+    public function test_contact_form_is_rate_limited(): void
+    {
+        Mail::fake();
+
+        $payload = [
+            'first_name' => 'Ada',
+            'last_name' => 'Lovelace',
+            'email' => 'ada@example.com',
+            'message' => 'Hello there.',
+        ];
+
+        for ($i = 0; $i < 3; $i++) {
+            $this->post(route('contact.store'), $payload)->assertRedirect();
+        }
+
+        $response = $this->post(route('contact.store'), $payload);
+
+        $response->assertStatus(429);
+        Mail::assertSentCount(3);
+    }
+
     public function test_contact_form_returns_error_when_no_recipients_configured(): void
     {
         Mail::fake();
