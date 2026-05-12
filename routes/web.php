@@ -28,7 +28,9 @@ Route::middleware('inertia')->group(function () {
     });
 });
 
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/contact', [ContactController::class, 'store'])
+    ->middleware('throttle:3,10')
+    ->name('contact.store');
 
 // Route::get('/test-mail', function () {
 //     return Mail::to('adrmckinney@gmail.com')->send(new TestMail());
