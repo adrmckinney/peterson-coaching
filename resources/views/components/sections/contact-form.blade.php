@@ -66,6 +66,18 @@
         >
             @csrf
 
+            <div aria-hidden="true" class="absolute left-[-9999px] top-auto h-px w-px overflow-hidden">
+                <label for="website">Website</label>
+                <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    tabindex="-1"
+                    autocomplete="off"
+                    value=""
+                />
+            </div>
+
             <div>
                 <label for="first_name" class="block text-sm font-medium text-onBackground">
                     {{ $fields['first_name']['label'] ?? 'First Name' }}

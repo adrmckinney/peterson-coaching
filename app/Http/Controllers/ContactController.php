@@ -23,6 +23,21 @@ class ContactController extends Controller
 
     public function store(Request $request): RedirectResponse|JsonResponse
     {
+        if (filled($request->input('website'))) {
+            Log::info('Contact form honeypot triggered', [
+                'ip' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+            ]);
+
+            $message = 'Thanks for reaching out! I’ll be in touch soon.';
+
+            if ($request->wantsJson()) {
+                return response()->json(['status' => 'success', 'message' => $message]);
+            }
+
+            return back()->withFragment('contact')->with('success', $message);
+        }
+
         $validated = $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],

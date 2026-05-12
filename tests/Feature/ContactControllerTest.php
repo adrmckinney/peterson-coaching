@@ -95,6 +95,69 @@ class ContactControllerTest extends TestCase
         Mail::assertSent(ContactMail::class);
     }
 
+    public function test_contact_form_silently_rejects_when_honeypot_is_filled(): void
+    {
+        Mail::fake();
+
+        $payload = [
+            'first_name' => 'Ada',
+            'last_name' => 'Lovelace',
+            'email' => 'ada@example.com',
+            'message' => 'Hello there.',
+            'website' => 'http://spammer.example',
+        ];
+
+        $response = $this->post(route('contact.store'), $payload);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('success');
+
+        $this->assertDatabaseMissing('contacts', ['email' => 'ada@example.com']);
+        Mail::assertNothingSent();
+    }
+
+    public function test_contact_form_honeypot_returns_success_json_for_ajax(): void
+    {
+        Mail::fake();
+
+        $payload = [
+            'first_name' => 'Ada',
+            'last_name' => 'Lovelace',
+            'email' => 'ada@example.com',
+            'message' => 'Hello there.',
+            'website' => 'http://spammer.example',
+        ];
+
+        $response = $this->postJson(route('contact.store'), $payload);
+
+        $response->assertOk();
+        $response->assertJson(['status' => 'success']);
+
+        $this->assertDatabaseMissing('contacts', ['email' => 'ada@example.com']);
+        Mail::assertNothingSent();
+    }
+
+    public function test_contact_form_accepts_submission_when_honeypot_is_empty(): void
+    {
+        Mail::fake();
+
+        $payload = [
+            'first_name' => 'Ada',
+            'last_name' => 'Lovelace',
+            'email' => 'ada@example.com',
+            'message' => 'Hello there.',
+            'website' => '',
+        ];
+
+        $response = $this->post(route('contact.store'), $payload);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('success');
+
+        $this->assertDatabaseHas('contacts', ['email' => 'ada@example.com']);
+        Mail::assertSent(ContactMail::class);
+    }
+
     public function test_contact_form_is_rate_limited(): void
     {
         Mail::fake();
