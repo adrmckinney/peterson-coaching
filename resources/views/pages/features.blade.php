@@ -1,4 +1,4 @@
-<x-layouts.public>
+<x-layouts.public page="features">
     {{-- Mobile (< sm): mobile header + features section. --}}
     <div class="sm:hidden">
         <x-nav.mobile-header />

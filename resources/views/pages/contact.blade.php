@@ -1,4 +1,4 @@
-<x-layouts.public>
+<x-layouts.public page="contact">
     {{-- Mobile (< sm): mobile header + contact form. --}}
     <div class="sm:hidden">
         <x-nav.mobile-header />

@@ -1,2 +1,6 @@
 User-agent: *
-Disallow:
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /mailgun/
+
+Sitemap: https://peterson-coaching.com/sitemap.xml

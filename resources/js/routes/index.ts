@@ -264,7 +264,51 @@ contact.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
 /**
-* @see routes/web.php:20
+* @see \App\Http\Controllers\SitemapController::__invoke
+* @see app/Http/Controllers/SitemapController.php:21
+* @route '/sitemap.xml'
+*/
+export const sitemap = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: sitemap.url(options),
+    method: 'get',
+})
+
+sitemap.definition = {
+    methods: ["get","head"],
+    url: '/sitemap.xml',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\SitemapController::__invoke
+* @see app/Http/Controllers/SitemapController.php:21
+* @route '/sitemap.xml'
+*/
+sitemap.url = (options?: RouteQueryOptions) => {
+    return sitemap.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\SitemapController::__invoke
+* @see app/Http/Controllers/SitemapController.php:21
+* @route '/sitemap.xml'
+*/
+sitemap.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: sitemap.url(options),
+    method: 'get',
+})
+
+/**
+* @see \App\Http\Controllers\SitemapController::__invoke
+* @see app/Http/Controllers/SitemapController.php:21
+* @route '/sitemap.xml'
+*/
+sitemap.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: sitemap.url(options),
+    method: 'head',
+})
+
+/**
+* @see routes/web.php:23
 * @route '/dashboard'
 */
 export const dashboard = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -278,7 +322,7 @@ dashboard.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
-* @see routes/web.php:20
+* @see routes/web.php:23
 * @route '/dashboard'
 */
 dashboard.url = (options?: RouteQueryOptions) => {
@@ -286,7 +330,7 @@ dashboard.url = (options?: RouteQueryOptions) => {
 }
 
 /**
-* @see routes/web.php:20
+* @see routes/web.php:23
 * @route '/dashboard'
 */
 dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -295,7 +339,7 @@ dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 
 /**
-* @see routes/web.php:20
+* @see routes/web.php:23
 * @route '/dashboard'
 */
 dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
