@@ -1,4 +1,4 @@
-<x-layouts.public>
+<x-layouts.public page="testimonials">
     {{-- Mobile (< sm): mobile header + testimonials section. --}}
     <div class="sm:hidden">
         <x-nav.mobile-header />

@@ -1,4 +1,4 @@
-<x-layouts.public>
+<x-layouts.public page="packages">
     {{-- Mobile (< sm): mobile header + packages section. --}}
     <div class="sm:hidden">
         <x-nav.mobile-header />

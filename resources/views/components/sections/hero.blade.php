@@ -44,7 +44,7 @@
                         <div class="hidden sm:mb-10 sm:flex"></div>
 
                         @foreach($paragraphs as $text)
-                            <p class="mt-8 text-lg font-medium text-pretty sm:text-xl/8" style="color: var(--color-onPrimary);">
+                            <p class="mt-8 text-lg font-medium text-pretty sm:text-xl/8 {{ $loop->last ? 'justify-self-center' : '' }}" style="color: var(--color-onPrimary);">
                                 {{ $text }}
                             </p>
                         @endforeach

@@ -1,3 +1,9 @@
+@props(['page' => 'landing'])
+
+@php
+    $h1 = config("seo.pages.{$page}.title", config('seo.business.name'));
+@endphp
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="bg-background">
 
@@ -5,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name', 'Peterson Coaching & Consulting') }}</title>
+    <x-seo :page="$page" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -22,6 +28,7 @@
     @include('components.nav.header')
 
     <main>
+        <h1 class="sr-only">{{ $h1 }}</h1>
         {{ $slot }}
     </main>
 </body>
