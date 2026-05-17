@@ -67,6 +67,34 @@ class SeoTest extends TestCase
         }
     }
 
+    public function test_layout_includes_favicon_and_manifest_links(): void
+    {
+        $response = $this->get('/');
+
+        $response->assertOk();
+        $response->assertSee('rel="icon"', false);
+        $response->assertSee('/favicon-32x32.png', false);
+        $response->assertSee('/favicon-16x16.png', false);
+        $response->assertSee('rel="apple-touch-icon"', false);
+        $response->assertSee('/apple-touch-icon.png', false);
+        $response->assertSee('rel="manifest"', false);
+        $response->assertSee('/site.webmanifest', false);
+        $response->assertSee('name="theme-color"', false);
+    }
+
+    public function test_favicon_files_exist_in_public(): void
+    {
+        $this->assertFileExists(public_path('favicon.ico'));
+        $this->assertFileExists(public_path('favicon-16x16.png'));
+        $this->assertFileExists(public_path('favicon-32x32.png'));
+        $this->assertFileExists(public_path('apple-touch-icon.png'));
+        $this->assertFileExists(public_path('android-chrome-192x192.png'));
+        $this->assertFileExists(public_path('android-chrome-512x512.png'));
+        $this->assertFileExists(public_path('site.webmanifest'));
+
+        $this->assertGreaterThan(0, filesize(public_path('favicon.ico')), 'favicon.ico must not be empty');
+    }
+
     public function test_robots_txt_references_sitemap(): void
     {
         $contents = file_get_contents(public_path('robots.txt'));
