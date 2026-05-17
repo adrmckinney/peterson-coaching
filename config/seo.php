@@ -7,7 +7,7 @@ return [
         'legal_name' => env('SEO_BUSINESS_LEGAL_NAME', env('SEO_BUSINESS_NAME', 'Peterson Coaching & Consulting')),
         'description' => env('SEO_BUSINESS_DESCRIPTION', 'Personal and professional coaching with Inga Peterson. Empowering clients to achieve growth, clarity, and lasting change.'),
         'url' => env('APP_URL', 'https://peterson-coaching.com'),
-        'logo' => '/images/logo.png',
+        'logo' => env('SEO_BUSINESS_LOGO', '/images/brand-logo.jpeg'),
         'image' => '/images/ingaOnSidewalk.jpg',
         'contact_url' => env('SEO_BUSINESS_CONTACT_URL'),
         'service_type' => env('SEO_BUSINESS_SERVICE_TYPE', 'Online Coaching'),
