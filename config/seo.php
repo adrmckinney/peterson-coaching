@@ -3,9 +3,9 @@
 return [
 
     'business' => [
-        'name' => 'Peterson Coaching & Consulting',
-        'legal_name' => 'Peterson Coaching & Consulting',
-        'description' => 'Personal and professional coaching with Inga Peterson. Empowering clients to achieve growth, clarity, and lasting change.',
+        'name' => env('SEO_BUSINESS_NAME', 'Peterson Coaching & Consulting'),
+        'legal_name' => env('SEO_BUSINESS_LEGAL_NAME', env('SEO_BUSINESS_NAME', 'Peterson Coaching & Consulting')),
+        'description' => env('SEO_BUSINESS_DESCRIPTION', 'Personal and professional coaching with Inga Peterson. Empowering clients to achieve growth, clarity, and lasting change.'),
         'url' => env('APP_URL', 'https://peterson-coaching.com'),
         'logo' => '/images/logo.png',
         'image' => '/images/ingaOnSidewalk.jpg',
@@ -21,8 +21,15 @@ return [
         ])),
     ],
 
+    'founder' => [
+        'name' => env('SEO_FOUNDER_NAME', 'Inga Peterson'),
+        'job_title' => env('SEO_FOUNDER_JOB_TITLE', 'Coach & Consultant'),
+        'image' => env('SEO_FOUNDER_IMAGE', '/images/ingaOnSidewalk.jpg'),
+        'bio' => env('SEO_FOUNDER_BIO'),
+    ],
+
     'defaults' => [
-        'title_suffix' => ' | Peterson Coaching & Consulting',
+        'title_suffix' => ' | '.env('SEO_BUSINESS_NAME', 'Peterson Coaching & Consulting'),
         'image' => '/images/ingaOnSidewalk.jpg',
         'twitter_card' => 'summary_large_image',
     ],

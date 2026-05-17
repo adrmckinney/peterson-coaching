@@ -114,10 +114,11 @@ class SeoTest extends TestCase
 
         $response->assertOk();
 
-        $jsonLd = $this->extractJsonLd($response->getContent());
+        $business = $this->extractGraphNode($response->getContent(), 'ProfessionalService');
 
-        $this->assertArrayNotHasKey('email', $jsonLd);
-        $this->assertStringNotContainsString('@peterson-coaching.com', json_encode($jsonLd));
+        $this->assertNotNull($business);
+        $this->assertArrayNotHasKey('email', $business);
+        $this->assertStringNotContainsString('@peterson-coaching.com', json_encode($business));
     }
 
     public function test_json_ld_does_not_expose_telephone(): void
@@ -126,9 +127,39 @@ class SeoTest extends TestCase
 
         $response->assertOk();
 
-        $jsonLd = $this->extractJsonLd($response->getContent());
+        $business = $this->extractGraphNode($response->getContent(), 'ProfessionalService');
 
-        $this->assertArrayNotHasKey('telephone', $jsonLd);
+        $this->assertNotNull($business);
+        $this->assertArrayNotHasKey('telephone', $business);
+    }
+
+    public function test_json_ld_includes_person_schema_for_founder(): void
+    {
+        $response = $this->get('/');
+
+        $response->assertOk();
+
+        $person = $this->extractGraphNode($response->getContent(), 'Person');
+
+        $this->assertNotNull($person);
+        $this->assertSame(config('seo.founder.name'), $person['name']);
+        $this->assertSame(config('seo.founder.job_title'), $person['jobTitle']);
+        $this->assertArrayHasKey('worksFor', $person);
+    }
+
+    public function test_json_ld_links_business_founder_to_person(): void
+    {
+        $response = $this->get('/');
+
+        $response->assertOk();
+
+        $business = $this->extractGraphNode($response->getContent(), 'ProfessionalService');
+        $person = $this->extractGraphNode($response->getContent(), 'Person');
+
+        $this->assertNotNull($business);
+        $this->assertNotNull($person);
+        $this->assertSame($person['@id'], $business['founder']['@id']);
+        $this->assertSame($business['@id'], $person['worksFor']['@id']);
     }
 
     private function extractJsonLd(string $html): array
@@ -136,6 +167,19 @@ class SeoTest extends TestCase
         preg_match('/<script type="application\/ld\+json">(.*?)<\/script>/s', $html, $matches);
 
         return json_decode($matches[1] ?? '{}', true) ?? [];
+    }
+
+    private function extractGraphNode(string $html, string $type): ?array
+    {
+        $jsonLd = $this->extractJsonLd($html);
+
+        foreach ($jsonLd['@graph'] ?? [] as $node) {
+            if (($node['@type'] ?? null) === $type) {
+                return $node;
+            }
+        }
+
+        return null;
     }
 
     public function test_json_ld_uses_contact_point_url_instead_of_email(): void

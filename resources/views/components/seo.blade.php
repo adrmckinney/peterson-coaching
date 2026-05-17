@@ -4,6 +4,7 @@
 
 @php
     $business = config('seo.business');
+    $founder = config('seo.founder');
     $defaults = config('seo.defaults');
     $pageMeta = config("seo.pages.{$page}", []);
 
@@ -21,9 +22,12 @@
 
     $contactUrl = $business['contact_url'] ?: route('contact');
 
-    $localBusinessSchema = array_filter([
-        '@context' => 'https://schema.org',
+    $businessId = $business['url'].'#business';
+    $founderId = $business['url'].'#founder';
+
+    $businessNode = array_filter([
         '@type' => 'ProfessionalService',
+        '@id' => $businessId,
         'name' => $business['name'],
         'description' => $business['description'],
         'url' => $business['url'],
@@ -37,7 +41,27 @@
             'url' => $contactUrl,
         ],
         'sameAs' => ! empty($business['social']) ? $business['social'] : null,
+        'founder' => ! empty($founder['name']) ? ['@id' => $founderId] : null,
     ]);
+
+    $founderNode = ! empty($founder['name']) ? array_filter([
+        '@type' => 'Person',
+        '@id' => $founderId,
+        'name' => $founder['name'],
+        'jobTitle' => $founder['job_title'] ?? null,
+        'image' => ! empty($founder['image']) ? $business['url'].$founder['image'] : null,
+        'description' => $founder['bio'] ?? null,
+        'url' => $business['url'],
+        'worksFor' => ['@id' => $businessId],
+        'sameAs' => ! empty($business['social']) ? $business['social'] : null,
+    ]) : null;
+
+    $graph = array_values(array_filter([$businessNode, $founderNode]));
+
+    $jsonLd = [
+        '@context' => 'https://schema.org',
+        '@graph' => $graph,
+    ];
 @endphp
 
 <title>{{ $title }}</title>
@@ -60,5 +84,5 @@
 <meta name="twitter:image" content="{{ $image }}">
 
 <script type="application/ld+json">
-{!! json_encode($localBusinessSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+{!! json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
 </script>
