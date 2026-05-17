@@ -36,32 +36,32 @@ return [
 
     'pages' => [
         'landing' => [
-            'title' => 'Personal & Professional Coaching with Inga Peterson',
+            'title' => 'Peterson Coaching & Consulting',
             'description' => 'Work with Inga Peterson to unlock clarity, growth, and lasting change through personal and professional coaching.',
             'keywords' => 'life coaching, personal coaching, professional coaching, career coaching, Inga Peterson',
         ],
         'about' => [
-            'title' => 'About Inga Peterson — Coach & Consultant',
+            'title' => 'Peterson Coaching & Consulting',
             'description' => 'Meet Inga Peterson — a certified coach helping clients build clarity, confidence, and direction.',
             'keywords' => 'about Inga Peterson, certified coach, coaching consultant',
         ],
         'features' => [
-            'title' => 'Coaching Services & Features',
+            'title' => 'Peterson Coaching & Consulting',
             'description' => 'Discover the coaching services Peterson Coaching offers — tailored sessions for individuals and professionals.',
             'keywords' => 'coaching services, coaching features, personal development',
         ],
         'testimonials' => [
-            'title' => 'Client Testimonials',
+            'title' => 'Peterson Coaching & Consulting',
             'description' => 'Hear from clients about their coaching experience with Inga Peterson.',
             'keywords' => 'coaching testimonials, client reviews, success stories',
         ],
         'packages' => [
-            'title' => 'Coaching Packages & Pricing',
+            'title' => 'Peterson Coaching & Consulting',
             'description' => 'Choose from coaching packages designed to support your personal and professional goals.',
             'keywords' => 'coaching packages, coaching pricing, coaching plans',
         ],
         'contact' => [
-            'title' => 'Contact Inga Peterson',
+            'title' => 'Peterson Coaching & Consulting',
             'description' => 'Get in touch with Peterson Coaching & Consulting to start your coaching journey.',
             'keywords' => 'contact coach, book coaching session, schedule consultation',
         ],
