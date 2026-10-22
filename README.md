@@ -4,7 +4,7 @@ A coaching website for Inga Peterson, built with Laravel 12, Blade templates, Ta
 
 ## Tech Stack
 
-- **Backend**: Laravel 12, PHP 8.4
+- **Backend**: Laravel 12, PHP 8.5
 - **Frontend (public pages)**: Blade templates, Tailwind CSS 3, Alpine.js (CDN)
 - **Frontend (admin/auth pages)**: React 18, Inertia.js v2, TypeScript (retained for Phase 3)
 - **Database**: SQLite (local), MySQL optional for production
@@ -14,7 +14,7 @@ A coaching website for Inga Peterson, built with Laravel 12, Blade templates, Ta
 
 ### Prerequisites
 
-- PHP 8.4+
+- PHP 8.5.12+
 - Composer
 - Node.js + Yarn
 - SQLite (default) or MySQL
